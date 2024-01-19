@@ -30,6 +30,8 @@ echo -e "\nVM: $VM_NAME\nPublic IP Address: $PUBLIC_IP\n"
 
 ssh $ADMIN_USER@$PUBLIC_IP
 
+
+
 ##################################
 #   SET-UP VIRTUAL ENVIRONMENT   #
 ##################################
