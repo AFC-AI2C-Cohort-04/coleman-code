@@ -1,0 +1,78 @@
+
+##############
+#   TODO 1   #
+##############
+# find_confidential.sh
+grep -il "confidential" emails/*
+
+
+
+##############
+#   TODO 2   #
+##############
+# count_confidential.sh
+./find_confidential.sh | wc -l
+
+
+
+##############
+#   TODO 3   #
+##############
+# find_phone_numbers.sh
+grep -Pil '\b\d{3}[\W]*\d{3}[\W]*\d{4}\b' emails/*
+
+
+
+##############
+#   TODO 4   #
+##############
+# count_phone_numbers
+./find_phone_numbers.sh | wc -l
+
+
+
+##############
+#   TODO 5   #
+##############
+# hide_phone_numbers.sh
+mkdir -p anon_emails
+for file_name in emails/*; do
+    sed -E 's/[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9.-]+/<EMAIL_REMOVED>/gI' "$file_name" |
+    sed -E 's/(^|[\(\) \t+.:?@#=-])[0-9]{3}[\/\) .-]*[0-9]{3}[ .-]*[0-9]{4}([\/\(\) \t.,;?=<>&-]|$)/\1<PHONE_REMOVED>\2/g' > anon_"$file_name"
+
+    # (^|[\(\) \t+.:?@#=-])
+    # pattern is anchored to start of line or pattern is preceded by one of the following characters:
+    # ['(', ')', ' ', '\t', '.', ':', '?', '@', '#', '=', '+', '-']
+
+    # [0-9]{3}
+    # pattern then must have a run of three digits
+
+    # [\/\) .-]*
+    # pattern then may only contain any number of the following characters:
+    # ['/', ')', ' ', '.', '-']
+
+    # [0-9]{3}
+    # pattern then must have another run of three digits
+
+    # [ .-]*
+    # pattern then may only contain any number of the following characters:
+    # [' ', '.', '-']
+
+    # [0-9]{4}
+    # pattern then must have a run of four digits
+
+    # ($|[\/\(\) \t.,;?=<>&-])
+    # pattern is anchored to end of line or pattern is then succeeded by one of the following characters:
+    # ['/', '(', ')', '<', '>', ' ', '\t', '.', ',', ';', '?', '&', '=', '-']
+
+    # /\1<PHONE_REMOVED>\2/
+    # preserve preceding character, replaces pattern with '<PHONE_REMOVED>', and preserves succeeding character
+done
+
+
+
+##############
+#   TODO 6   #
+##############
+# find_course.sh
+awk -F'\t' '$2 ~ /Python/ && $4=="False" {print $2}' udemy_courses_v2.csv
