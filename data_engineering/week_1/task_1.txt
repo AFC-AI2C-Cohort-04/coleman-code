@@ -1,10 +1,11 @@
 
-##################################
-#   SET-UP VIRTUAL ENVIRONMENT   #
-##################################
-export GROUP_NAME="data-exploration"
-export VM_NAME="dataengg2"
-export PASSWORD=<password>
+################################
+#   SET-UP CLOUD ENVIRONMENT   #
+################################
+GROUP_NAME="data-exploration"
+VM_NAME="dataengg2"
+ADMIN_USER="clouduser"
+PASSWORD=<password>
 
 az group create \
   --name $GROUP_NAME \
@@ -16,8 +17,25 @@ az vm create \
   --size Standard_B2ms \
   --image Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest \
   --authentication-type password \
-  --admin-username clouduser \
+  --admin-username $ADMIN_USER \
   --admin-password $PASSWORD
+
+PUBLIC_IP=$(az vm show -d \
+  -g $GROUP_NAME \
+  -n $VM_NAME \
+  --query publicIps \
+  -o tsv)
+
+echo -e "\nVM: $VM_NAME\nPublic IP Address: $PUBLIC_IP\n"
+
+ssh $ADMIN_USER@$PUBLIC_IP
+
+##################################
+#   SET-UP VIRTUAL ENVIRONMENT   #
+##################################
+wget https://clouddataengineer.blob.core.windows.net/data-exploration/handout/project-data-exploration.zip
+sudo apt install unzip
+unzip project-data-exploration.zip
 
 
 
