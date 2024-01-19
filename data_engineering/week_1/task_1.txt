@@ -1,4 +1,26 @@
 
+##################################
+#   SET-UP VIRTUAL ENVIRONMENT   #
+##################################
+export GROUP_NAME="data-exploration"
+export VM_NAME="dataengg2"
+export PASSWORD=<password>
+
+az group create \
+  --name $GROUP_NAME \
+  --location eastus
+
+az vm create \
+  --resource-group $GROUP_NAME \
+  --name $VM_NAME \
+  --size Standard_B2ms \
+  --image Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest \
+  --authentication-type password \
+  --admin-username clouduser \
+  --admin-password $PASSWORD
+
+
+
 ##############
 #   TODO 1   #
 ##############
