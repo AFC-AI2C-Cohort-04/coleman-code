@@ -1,0 +1,16 @@
+##################################
+#   SET-UP VIRTUAL ENVIRONMENT   #
+##################################
+sudo apt update
+sudo apt upgrade -y
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo apt update
+sudo apt install python3.11-venv -y
+python3.11 -m venv env
+source env/bin/activate
+pip install jupyter
+pip install pandas
+wget https://principlesofcomputing.blob.core.windows.net/data-exploration-dataset-zip/dataset.zip
+unzip dataset.zip -d ~/project-data-exploration/task2
+cd ~/project-data-exploration/task2
+jupyter notebook --no-browser
