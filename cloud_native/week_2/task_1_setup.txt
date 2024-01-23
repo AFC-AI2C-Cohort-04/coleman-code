@@ -61,12 +61,12 @@ terraform init
 terraform apply -var-file="secret.tfvars"
 
 # load terraform outputs into variables
-MYSQL_HOST=$(terraform output mysql_fqdn)
-MYSQL_USER=$(terraform output mysql_admin_username)
-MYSQL_PASSWORD=$(terraform output mysql_admin_password)
-SPRING_REDIS_HOST=$(terraform output redis_hostname)
-SPRING_REDIS_PASSWORD=$(terraform output redis_primary_access_key)
-SPRING_REDIS_PORT=$(terraform output redis_port)
+MYSQL_HOST=$(terraform output -raw mysql_fqdn)
+MYSQL_USER=$(terraform output -raw mysql_admin_username)
+MYSQL_PASSWORD=$(terraform output -raw mysql_admin_password)
+SPRING_REDIS_HOST=$(terraform output -raw redis_hostname)
+SPRING_REDIS_PASSWORD=$(terraform output -raw redis_primary_access_key)
+SPRING_REDIS_PORT=$(terraform output -raw redis_port)
 
 # export variables
 export MYSQL_HOST
