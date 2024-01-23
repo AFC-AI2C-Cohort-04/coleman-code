@@ -1,3 +1,4 @@
+# file goes in ~/handout/cloudchat/task1-monolith/packer
 variable "client_id" {
   type = string
   default = ""
