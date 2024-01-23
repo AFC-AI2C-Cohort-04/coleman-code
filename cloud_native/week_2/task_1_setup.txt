@@ -86,7 +86,16 @@ cd ~
 sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
 
-# create vm for packer
+# create azure principle for packer
 RG_PACKER=rg_packer
-az group create -l eastus2 -n <your_cool_resource_group_name>
+SUBSCRIPTION_ID=$(az account list --query "[?isDefault].id" --output tsv)
+az group create -l eastus2 -n $RG_PACKER
 
+# store environment variables
+sp_info=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$SUBSCRIPTION_ID --query "[appId, password, tenant]" --output tsv))
+cd ~/handout/cloudchat/task1-monolith/packer
+echo client_id = \"${sp_info[0]}\" > secret.pkrvars.hcl
+echo client_secret = \"${sp_info[1]}\" >> secret.pkrvars.hcl
+echo tenant_id = \"${sp_info[2]}\" >> secret.pkrvars.hcl
+echo resource_group = \"$RG_PACKER\" >> secret.pkrvars.hcl
+echo subscription_id = \"$SUBSCRIPTION_ID\" >> secret.pkrvars.hcl
