@@ -80,3 +80,13 @@ export SPRING_REDIS_PORT
 cd ~/handout/cloudchat/task1-monolith
 mvn clean package
 java -jar ./target/cloudchat-1.0.0.jar
+
+# get packer
+cd ~
+sudo apt-get install packer
+packer plugins install github.com/hashicorp/azure
+
+# create vm for packer
+RG_PACKER=rg_packer
+az group create -l eastus2 -n <your_cool_resource_group_name>
+
