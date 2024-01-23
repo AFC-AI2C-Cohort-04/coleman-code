@@ -68,7 +68,7 @@ export SPRING_REDIS_HOST=$(terraform output -raw redis_hostname)
 export SPRING_REDIS_PASSWORD=$(terraform output -raw redis_primary_access_key)
 export SPRING_REDIS_PORT=$(terraform output -raw redis_port)
 
-# build application
+# test build application
 cd ~/handout/cloudchat/task1-monolith
 mvn clean package
 java -jar ./target/cloudchat-1.0.0.jar
@@ -84,7 +84,7 @@ IMAGE_TEST=test_image
 SUBSCRIPTION_ID=$(az account list --query "[?isDefault].id" --output tsv)
 az group create -l eastus2 -n $RG_TEST
 
-# store environment variables
+# write environment variables to secret.pkrvars.hcl
 sp_info=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$SUBSCRIPTION_ID --query "[appId, password, tenant]" --output tsv))
 cd ~/handout/cloudchat/task1-monolith/packer
 echo client_id = \"${sp_info[0]}\" > secret.pkrvars.hcl
@@ -92,16 +92,25 @@ echo client_secret = \"${sp_info[1]}\" >> secret.pkrvars.hcl
 echo tenant_id = \"${sp_info[2]}\" >> secret.pkrvars.hcl
 echo subscription_id = \"$SUBSCRIPTION_ID\" >> secret.pkrvars.hcl
 
-# build packer
+# ensure you have updated files
+# - azure-packer.pkr.hcl
+# - run_monolith.sh
+
+# (optional?) only works if all missing plugins are installed
 packer init
+
+# The configuration is valid.
 packer validate \
   -var-file="secret.pkrvars.hcl" \
   -var "managed_image_name=${IMAGE_TEST}" \
   -var "resource_group=${RG_TEST}" .
+
+# ERROR
 packer build \
   -var-file="secret.pkrvars.hcl" \
   -var "managed_image_name=${IMAGE_TEST}" \
   -var "resource_group=${RG_TEST}" .
+
 az vm create \
   --resource-group $RG_TEST \
   --name myVM \
