@@ -96,9 +96,6 @@ echo subscription_id = \"$SUBSCRIPTION_ID\" >> secret.pkrvars.hcl
 # - azure-packer.pkr.hcl
 # - run_monolith.sh
 
-# (optional?) only works if all missing plugins are installed
-packer init
-
 # The configuration is valid.
 packer validate \
   -var-file="secret.pkrvars.hcl" \
