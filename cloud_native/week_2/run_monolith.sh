@@ -1,3 +1,4 @@
+# file goes in ~/handout/cloudchat/task1-monolith/packer
 export MYSQL_HOST=$(terraform output -raw mysql_fqdn)
 export MYSQL_USER=$(terraform output -raw mysql_admin_username)
 export MYSQL_PASSWORD=$(terraform output -raw mysql_admin_password)
