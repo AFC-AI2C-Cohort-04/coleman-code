@@ -82,7 +82,7 @@ build {
       "chmod 644 /etc/systemd/system/myapp.service",
       "sudo systemctl enable myapp.service",
       "mkdir myapp",
-      "cp -r /tmp/myapp.service/* myapp/",
+      "cp -r /tmp/ myapp/",
       "cd myapp",
       "mvn clean install",
     ]
