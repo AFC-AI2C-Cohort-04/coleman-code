@@ -80,7 +80,7 @@ packer plugins install github.com/hashicorp/azure
 
 # create azure principle
 RG_TEST=test_rg
-IMAGE_TEST=test_image
+VM_TEST=test_vm
 SUBSCRIPTION_ID=$(az account list --query "[?isDefault].id" --output tsv)
 az group create -l eastus2 -n $RG_TEST
 
@@ -102,19 +102,19 @@ packer init
 # The configuration is valid.
 packer validate \
   -var-file="secret.pkrvars.hcl" \
-  -var "managed_image_name=${IMAGE_TEST}" \
+  -var "managed_image_name=${VM_TEST}" \
   -var "resource_group=${RG_TEST}" .
 
 # ERROR
 packer build \
   -var-file="secret.pkrvars.hcl" \
-  -var "managed_image_name=${IMAGE_TEST}" \
+  -var "managed_image_name=${VM_TEST}" \
   -var "resource_group=${RG_TEST}" .
 
 az vm create \
   --resource-group $RG_TEST \
   --name myVM \
-  --image $IMAGE_TEST \
+  --image $VM_TEST \
   --admin-username $USERNAME \
   --generate-ssh-keys
 
