@@ -60,21 +60,13 @@ cd ~/handout/cloudchat/terraform-setup/task1-monolith_data_tier
 terraform init
 terraform apply -var-file="secret.tfvars"
 
-# load terraform outputs into variables
-MYSQL_HOST=$(terraform output -raw mysql_fqdn)
-MYSQL_USER=$(terraform output -raw mysql_admin_username)
-MYSQL_PASSWORD=$(terraform output -raw mysql_admin_password)
-SPRING_REDIS_HOST=$(terraform output -raw redis_hostname)
-SPRING_REDIS_PASSWORD=$(terraform output -raw redis_primary_access_key)
-SPRING_REDIS_PORT=$(terraform output -raw redis_port)
-
-# export variables
-export MYSQL_HOST
-export MYSQL_USER
-export MYSQL_PASSWORD
-export SPRING_REDIS_HOST
-export SPRING_REDIS_PASSWORD
-export SPRING_REDIS_PORT
+# load and export terraform outputs into variables
+export MYSQL_HOST=$(terraform output -raw mysql_fqdn)
+export MYSQL_USER=$(terraform output -raw mysql_admin_username)
+export MYSQL_PASSWORD=$(terraform output -raw mysql_admin_password)
+export SPRING_REDIS_HOST=$(terraform output -raw redis_hostname)
+export SPRING_REDIS_PASSWORD=$(terraform output -raw redis_primary_access_key)
+export SPRING_REDIS_PORT=$(terraform output -raw redis_port)
 
 # build application
 cd ~/handout/cloudchat/task1-monolith
@@ -87,7 +79,7 @@ sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
 
 # create azure principle for packer
-RG_PACKER=rg_packer
+RG_PACKER=test_rg
 SUBSCRIPTION_ID=$(az account list --query "[?isDefault].id" --output tsv)
 az group create -l eastus2 -n $RG_PACKER
 
@@ -99,3 +91,15 @@ echo client_secret = \"${sp_info[1]}\" >> secret.pkrvars.hcl
 echo tenant_id = \"${sp_info[2]}\" >> secret.pkrvars.hcl
 echo resource_group = \"$RG_PACKER\" >> secret.pkrvars.hcl
 echo subscription_id = \"$SUBSCRIPTION_ID\" >> secret.pkrvars.hcl
+
+# build packer
+packer init
+packer validate \
+  -var-file="secret.pkrvars.hcl" \
+  -var "managed_image_name=test_image" \
+  -var "resource_group=test_rg" .
+packer build \
+  -var-file="secret.pkrvars.hcl" \
+  -var "managed_image_name=test_image" \
+  -var "resource_group=test_rg" .
+az vm create --resource-group test_rg --name myVM --image test_image --admin-username azureuser --generate-ssh-keys
