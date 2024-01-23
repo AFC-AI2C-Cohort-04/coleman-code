@@ -78,5 +78,5 @@ export SPRING_REDIS_PORT
 
 # build application
 cd ~/handout/cloudchat/task1-monolith
-mvn clean package # [[ error ]]
+mvn clean package
 java -jar ./target/cloudchat-1.0.0.jar
