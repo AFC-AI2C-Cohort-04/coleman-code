@@ -1,32 +1,35 @@
 # azure variables
-RG_NAME=rg_main
+SUBSCRIPTION_ID=$(az account list --query "[?isDefault].id" --output tsv)
 LOCATION=eastus2
-VM_NAME=vm_main
+MAIN_RG=main_rg
+MAIN_VM=main_vm
+TEST_RG=test_rg
+TEST_VM=test_vm
 VM_SIZE=Standard_B2s
 USERNAME=azureuser
-PASSWORD=<PASSWORD>
+PASSWORD=<PASSWORD> # <<< minimum 12 characters, and 3 of lower/upper/digit/special
 
-# create group and vm
-az group create --name $RG_NAME --location $LOCATION
+# create main resource group and vm
+az group create --name $MAIN_RG --location $LOCATION
 az vm create \
-  --resource-group $RG_NAME\
-  --name $VM_NAME \
+  --resource-group $MAIN_RG \
+  --name $MAIN_VM \
   --image Ubuntu2204 \
   --size $VM_SIZE \
   --admin-username $USERNAME \
   --admin-password $PASSWORD \
   --location $LOCATION
 
-# open ports
-az vm open-port --resource-group $RG_NAME --name $VM_NAME --port 22 --priority 1001
-az vm open-port --resource-group $RG_NAME --name $VM_NAME --port 8000 --priority 1002
-az vm open-port --resource-group $RG_NAME --name $VM_NAME --port 8080 --priority 1003
+# open ports on main vm
+az vm open-port --resource-group $MAIN_RG --name $MAIN_VM --port 22 --priority 1001
+az vm open-port --resource-group $MAIN_RG --name $MAIN_VM --port 8000 --priority 1002
+az vm open-port --resource-group $MAIN_RG --name $MAIN_VM --port 8080 --priority 1003
 
-# ssh and authenticate with password
-PUBLIC_IP=$(az vm show -d -g $RG_NAME -n $VM_NAME --query publicIps -o tsv)
+# ssh into vm and authenticate with password
+PUBLIC_IP=$(az vm show -d -g $MAIN_RG -n $MAIN_VM --query publicIps -o tsv)
 ssh $USERNAME@$PUBLIC_IP
 
-# get handout
+# get handout and change directory name to project
 wget https://cloudnativehandout.blob.core.windows.net/project1/handout.tar.gz
 tar -xvzf handout.tar.gz
 mv ~/handout ~/project
@@ -77,39 +80,32 @@ java -jar ./target/cloudchat-1.0.0.jar
 cd ~
 sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
-
-# create azure principle
-RG_TEST=test_rg
-VM_TEST=test_vm
-SUBSCRIPTION_ID=$(az account list --query "[?isDefault].id" --output tsv)
-az group create -l eastus2 -n $RG_TEST
-
-# primary directory for task 1 submission
 cd ~/project/cloudchat/task1-monolith/packer
 
-# write environment variables to secret.pkrvars.hcl
+# update these files in ~/project/cloudchat/task1-monolith/packer
+# - azure-packer.pkr.hcl
+# - run_monolith.sh
+
+# create azure principle and write environment variables to secret.pkrvars.hcl
+az group create -l eastus2 -n $TEST_RG
 sp_info=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$SUBSCRIPTION_ID --query "[appId, password, tenant]" --output tsv))
 echo client_id = \"${sp_info[0]}\" > secret.pkrvars.hcl
 echo client_secret = \"${sp_info[1]}\" >> secret.pkrvars.hcl
 echo tenant_id = \"${sp_info[2]}\" >> secret.pkrvars.hcl
 echo subscription_id = \"$SUBSCRIPTION_ID\" >> secret.pkrvars.hcl
 
-# ensure you have updated these files in ~/project/cloudchat/task1-monolith/packer
-# - azure-packer.pkr.hcl
-# - run_monolith.sh
-
 packer validate \
   -var-file="secret.pkrvars.hcl" \
-  -var "managed_image_name=${VM_TEST}" \
-  -var "resource_group=${RG_TEST}" .
+  -var "managed_image_name=${TEST_VM}" \
+  -var "resource_group=${TEST_RG}" .
 
 packer build \
   -var-file="secret.pkrvars.hcl" \
-  -var "managed_image_name=${VM_TEST}" \
-  -var "resource_group=${RG_TEST}" .
+  -var "managed_image_name=${TEST_VM}" \
+  -var "resource_group=${TEST_RG}" .
 
 az vm create \
-  --resource-group $RG_TEST \
+  --resource-group $TEST_RG \
   --name myVM \
   --image Ubuntu2204 \
   --admin-username $USERNAME \
