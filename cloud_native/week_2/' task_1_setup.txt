@@ -66,12 +66,12 @@ terraform init
 terraform apply -var-file="secret.tfvars"
 
 # export terraform outputs into variables
-echo "export MYSQL_HOST=$(terraform output -raw mysql_fqdn)" > export_variables.sh
-echo "export MYSQL_USER=$(terraform output -raw mysql_admin_username)" >> export_variables.sh
-echo "export MYSQL_PASSWORD=$(terraform output -raw mysql_admin_password)" >> export_variables.sh
-echo "export SPRING_REDIS_HOST=$(terraform output -raw redis_hostname)" >> export_variables.sh
-echo "export SPRING_REDIS_PASSWORD=$(terraform output -raw redis_primary_access_key)" >> export_variables.sh
-echo "export SPRING_REDIS_PORT=$(terraform output -raw redis_port)" >> export_variables.sh
+echo "export MYSQL_HOST=\$(terraform output -raw mysql_fqdn)" > export_variables.sh
+echo "export MYSQL_USER=\$(terraform output -raw mysql_admin_username)" >> export_variables.sh
+echo "export MYSQL_PASSWORD=\$(terraform output -raw mysql_admin_password)" >> export_variables.sh
+echo "export SPRING_REDIS_HOST=\$(terraform output -raw redis_hostname)" >> export_variables.sh
+echo "export SPRING_REDIS_PASSWORD=\$(terraform output -raw redis_primary_access_key)" >> export_variables.sh
+echo "export SPRING_REDIS_PORT=\$(terraform output -raw redis_port)" >> export_variables.sh
 chmod +x export_variables.sh
 ./export_variables.sh
 
