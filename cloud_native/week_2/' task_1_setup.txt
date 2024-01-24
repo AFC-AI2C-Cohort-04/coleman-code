@@ -97,13 +97,11 @@ echo subscription_id = \"$SUBSCRIPTION_ID\" >> secret.pkrvars.hcl
 # - azure-packer.pkr.hcl
 # - run_monolith.sh
 
-# The configuration is valid.
 packer validate \
   -var-file="secret.pkrvars.hcl" \
   -var "managed_image_name=${VM_TEST}" \
   -var "resource_group=${RG_TEST}" .
 
-# ERROR
 packer build \
   -var-file="secret.pkrvars.hcl" \
   -var "managed_image_name=${VM_TEST}" \
