@@ -1,8 +1,8 @@
 # still failing at packer build
 
 # azure variables
-SUBSCRIPTION_ID=$(az account list --query "[?isDefault].id" --output tsv)
-LOCATION=eastus2
+export subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
+export location=eastus2
 MAIN_RG=main_rg
 MAIN_VM=main_vm
 TEST_RG=test_rg
@@ -12,7 +12,7 @@ USERNAME=azureuser
 PASSWORD=<PASSWORD> # <<< minimum 12 characters, and 3 of lower/upper/digit/special
 
 # create main resource group and vm
-az group create --name $MAIN_RG --location $LOCATION
+az group create --name $MAIN_RG --location $location
 az vm create \
   --resource-group $MAIN_RG \
   --name $MAIN_VM \
@@ -20,7 +20,7 @@ az vm create \
   --size $VM_SIZE \
   --admin-username $USERNAME \
   --admin-password $PASSWORD \
-  --location $LOCATION
+  --location $location
 
 # open ports on main vm
 az vm open-port --resource-group $MAIN_RG --name $MAIN_VM --port 22 --priority 1001
@@ -91,11 +91,11 @@ cd ~/project/cloudchat/task1-monolith/packer
 
 # create azure principle and write environment variables to secret.pkrvars.hcl
 az group create -l eastus2 -n $TEST_RG
-sp_info=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$SUBSCRIPTION_ID --query "[appId, password, tenant]" --output tsv))
+sp_info=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$subscription_id --query "[appId, password, tenant]" --output tsv))
 echo client_id=\"${sp_info[0]}\" > secret.pkrvars.hcl
 echo client_secret=\"${sp_info[1]}\" >> secret.pkrvars.hcl
 echo tenant_id=\"${sp_info[2]}\" >> secret.pkrvars.hcl
-echo subscription_id=\"$SUBSCRIPTION_ID\" >> secret.pkrvars.hcl
+echo subscription_id=\"$subscription_id\" >> secret.pkrvars.hcl
 
 packer validate \
   -var-file="secret.pkrvars.hcl" \
