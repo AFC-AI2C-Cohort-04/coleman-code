@@ -1,51 +1,40 @@
 ## Cloud Native | Week 2 | Task 1
 
-***fails at 16. perform packer build***
+***fails at 15. perform packer build***
 
-1.   declare azure shell variables, password must be 12+ chars, and include 3+ of {lower, upper, digit, special}
+1.   create main resource group and vm
 ```
-location=eastus2
-main_rg=main_rg
-main_vm=main_vm
-vm_size=Standard_B2s
-username=azureuser
-password=<PASSWORD>
-```
-
-2.   create main resource group and vm
-```
-az group create --name $main_rg --location $location
+az group create --name main_rg --location eastus2
 az vm create \
-  --resource-group $main_rg \
-  --name $main_vm \
+  --location eastus2 \
+  --resource-group main_rg \
+  --name main_vm \
   --image Ubuntu2204 \
-  --size $vm_size \
-  --admin-username $username \
-  --admin-password $password \
-  --location $location
+  --size Standard_B2s \
+  --admin-username azureuser \
+  --admin-password <PASSWORD>
 ```
 
-3.   open ports on main_vm
+2.   open ports on vm
 ```
-az vm open-port --resource-group $main_rg --name $main_vm --port 22 --priority 1001
-az vm open-port --resource-group $main_rg --name $main_vm --port 8000 --priority 1002
-az vm open-port --resource-group $main_rg --name $main_vm --port 8080 --priority 1003
-```
-
-4.   ssh into vm and authenticate with password
-```
-public_ip=$(az vm show -d -g $main_rg -n $main_vm --query publicIps -o tsv)
-ssh $username@$public_ip
+az vm open-port --resource-group main_rg --name main_vm --port 22 --priority 1001
+az vm open-port --resource-group main_rg --name main_vm --port 8000 --priority 1002
+az vm open-port --resource-group main_rg --name main_vm --port 8080 --priority 1003
 ```
 
-5.   get handout and change directory name to project
+3.   ssh into vm and authenticate with password
+```
+ssh azureuser@$(az vm show -d -g main_rg -n main_vm --query publicIps -o tsv)
+```
+
+4.   get handout and change directory name to project
 ```
 wget https://cloudnativehandout.blob.core.windows.net/project1/handout.tar.gz
 tar -xvzf handout.tar.gz
 mv ~/handout ~/project
 ```
 
-6.   get terraform
+5.   get terraform
 ```
 sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
 wget -O- https://apt.releases.hashicorp.com/gpg | \
@@ -61,13 +50,13 @@ sudo apt update
 sudo apt-get install terraform
 ```
 
-7.   get azure cli and login
+6.   get azure cli and login
 ```
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 az login --use-device-code
 ```
 
-8.   get maven, kubectl, and helm
+7.   get maven, kubectl, and helm
 ```
 sudo apt-get install maven openjdk-17-jdk openjdk-17-jre jq -y
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -75,14 +64,14 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 ```
 
-9.   set-up monolith db (20~30 minutes)
+8.   set-up monolith db (20~30 minutes)
 ```
 cd ~/project/cloudchat/terraform-setup/task1-monolith_data_tier
 terraform init
 terraform apply -var-file="secret.tfvars"
 ```
 
-10.   get db variables and write to file
+9.   get db variables and write to file
 ```
 echo "export mysql_host=\"$(terraform output -raw mysql_fqdn)\"" > db_variables.sh
 echo "export mysql_user=\"$(terraform output -raw mysql_admin_username)\"" >> db_variables.sh
@@ -97,19 +86,19 @@ echo "cd /home/packer" >> db_variables.sh
 echo "nohup java -jar ./target/cloudchat-1.0.0.jar &" >> db_variables.sh
 ```
 
-11a.   application login (wait to login after you do 11b.)
+10a.   application login (wait to login after you do 11b.)
 ```
-echo "login with lucas for username and password @ http:$public_ip:8080/login"
+echo "login with lucas for username and password @ http:$(az vm show -d -g main_rg -n main_vm --query publicIps -o tsv):8080/login"
 ```
 
-11b.   test application (ctrl+C when done)
+10b.   test application (ctrl+C when done)
 ```
 cd ~/project/cloudchat/task1-monolith
 mvn clean package
 java -jar ./target/cloudchat-1.0.0.jar
 ```
 
-12.   get packer
+11.   get packer
 ```
 cd ~
 sudo apt-get install packer
@@ -118,12 +107,11 @@ mv -f ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/db_variables.
 cd ~/project/cloudchat/task1-monolith/packer
 ```
 
-13.   update file [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/project/cloudchat/task1-monolith/packer/ 
+12.   update file [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/project/cloudchat/task1-monolith/packer/ 
 
-14.   create azure principle and write environment variables to secret.pkrvars.hcl
+13.   create azure principle and write environment variables to secret.pkrvars.hcl
 ```
-test_rg=test_rg
-az group create -l eastus2 -n $test_rg
+az group create -l eastus2 -n test_rg
 subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
 sp_info=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$subscription_id --query "[appId, password, tenant]" --output tsv))
 echo client_id=\"${sp_info[0]}\" > secret.pkrvars.hcl
@@ -132,35 +120,33 @@ echo tenant_id=\"${sp_info[2]}\" >> secret.pkrvars.hcl
 echo subscription_id=\"$subscription_id\" >> secret.pkrvars.hcl
 ```
 
-15.   validate packer build
+14.   validate packer build
 ```
-test_vm=test_vm
 packer validate \
   -var-file="secret.pkrvars.hcl" \
-  -var "managed_image_name=${test_vm}" \
-  -var "resource_group=${test_rg}" .
+  -var "managed_image_name=test_vm" \
+  -var "resource_group=test_rg" .
 ```
 
-16.   perform packer build (fails to load context for cloudchat app)
+15.   perform packer build (fails to load context for cloudchat app)
 ```
 packer build \
   -var-file="secret.pkrvars.hcl" \
-  -var "managed_image_name=${test_vm}" \
-  -var "resource_group=${test_rg}" .
+  -var "managed_image_name=test_vm" \
+  -var "resource_group=test_rg" .
 ```
 
-17.   connect to virtual machine and validate
+16.   connect to virtual machine and validate
 ```
-username=azureuser
 az vm create \
-  --resource-group $test_rg \
-  --name $test_vm \
+  --resource-group test_rg \
+  --name test_vm \
   --image Ubuntu2204 \
-  --admin-username $username \
+  --admin-username azureuser \
   --generate-ssh-keys
 ```
 
-18.   task 1 submitter
+17.   task 1 submitter
 ```
 cd ~/project
 wget https://cloudnativehandout.blob.core.windows.net/project1/submitter && chmod +x submitter
