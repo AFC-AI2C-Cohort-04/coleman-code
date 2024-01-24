@@ -115,7 +115,7 @@ build {
     inline = [
       "cloud-init status --wait",
       "sudo chmod +x run_monolith.sh",
-      "sudo chmod 644 /etc/systemd/system/myapp.service",
+      "sudo chmod 644 myapp.service",
       "sudo apt update",
       "sudo apt install -y maven openjdk-17-jdk openjdk-17-jre jq",
       "sudo cp myapp.service /etc/systemd/system/myapp.service",
