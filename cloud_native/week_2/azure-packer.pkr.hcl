@@ -66,6 +66,11 @@ build {
     destination = "/tmp/cloudchat-1.0.0.jar"
   }
 
+  provisioner "file" {
+    source = <POM.xml>
+    destination = <POM.xml>
+  }
+
   provisioner "shell" {
     environment_vars = [
       "client_id=${var.client_id}",
@@ -85,7 +90,7 @@ build {
       "sudo chmod +x run_monolith.sh",
       "chmod 644 /etc/systemd/system/myapp.service",
       "sudo systemctl enable myapp.service",
-      "/bin/java -jar <path>/cloudchat-1.0.0.jar",
+      #TODO: Add Maven build sequence here.
     ]
   }
 }
