@@ -75,7 +75,7 @@ echo "export SPRING_REDIS_PASSWORD=\$(terraform output -raw redis_primary_access
 chmod +x export_variables.sh
 source export_variables.sh
 chmox -x export_variables.sh
-echo "cd ~/project/cloudchat/task1-monolith" >> export_variables.sh
+echo "cd /home/packer" >> export_variables.sh
 echo "/bin/java -jar ./target/cloudchat-1.0.0.jar" >> export_variables.sh
 
 # test application
