@@ -4,7 +4,7 @@
 
 1.   declare azure shell variables, password must be 12+ chars, and include 3+ of {lower, upper, digit, special}
 ```
-export subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
+subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
 location=eastus2
 main_rg=main_rg
 main_vm=main_vm
