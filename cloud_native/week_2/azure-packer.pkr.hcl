@@ -74,8 +74,8 @@ source "azure-arm" "example" {
   image_publisher = "canonical"
   image_offer = "0001-com-ubuntu-server-jammy"
   image_sku = "22_04-lts"
-  location = "East US 2"
   vm_size = "Standard_B2s"
+  location = "East US 2"
 }
 
 build {
