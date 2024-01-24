@@ -1,3 +1,5 @@
+# still failing at packer build
+
 # azure variables
 SUBSCRIPTION_ID=$(az account list --query "[?isDefault].id" --output tsv)
 LOCATION=eastus2
@@ -100,6 +102,7 @@ packer validate \
   -var "managed_image_name=${TEST_VM}" \
   -var "resource_group=${TEST_RG}" .
 
+# fails to load context for cloudchat app after attempting to build maven
 packer build \
   -var-file="secret.pkrvars.hcl" \
   -var "managed_image_name=${TEST_VM}" \
