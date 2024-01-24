@@ -58,8 +58,8 @@ build {
   }
 
   provisioner "file" {
-    source = "/home/clouduser/handout/cloudchat/task1-monolith/src"
-    destination = "/tmp/"
+    source = "/home/clouduser/handout/cloudchat/task1-monolith/target/cloudchat-1.0.0.jar"
+    destination = "/tmp/cloudchat-1.0.0.jar"
   }
 
   provisioner "shell" {
