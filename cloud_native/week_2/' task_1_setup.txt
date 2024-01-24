@@ -22,9 +22,8 @@ az vm open-port --resource-group $RG_NAME --name $VM_NAME --port 22 --priority 1
 az vm open-port --resource-group $RG_NAME --name $VM_NAME --port 8000 --priority 1002
 az vm open-port --resource-group $RG_NAME --name $VM_NAME --port 8080 --priority 1003
 
-# ssh
+# ssh and authenticate with password
 PUBLIC_IP=$(az vm show -d -g $RG_NAME -n $VM_NAME --query publicIps -o tsv)
-echo -e "\nVM: $VM_NAME\nPublic IP Address: $PUBLIC_IP\n"
 ssh $USERNAME@$PUBLIC_IP
 
 # get handout
