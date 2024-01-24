@@ -1,6 +1,9 @@
-# still failing at packer build
+# Cloud Native | Week 2 | Task 1
 
-# azure variables
+**still failing at packer build**
+
+1. Declare azure shell variables. Password must be 12+ chars, and include 3+ of {lower, upper, digit, special}
+```
 export subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
 LOCATION=eastus2
 MAIN_RG=main_rg
@@ -9,7 +12,8 @@ TEST_RG=test_rg
 TEST_VM=test_vm
 VM_SIZE=Standard_B2s
 USERNAME=azureuser
-PASSWORD=<PASSWORD> # <<< minimum 12 characters, and 3 of lower/upper/digit/special
+PASSWORD=<PASSWORD>
+```
 
 # create main resource group and vm
 az group create --name $MAIN_RG --location $LOCATION
