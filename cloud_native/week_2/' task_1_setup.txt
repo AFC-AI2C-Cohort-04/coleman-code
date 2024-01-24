@@ -2,7 +2,7 @@
 
 # azure variables
 export subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
-export location=eastus2
+LOCATION=eastus2
 MAIN_RG=main_rg
 MAIN_VM=main_vm
 TEST_RG=test_rg
@@ -12,7 +12,7 @@ USERNAME=azureuser
 PASSWORD=<PASSWORD> # <<< minimum 12 characters, and 3 of lower/upper/digit/special
 
 # create main resource group and vm
-az group create --name $MAIN_RG --location $location
+az group create --name $MAIN_RG --location $LOCATION
 az vm create \
   --resource-group $MAIN_RG \
   --name $MAIN_VM \
@@ -20,7 +20,7 @@ az vm create \
   --size $VM_SIZE \
   --admin-username $USERNAME \
   --admin-password $PASSWORD \
-  --location $location
+  --location $LOCATION
 
 # open ports on main vm
 az vm open-port --resource-group $MAIN_RG --name $MAIN_VM --port 22 --priority 1001
