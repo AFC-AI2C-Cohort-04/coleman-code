@@ -3,7 +3,7 @@ RG_NAME=rg_main
 LOCATION=eastus2
 VM_NAME=vm_main
 VM_SIZE=Standard_B2s
-USERNAME=clouduser
+USERNAME=azureuser
 PASSWORD=<PASSWORD>
 
 # create group and vm
