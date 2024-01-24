@@ -100,7 +100,7 @@ echo "cd /home/packer" >> db_variables.sh
 echo "/bin/java -jar ./target/cloudchat-1.0.0.jar" >> db_variables.sh
 ```
 
-11.   run application
+11.   run application in background
 ```
 cd ~/project/cloudchat/task1-monolith
 mvn clean package
