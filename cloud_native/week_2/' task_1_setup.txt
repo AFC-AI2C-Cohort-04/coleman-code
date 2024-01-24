@@ -29,6 +29,7 @@ ssh $USERNAME@$PUBLIC_IP
 # get handout
 wget https://cloudnativehandout.blob.core.windows.net/project1/handout.tar.gz
 tar -xvzf handout.tar.gz
+mv ~/handout ~/project
 
 # get terraform
 sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
@@ -55,7 +56,7 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
 # set-up monolith db (23~30 minutes)
-cd ~/handout/cloudchat/terraform-setup/task1-monolith_data_tier
+cd ~/project/cloudchat/terraform-setup/task1-monolith_data_tier
 terraform init
 terraform apply -var-file="secret.tfvars"
 
@@ -68,7 +69,7 @@ export SPRING_REDIS_PASSWORD=$(terraform output -raw redis_primary_access_key)
 export SPRING_REDIS_PORT=$(terraform output -raw redis_port)
 
 # test build application
-cd ~/handout/cloudchat/task1-monolith
+cd ~/project/cloudchat/task1-monolith
 mvn clean package
 java -jar ./target/cloudchat-1.0.0.jar
 
@@ -84,7 +85,7 @@ SUBSCRIPTION_ID=$(az account list --query "[?isDefault].id" --output tsv)
 az group create -l eastus2 -n $RG_TEST
 
 # primary directory for task 1 submission
-cd ~/handout/cloudchat/task1-monolith/packer
+cd ~/project/cloudchat/task1-monolith/packer
 
 # write environment variables to secret.pkrvars.hcl
 sp_info=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$SUBSCRIPTION_ID --query "[appId, password, tenant]" --output tsv))
@@ -115,6 +116,6 @@ az vm create \
   --generate-ssh-keys
 
 # submitter
-cd ~/handout
+cd ~/project
 wget https://cloudnativehandout.blob.core.windows.net/project1/submitter && chmod +x submitter
 ./submitter task1
