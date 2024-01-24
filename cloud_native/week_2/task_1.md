@@ -2,7 +2,7 @@
 
 ***fails at 15. perform packer build***
 
-1.   create main resource group and vm
+1.   create main resource group and vm (replace <PASSWORD>)
 ```
 az group create --name main_rg --location eastus2
 az vm create \
