@@ -1,6 +1,6 @@
 ## Cloud Native | Week 2 | Task 1
 
-***failing at 16. perform packer build***
+***failing at 16/18: perform packer build***
 
 1.   declare azure shell variables, password must be 12+ chars, and include 3+ of {lower, upper, digit, special}
 ```
