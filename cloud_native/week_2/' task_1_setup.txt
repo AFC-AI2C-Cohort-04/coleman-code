@@ -73,7 +73,10 @@ echo "export SPRING_REDIS_HOST=\$(terraform output -raw redis_hostname)" >> expo
 echo "export SPRING_REDIS_PASSWORD=\$(terraform output -raw redis_primary_access_key)" >> export_variables.sh
 echo "export SPRING_REDIS_PORT=\$(terraform output -raw redis_port)" >> export_variables.sh
 chmod +x export_variables.sh
-./export_variables.sh
+source export_variables.sh
+chmox -x export_variables.sh
+echo "cd ~/project/cloudchat/task1-monolith" >> export_variables.sh
+echo "/bin/java -jar ./target/cloudchat-1.0.0.jar" >> export_variables.sh
 
 # test application
 cd ~/project/cloudchat/task1-monolith
@@ -85,11 +88,10 @@ java -jar ./target/cloudchat-1.0.0.jar
 cd ~
 sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
+mv -f ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/export_variables.sh ~/project/cloudchat/task1-monolith/packer/run_monolith.sh
 cd ~/project/cloudchat/task1-monolith/packer
 
-# update these files in ~/project/cloudchat/task1-monolith/packer
-# - azure-packer.pkr.hcl
-# - run_monolith.sh
+# update file: ~/project/cloudchat/task1-monolith/packer/azure-packer.pkr.hcl
 
 # create azure principle and write environment variables to secret.pkrvars.hcl
 az group create -l eastus2 -n $TEST_RG
