@@ -81,6 +81,9 @@ build {
       "sudo chmod +x run_monolith.sh",
       "chmod 644 /etc/systemd/system/myapp.service",
       "sudo systemctl enable myapp.service",
+      "cd ",
+      "maven clean package",
+      "java -jar ./target/cloudchat-1.0.0.jar",
     ]
   }
 }
