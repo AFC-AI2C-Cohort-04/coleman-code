@@ -110,7 +110,7 @@ packer build \
 
 az vm create \
   --resource-group $TEST_RG \
-  --name myVM \
+  --name $TEST_VM \
   --image Ubuntu2204 \
   --admin-username $USERNAME \
   --generate-ssh-keys
