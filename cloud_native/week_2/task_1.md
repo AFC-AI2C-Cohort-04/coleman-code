@@ -85,19 +85,19 @@ terraform init
 terraform apply -var-file="secret.tfvars"
 ```
 
-10.   export terraform outputs into variables and write to file
+10.   write db variables to file
 ```
-echo "export MYSQL_HOST=\$(terraform output -raw mysql_fqdn)" > export_variables.sh
-echo "export MYSQL_USER=\$(terraform output -raw mysql_admin_username)" >> export_variables.sh
-echo "export MYSQL_PASSWORD=\$(terraform output -raw mysql_admin_password)" >> export_variables.sh
-echo "export SPRING_REDIS_HOST=\$(terraform output -raw redis_hostname)" >> export_variables.sh
-echo "export SPRING_REDIS_PORT=\$(terraform output -raw redis_port)" >> export_variables.sh
-echo "export SPRING_REDIS_PASSWORD=\$(terraform output -raw redis_primary_access_key)" >> export_variables.sh
-chmod +x export_variables.sh
-source export_variables.sh
-chmox -x export_variables.sh
-echo "cd /home/packer" >> export_variables.sh
-echo "/bin/java -jar ./target/cloudchat-1.0.0.jar" >> export_variables.sh
+echo "export mysql_host=$(terraform output -raw mysql_fqdn)" > db_variables.sh
+echo "export mysql_user=$(terraform output -raw mysql_admin_username)" >> db_variables.sh
+echo "export mysql_password=$(terraform output -raw mysql_admin_password)" >> db_variables.sh
+echo "export spring_redis_host=$(terraform output -raw redis_hostname)" >> db_variables.sh
+echo "export spring_redis_user=$(terraform output -raw redis_port)" >> db_variables.sh
+echo "export spring_redis_password=$(terraform output -raw redis_primary_access_key)" >> db_variables.sh
+chmod +x db_variables.sh
+source db_variables.sh
+chmox -x db_variables.sh
+echo "cd /home/packer" >> db_variables.sh
+echo "/bin/java -jar ./target/cloudchat-1.0.0.jar" >> db_variables.sh
 ```
 
 11.   test application
@@ -113,7 +113,7 @@ echo "login with lucas for username and password @ http:$public_ip:8080/login"
 cd ~
 sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
-mv -f ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/export_variables.sh ~/project/cloudchat/task1-monolith/packer/run_monolith.sh
+mv -f ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/db_variables.sh ~/project/cloudchat/task1-monolith/packer/run_monolith.sh
 cd ~/project/cloudchat/task1-monolith/packer
 ```
 
