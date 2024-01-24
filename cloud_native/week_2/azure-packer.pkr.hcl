@@ -1,4 +1,4 @@
-# file goes in ~/handout/cloudchat/task1-monolith/packer
+# file goes in ~/project/cloudchat/task1-monolith/packer
 variable "client_id" {
   type = string
   default = ""
@@ -54,17 +54,17 @@ build {
   ]
 
   provisioner "file" {
-    source = "/home/azureuser/handout/cloudchat/task1-monolith/packer/myapp.service"
+    source = "/home/azureuser/project/cloudchat/task1-monolith/packer/myapp.service"
     destination = "/tmp/myapp.service"
   }
 
   provisioner "file" {
-    source = "/home/azureuser/handout/cloudchat/task1-monolith/packer/run_monolith.sh"
+    source = "/home/azureuser/project/cloudchat/task1-monolith/packer/run_monolith.sh"
     destination = "/tmp/run_monolith.sh"
   }
 
   provisioner "file" {
-    source = "/home/azureuser/handout/cloudchat/task1-monolith/target/cloudchat-1.0.0.jar"
+    source = "/home/azureuser/project/cloudchat/task1-monolith/target/cloudchat-1.0.0.jar"
     destination = "/tmp/cloudchat-1.0.0.jar"
   }
 
@@ -87,7 +87,7 @@ build {
       "sudo chmod +x run_monolith.sh",
       "chmod 644 /etc/systemd/system/myapp.service",
       "sudo systemctl enable myapp.service",
-      "java -jar /tmp/cloudchat-1.0.0.jar",
+      "/bin/java -jar <path>/cloudchat-1.0.0.jar",
     ]
   }
 }
