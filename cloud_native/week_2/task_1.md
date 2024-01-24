@@ -100,11 +100,11 @@ echo "cd /home/packer" >> db_variables.sh
 echo "/bin/java -jar ./target/cloudchat-1.0.0.jar" >> db_variables.sh
 ```
 
-11.   test application
+11.   run application
 ```
 cd ~/project/cloudchat/task1-monolith
 mvn clean package
-java -jar ./target/cloudchat-1.0.0.jar
+nohup java -jar ./target/cloudchat-1.0.0.jar &
 echo "login with lucas for username and password @ http:$public_ip:8080/login"
 ```
 
