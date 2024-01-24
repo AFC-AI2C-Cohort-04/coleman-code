@@ -94,7 +94,7 @@ echo client_secret = \"${sp_info[1]}\" >> secret.pkrvars.hcl
 echo tenant_id = \"${sp_info[2]}\" >> secret.pkrvars.hcl
 echo subscription_id = \"$SUBSCRIPTION_ID\" >> secret.pkrvars.hcl
 
-# ensure you have updated files
+# ensure you have updated these files in ~/project/cloudchat/task1-monolith/packer
 # - azure-packer.pkr.hcl
 # - run_monolith.sh
 
