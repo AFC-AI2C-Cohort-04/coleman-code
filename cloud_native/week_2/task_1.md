@@ -73,12 +73,12 @@ terraform apply -var-file="secret.tfvars"
 
 9.   get db variables and write to file
 ```
-echo "export mysql_host=\"$(terraform output -raw mysql_fqdn)\"" > db_variables.sh
-echo "export mysql_user=\"$(terraform output -raw mysql_admin_username)\"" >> db_variables.sh
-echo "export mysql_password=\"$(terraform output -raw mysql_admin_password)\"" >> db_variables.sh
-echo "export spring_redis_host=\"$(terraform output -raw redis_hostname)\"" >> db_variables.sh
-echo "export spring_redis_user=\"$(terraform output -raw redis_port)\"" >> db_variables.sh
-echo "export spring_redis_password=\"$(terraform output -raw redis_primary_access_key)\"" >> db_variables.sh
+echo "export MYSQL_HOST=\"$(terraform output -raw mysql_fqdn)\"" > db_variables.sh
+echo "export MYSQL_USER=\"$(terraform output -raw mysql_admin_username)\"" >> db_variables.sh
+echo "export MYSQL_PASSWORD=\"$(terraform output -raw mysql_admin_password)\"" >> db_variables.sh
+echo "export SPRING_REDIS_HOST=\"$(terraform output -raw redis_hostname)\"" >> db_variables.sh
+echo "export SPRING_REDIS_USER=\"$(terraform output -raw redis_port)\"" >> db_variables.sh
+echo "export SPRING_REDIS_PASSWORD=\"$(terraform output -raw redis_primary_access_key)\"" >> db_variables.sh
 chmod +x db_variables.sh
 source db_variables.sh
 chmod -x db_variables.sh
