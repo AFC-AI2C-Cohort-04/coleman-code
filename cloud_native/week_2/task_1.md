@@ -87,25 +87,29 @@ terraform apply -var-file="secret.tfvars"
 
 10.   write db variables to file
 ```
-echo "export mysql_host=$(terraform output -raw mysql_fqdn)" > db_variables.sh
-echo "export mysql_user=$(terraform output -raw mysql_admin_username)" >> db_variables.sh
-echo "export mysql_password=$(terraform output -raw mysql_admin_password)" >> db_variables.sh
-echo "export spring_redis_host=$(terraform output -raw redis_hostname)" >> db_variables.sh
-echo "export spring_redis_user=$(terraform output -raw redis_port)" >> db_variables.sh
-echo "export spring_redis_password=$(terraform output -raw redis_primary_access_key)" >> db_variables.sh
+echo "export mysql_host=\"$(terraform output -raw mysql_fqdn)\"" > db_variables.sh
+echo "export mysql_user=\"$(terraform output -raw mysql_admin_username)\"" >> db_variables.sh
+echo "export mysql_password=\"$(terraform output -raw mysql_admin_password)\"" >> db_variables.sh
+echo "export spring_redis_host=\"$(terraform output -raw redis_hostname)\"" >> db_variables.sh
+echo "export spring_redis_user=\"$(terraform output -raw redis_port)\"" >> db_variables.sh
+echo "export spring_redis_password=\"$(terraform output -raw redis_primary_access_key)\"" >> db_variables.sh
 chmod +x db_variables.sh
 source db_variables.sh
-chmox -x db_variables.sh
+chmod -x db_variables.sh
 echo "cd /home/packer" >> db_variables.sh
-echo "/bin/java -jar ./target/cloudchat-1.0.0.jar" >> db_variables.sh
+echo "nohup java -jar ./target/cloudchat-1.0.0.jar &" >> db_variables.sh
 ```
 
-11.   run application in background
+11a.   application login (wait to login after you do 11b.)
+```
+echo "login with lucas for username and password @ http:$public_ip:8080/login"
+```
+
+11b.   test application (ctrl+C when done)
 ```
 cd ~/project/cloudchat/task1-monolith
 mvn clean package
-nohup java -jar ./target/cloudchat-1.0.0.jar &
-echo "login with lucas for username and password @ http:$public_ip:8080/login"
+java -jar ./target/cloudchat-1.0.0.jar
 ```
 
 12.   get packer
