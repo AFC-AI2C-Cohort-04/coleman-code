@@ -71,10 +71,11 @@ export SPRING_REDIS_HOST=$(terraform output -raw redis_hostname)
 export SPRING_REDIS_PASSWORD=$(terraform output -raw redis_primary_access_key)
 export SPRING_REDIS_PORT=$(terraform output -raw redis_port)
 
-# test build application
+# test application
 cd ~/project/cloudchat/task1-monolith
 mvn clean package
 java -jar ./target/cloudchat-1.0.0.jar
+# go to http:[MAIN_VM_IP]:8080/login and login with username: lucas, password: lucas
 
 # get packer
 cd ~
