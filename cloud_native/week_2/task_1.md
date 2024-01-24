@@ -4,12 +4,9 @@
 
 1.   declare azure shell variables, password must be 12+ chars, and include 3+ of {lower, upper, digit, special}
 ```
-subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
 location=eastus2
 main_rg=main_rg
 main_vm=main_vm
-test_rg=test_rg
-test_vm=test_vm
 vm_size=Standard_B2s
 username=azureuser
 password=<PASSWORD>
@@ -125,7 +122,9 @@ cd ~/project/cloudchat/task1-monolith/packer
 
 14.   create azure principle and write environment variables to secret.pkrvars.hcl
 ```
-az group create -l eastus2 -n $TEST_RG
+test_rg=test_rg
+az group create -l eastus2 -n $test_rg
+subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
 sp_info=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$subscription_id --query "[appId, password, tenant]" --output tsv))
 echo client_id=\"${sp_info[0]}\" > secret.pkrvars.hcl
 echo client_secret=\"${sp_info[1]}\" >> secret.pkrvars.hcl
@@ -135,27 +134,29 @@ echo subscription_id=\"$subscription_id\" >> secret.pkrvars.hcl
 
 15.   validate packer build
 ```
+test_vm=test_vm
 packer validate \
   -var-file="secret.pkrvars.hcl" \
-  -var "managed_image_name=${TEST_VM}" \
-  -var "resource_group=${TEST_RG}" .
+  -var "managed_image_name=${test_vm}" \
+  -var "resource_group=${test_rg}" .
 ```
 
 16.   perform packer build (fails to load context for cloudchat app)
 ```
 packer build \
   -var-file="secret.pkrvars.hcl" \
-  -var "managed_image_name=${TEST_VM}" \
-  -var "resource_group=${TEST_RG}" .
+  -var "managed_image_name=${test_vm}" \
+  -var "resource_group=${test_rg}" .
 ```
 
 17.   connect to virtual machine and validate
 ```
+username=azureuser
 az vm create \
-  --resource-group $TEST_RG \
-  --name $TEST_VM \
+  --resource-group $test_rg \
+  --name $test_vm \
   --image Ubuntu2204 \
-  --admin-username $USERNAME \
+  --admin-username $username \
   --generate-ssh-keys
 ```
 
