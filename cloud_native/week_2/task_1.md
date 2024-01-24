@@ -85,7 +85,7 @@ terraform init
 terraform apply -var-file="secret.tfvars"
 ```
 
-10.   write db variables to file
+10.   get db variables and write to file
 ```
 echo "export mysql_host=\"$(terraform output -raw mysql_fqdn)\"" > db_variables.sh
 echo "export mysql_user=\"$(terraform output -raw mysql_admin_username)\"" >> db_variables.sh
