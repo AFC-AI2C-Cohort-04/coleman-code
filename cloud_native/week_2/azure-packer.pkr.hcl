@@ -70,7 +70,7 @@ build {
 
   provisioner "file" {
     source = "../target/cloudchat-1.0.0.jar"
-    destination = "/home/packer/cloudchat-1.0.0.jar"
+    destination = "/home/packer/target/cloudchat-1.0.0.jar"
   }
 
   provisioner "shell" {
