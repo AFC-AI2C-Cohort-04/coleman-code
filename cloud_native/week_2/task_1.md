@@ -133,7 +133,7 @@ packer validate \
   -var "resource_group=test_rg" .
 ```
 
-15.   perform packer build
+15.   perform packer build (~5 minutes)
 ```
 packer build \
   -var-file="secret.pkrvars.hcl" \
