@@ -96,11 +96,6 @@ build {
   }
 
   provisioner "file" {
-    source = "../pom.xml"
-    destination = "/home/packer/pom.xml"
-  }
-
-  provisioner "file" {
     source = "../src"
     destination = "/home/packer/src"
   }
