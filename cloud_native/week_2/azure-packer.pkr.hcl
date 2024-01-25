@@ -77,6 +77,7 @@ build {
       "chmod 644 /etc/systemd/system/myapp.service",
       "sudo chmod +x run_monolith.sh",
       "sudo systemctl enable myapp.service",
+      # maven build sequence not needed
     ]
   }
 }
