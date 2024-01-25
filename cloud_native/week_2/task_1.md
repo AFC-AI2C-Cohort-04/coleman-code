@@ -1,6 +1,7 @@
 ## Cloud Native | Week 2 | Task 1
 
 known red herrings and write-up inconsistencies
+- use the same subscription that is used by terraform when it creates the monolith db
 - location should be "eastus" not "eastus2"
 - change directory name "handout" to "project" to match write-up and provided code
 - "azure-packer.pkr.hcl" provided from handout contains false assumptions
@@ -68,7 +69,7 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 ```
 
-8.   set-up monolith db (20~30 minutes)
+8.   create monolith db (20~30 minutes)
 ```
 cd ~/project/cloudchat/terraform-setup/task1-monolith_data_tier
 terraform init
@@ -90,12 +91,12 @@ echo "cd /home/packer" >> run_monolith.sh
 echo "java -jar ./target/cloudchat-1.0.0.jar" >> run_monolith.sh
 ```
 
-10a.   application login (wait to login after you do 11b.)
+10a.   application login (login once 10b. successfully runs)
 ```
 echo "login with lucas for username and password @ http:$(az vm show -d -g main_rg -n main_vm --query publicIps -o tsv):8080/login"
 ```
 
-10b.   test application (ctrl+C when done)
+10b.   test application (~5 minutes, ctrl+C after logging in and testing)
 ```
 cd ~/project/cloudchat/task1-monolith
 mvn clean package
@@ -150,7 +151,7 @@ az vm create \
   --generate-ssh-keys
 ```
 
-17.   get submitter, rename "task1-monolith" directory to "monolith", and submit for task 1
+17.   get submitter, rename "task1-monolith" directory to "monolith", and submit for task 1 (~10 minutes)
 ```
 cd ~/project
 wget https://cloudnativehandout.blob.core.windows.net/project1/submitter && chmod +x submitter
