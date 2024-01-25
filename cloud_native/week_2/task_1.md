@@ -6,7 +6,7 @@ troubleshooting
 - [SUCCESS] java app runs and connects to db
 - [SUCCESS] packer builds image
 - [SUCCESS] can build vm from image
-- [FAILURE] vm from image properly loads environment variables
+- [FAILURE] vm from image can run java app and connect to db
 - [SUCCESS] submitter completes without error
 - [FAILURE] port 8000/8080 open on vm built from image
 
@@ -79,44 +79,52 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 ```
 
-8.   create monolith db (20~30 minutes) and load outputs into variables
+8.   create monolith db (20~30 minutes)
 ```
 cd ~/project/cloudchat/terraform-setup/task1-monolith_data_tier
 terraform init
 terraform apply -var-file="secret.tfvars"
-export MYSQL_HOST="$(terraform output -raw mysql_fqdn)"
-export MYSQL_USER="$(terraform output -raw mysql_admin_username)"
-export MYSQL_PASSWORD="$(terraform output -raw mysql_admin_password)"
-export SPRING_REDIS_HOST="$(terraform output -raw redis_hostname)"
-export SPRING_REDIS_PORT="$(terraform output -raw redis_port)"
-export SPRING_REDIS_PASSWORD="$(terraform output -raw redis_primary_access_key)"
 ```
 
-9a.   application login (login once 9b. successfully runs)
+9.   get db variables and write to "run_monolith.sh"
+```
+echo "export MYSQL_HOST=\"$(terraform output -raw mysql_fqdn)\"" > run_monolith.sh
+echo "export MYSQL_USER=\"$(terraform output -raw mysql_admin_username)\"" >> run_monolith.sh
+echo "export MYSQL_PASSWORD=\"$(terraform output -raw mysql_admin_password)\"" >> run_monolith.sh
+echo "export SPRING_REDIS_HOST=\"$(terraform output -raw redis_hostname)\"" >> run_monolith.sh
+echo "export SPRING_REDIS_PORT=\"$(terraform output -raw redis_port)\"" >> run_monolith.sh
+echo "export SPRING_REDIS_PASSWORD=\"$(terraform output -raw redis_primary_access_key)\"" >> run_monolith.sh
+sudo chmod +x run_monolith.sh
+source ./run_monolith.sh
+```
+
+10a.   application login (login once 10b. successfully runs)
 ```
 echo "login with lucas for username and password @ http:$(az vm show -d -g main_rg -n main_vm --query publicIps -o tsv):8080/login"
 ```
 
-9b.   test application (~5 minutes, ctrl+C after logging in and testing)
+10b.   test application (~5 minutes, ctrl+C after logging in and testing)
 ```
 cd ~/project/cloudchat/task1-monolith
 mvn clean package
 java -jar ./target/cloudchat-1.0.0.jar
 ```
 
-10.   get packer and update/replace "run_monolith.sh" with previously written variables
+11.   get packer and update/replace "run_monolith.sh" with previously written variables
 ```
 cd ~
 sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
+mv -f ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/run_monolith.sh ~/project/cloudchat/task1-monolith/packer/run_monolith.sh
 cd ~/project/cloudchat/task1-monolith/packer
-echo "cd /home/packer" > run_monolith.sh
+sudo chmod -x run_monolith.sh
+echo "cd /home/packer" >> run_monolith.sh
 echo "java -jar ./cloudchat-1.0.0.jar" >> run_monolith.sh
 ```
 
-11.   update file content [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/project/cloudchat/task1-monolith/packer/ 
+12.   update file content [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/project/cloudchat/task1-monolith/packer/ 
 
-12.   create azure principle and write environment variables to secret.pkrvars.hcl
+13.   create azure principle and write environment variables to secret.pkrvars.hcl
 ```
 az group create -l eastus -n test_rg
 subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
@@ -127,7 +135,7 @@ echo tenant_id=\"${sp_info[2]}\" >> secret.pkrvars.hcl
 echo subscription_id=\"$subscription_id\" >> secret.pkrvars.hcl
 ```
 
-13.   validate packer build
+14.   validate packer build
 ```
 packer validate \
   -var-file="secret.pkrvars.hcl" \
@@ -135,7 +143,7 @@ packer validate \
   -var "resource_group=test_rg" .
 ```
 
-14.   perform packer build (~5 minutes)
+15.   perform packer build (~5 minutes)
 ```
 packer build \
   -var-file="secret.pkrvars.hcl" \
@@ -143,7 +151,7 @@ packer build \
   -var "resource_group=test_rg" .
 ```
 
-15.   validate packer build by creating vm from image
+16.   validate packer build by creating vm from image
 ```
 az vm create \
   --resource-group test_rg \
@@ -153,7 +161,7 @@ az vm create \
   --generate-ssh-keys
 ```
 
-16.   get submitter, rename "task1-monolith" directory to "monolith", and submit for task 1 (~10 minutes)
+17.   get submitter, rename "task1-monolith" directory to "monolith", and submit for task 1 (~10 minutes)
 ```
 cd ~/project
 wget https://cloudnativehandout.blob.core.windows.net/project1/submitter && chmod +x submitter
