@@ -96,13 +96,13 @@ build {
   }
 
   provisioner "file" {
-    source = "../src"
-    destination = "/home/packer/src"
+    source = "../pom.xml"
+    destination = "/home/packer/pom.xml"
   }
 
   provisioner "file" {
-    source = "../target"
-    destination = "/home/packer/target"
+    source = "../src"
+    destination = "/home/packer/src"
   }
 
   provisioner "shell" {
@@ -119,12 +119,12 @@ build {
       "sudo ufw allow 8000/tcp", # have not tested this yet
       "sudo ufw allow 8080/tcp", # have not tested this yet
       "sudo apt-get update",
-      "sudo apt-get install -y openjdk-17-jdk",
+      "sudo apt-get install -y maven openjdk-17-jdk",
       "sudo mv myapp.service /etc/systemd/system/myapp.service",
       "sudo chmod +x run_monolith.sh",
       "chmod 644 /etc/systemd/system/myapp.service",
-      "sudo systemctl enable myapp.service"
-      # Maven build sequence not needed
+      "sudo systemctl enable myapp.service",
+      "mvn clean package",
     ]
   }
 }
