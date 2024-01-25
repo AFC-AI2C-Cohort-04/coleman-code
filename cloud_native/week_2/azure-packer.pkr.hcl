@@ -94,11 +94,6 @@ build {
   }
 
   provisioner "file" {
-    source = "load_variables.sh"
-    destination = "/home/packer/load_variables.sh"
-  }
-
-  provisioner "file" {
     source = "../target/cloudchat-1.0.0.jar"
     destination = "/home/packer/target/cloudchat-1.0.0.jar"
   }
@@ -119,8 +114,6 @@ build {
       "sudo mv myapp.service /etc/systemd/system/myapp.service",
       "chmod 644 /etc/systemd/system/myapp.service",
       "sudo chmod +x run_monolith.sh",
-      "sudo chmod +x load_variables.sh",
-      "source ./load_variables.sh",
       "sudo systemctl enable myapp.service",
     ]
   }
