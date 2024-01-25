@@ -116,7 +116,8 @@ sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
 mv ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/run_monolith.sh ~/project/cloudchat/task1-monolith/packer/run_monolith.sh
 cd ~/project/cloudchat/task1-monolith/packer
-echo "/bin/java -jar /tmp/cloudchat-1.0.0.jar" >> run_monolith.sh
+echo "cd /home/packer"
+echo "/bin/java -jar ./target/cloudchat-1.0.0.jar" >> run_monolith.sh
 ```
 
 12.   update file contents [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_1_packer_files/azure-packer.pkr.hcl) & [myapp.service](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_1_packer_files/myapp.service) in ~/project/cloudchat/task1-monolith/packer/
