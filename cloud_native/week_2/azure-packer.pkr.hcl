@@ -120,7 +120,6 @@ build {
       "sudo chmod 644 myapp.service",
       "sudo cp myapp.service /etc/systemd/system/myapp.service",
       "sudo systemctl enable myapp.service",
-      "mvn clean package",
       "./run_monolith.sh"
     ]
   }
