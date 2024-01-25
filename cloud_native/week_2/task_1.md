@@ -86,14 +86,16 @@ terraform init
 terraform apply -var-file="secret.tfvars"
 ```
 
-9.   get db variables and write to "load_variables.sh", run as source
+9.   write db variables to "run_monolith.sh", run as source
 ```
-export MYSQL_HOST="$(terraform output -raw mysql_fqdn)"
-export MYSQL_USER="$(terraform output -raw mysql_admin_username)"
-export MYSQL_PASSWORD="$(terraform output -raw mysql_admin_password)"
-export SPRING_REDIS_HOST="$(terraform output -raw redis_hostname)"
-export SPRING_REDIS_PORT="$(terraform output -raw redis_port)"
-export SPRING_REDIS_PASSWORD="$(terraform output -raw redis_primary_access_key)"
+echo "export MYSQL_HOST=\"$(terraform output -raw mysql_fqdn)\"" > run_monolith.sh
+echo "export MYSQL_USER=\"$(terraform output -raw mysql_admin_username)\"" >> run_monolith.sh
+echo "export MYSQL_PASSWORD=\"$(terraform output -raw mysql_admin_password)\"" >> run_monolith.sh
+echo "export SPRING_REDIS_HOST=\"$(terraform output -raw redis_hostname)\"" >> run_monolith.sh
+echo "export SPRING_REDIS_PORT=\"$(terraform output -raw redis_port)\"" >> run_monolith.sh
+echo "export SPRING_REDIS_PASSWORD=\"$(terraform output -raw redis_primary_access_key)\"" >> run_monolith.sh
+sudo chmox +x run_monolith.sh
+source ./run_monolith.sh
 ```
 
 10a.   application login (login once 10b. successfully runs)
@@ -113,6 +115,7 @@ java -jar ./target/cloudchat-1.0.0.jar
 cd ~
 sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
+mv ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/run_monolith.sh ~/project/cloudchat/task1-monolith/packer/run_monolith.sh
 cd ~/project/cloudchat/task1-monolith/packer
 echo "cd /home/packer" > run_monolith.sh
 echo "/bin/java -jar ./target/cloudchat-1.0.0.jar" >> run_monolith.sh
@@ -129,12 +132,6 @@ echo client_id=\"${sp_info[0]}\" > secret.pkrvars.hcl
 echo client_secret=\"${sp_info[1]}\" >> secret.pkrvars.hcl
 echo tenant_id=\"${sp_info[2]}\" >> secret.pkrvars.hcl
 echo subscription_id=\"$subscription_id\" >> secret.pkrvars.hcl
-echo MYSQL_HOST=\"$MYSQL_HOST\" >> secret.pkrvars.hcl
-echo MYSQL_USER=\"$MYSQL_USER\" >> secret.pkrvars.hcl
-echo MYSQL_PASSWORD=\"$MYSQL_PASSWORD\" >> secret.pkrvars.hcl
-echo SPRING_REDIS_HOST=\"$SPRING_REDIS_HOST\" >> secret.pkrvars.hcl
-echo SPRING_REDIS_PORT=\"$SPRING_REDIS_PORT\" >> secret.pkrvars.hcl
-echo SPRING_REDIS_PASSWORD=\"$SPRING_REDIS_PASSWORD\" >> secret.pkrvars.hcl
 ```
 
 14.   validate packer build
