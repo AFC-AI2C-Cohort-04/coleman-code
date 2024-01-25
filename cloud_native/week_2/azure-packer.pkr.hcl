@@ -116,8 +116,8 @@ build {
     ]
     inline = [
       "cloud-init status --wait",
-      "sudo ufw allow 8000/tcp",
-      "sudo ufw allow 8080/tcp",
+      "sudo ufw allow 8000/tcp", # have not tested this yet
+      "sudo ufw allow 8080/tcp", # have not tested this yet
       "sudo apt-get update",
       "sudo apt-get install -y openjdk-17-jdk",
       "sudo mv myapp.service /etc/systemd/system/myapp.service",
