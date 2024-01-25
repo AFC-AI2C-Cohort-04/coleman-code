@@ -1,5 +1,15 @@
 ## Cloud Native | Week 2 | Task 1
 
+troubleshooting
+- [SUCCESS] terraform builds db
+- [SUCCESS] maven builds java app
+- [SUCCESS] java app runs and connects to db
+- [SUCCESS] packer builds image
+- [SUCCESS] can build vm from image
+- [FAILURE] vm from image can run java app and connect to db
+- [SUCCESS] submitter completes without error
+- [FAILURE] port 8000/8080 open on vm built from image
+
 known red herrings and write-up inconsistencies
 - use the same subscription that is used by terraform when it creates the monolith db
 - location should be "eastus" not "eastus2"
