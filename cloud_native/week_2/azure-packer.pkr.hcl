@@ -83,6 +83,8 @@ build {
     "source.azure-arm.example"
   ]
 
+  # remove /home/azureuser/project/cloudchat/task1-monolith/packer/ from source paths
+  # change /tmp/ to /home/packer/ for destination paths
   provisioner "file" {
     source = "myapp.service"
     destination = "/home/packer/myapp.service"
@@ -116,10 +118,11 @@ build {
       "cloud-init status --wait",
       "sudo apt-get update",
       "sudo apt-get install -y openjdk-17-jdk",
+      "sudo mv myapp.service /etc/systemd/system/myapp.service",
       "sudo chmod +x run_monolith.sh",
-      "sudo chmod 644 myapp.service",
-      "sudo cp myapp.service /etc/systemd/system/myapp.service",
+      "chmod 644 /etc/systemd/system/myapp.service",
       "sudo systemctl enable myapp.service"
+      # Maven build sequence not needed
     ]
   }
 }
