@@ -124,7 +124,7 @@ echo subscription_id=\"$subscription_id\" >> secret.pkrvars.hcl
 ```
 packer validate \
   -var-file="secret.pkrvars.hcl" \
-  -var "managed_image_name=test_vm" \
+  -var "managed_image_name=test_image" \
   -var "resource_group=test_rg" .
 ```
 
@@ -132,7 +132,7 @@ packer validate \
 ```
 packer build \
   -var-file="secret.pkrvars.hcl" \
-  -var "managed_image_name=test_vm" \
+  -var "managed_image_name=test_image" \
   -var "resource_group=test_rg" .
 ```
 
@@ -141,7 +141,7 @@ packer build \
 az vm create \
   --resource-group test_rg \
   --name test_vm \
-  --image Ubuntu2204 \
+  --image test_image \
   --admin-username azureuser \
   --generate-ssh-keys
 ```
