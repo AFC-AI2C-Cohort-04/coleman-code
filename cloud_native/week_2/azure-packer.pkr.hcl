@@ -30,36 +30,6 @@ variable "managed_image_name" {
   default = ""
 }
 
-variable "MYSQL_HOST" {
-  type = string
-  default = ""
-}
-
-variable "MYSQL_USER" {
-  type = string
-  default = ""
-}
-
-variable "MYSQL_PASSWORD" {
-  type = string
-  default = ""
-}
-
-variable "SPRING_REDIS_HOST" {
-  type = string
-  default = ""
-}
-
-variable "SPRING_REDIS_PORT" {
-  type = string
-  default = ""
-}
-
-variable "SPRING_REDIS_PASSWORD" {
-  type = string
-  default = ""
-}
-
 source "azure-arm" "example" {
   client_id = var.client_id
   client_secret = var.client_secret
