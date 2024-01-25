@@ -88,12 +88,12 @@ terraform apply -var-file="secret.tfvars"
 
 9.   get db variables and write to "run_monolith.sh"
 ```
-echo "export MYSQL_HOST=$(terraform output mysql_fqdn)" > db_variables.sh
-echo "export MYSQL_USER=$(terraform output mysql_admin_username)" >> db_variables.sh
-echo "export MYSQL_PASSWORD=$(terraform output mysql_admin_password)" >> db_variables.sh
-echo "export SPRING_REDIS_HOST=$(terraform output redis_hostname)" >> db_variables.sh
-echo "export SPRING_REDIS_PORT=$(terraform output redis_port)" >> db_variables.sh
-echo "export SPRING_REDIS_PASSWORD=$(terraform output redis_primary_access_key)" >> db_variables.sh
+echo "export MYSQL_HOST=\"$(terraform output -raw mysql_fqdn)\"" > db_variables.sh
+echo "export MYSQL_USER=\"$(terraform output -raw mysql_admin_username)\"" >> db_variables.sh
+echo "export MYSQL_PASSWORD=\"$(terraform output -raw mysql_admin_password)\"" >> db_variables.sh
+echo "export SPRING_REDIS_HOST=\"$(terraform output -raw redis_hostname)\"" >> db_variables.sh
+echo "export SPRING_REDIS_PORT=\"$(terraform output -raw redis_port)\"" >> db_variables.sh
+echo "export SPRING_REDIS_PASSWORD=\"$(terraform output -raw redis_primary_access_key)\"" >> db_variables.sh
 sudo chmod +x db_variables.sh
 sudo ./db_variables.sh
 sudo chmod -x db_variables.sh
