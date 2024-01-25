@@ -3,8 +3,7 @@
 known red herrings and write-up inconsistencies
 - location should be "eastus" not "eastus2"
 - change directory name "handout" to "project" to match write-up and provided code
-- terraform output variable strings need to be stored as raw (without quotation marks)
-- azure-packer.pkr.hcl provided from handout contains false assumptions
+- "azure-packer.pkr.hcl" provided from handout contains false assumptions
 - change directory name "task1-monolith" to "monolith" before submitting for task 1
 
 1.   create main resource group and vm (replace password)
@@ -32,7 +31,7 @@ az vm open-port --resource-group main_rg --name main_vm --port 8080 --priority 1
 ssh azureuser@$(az vm show -d -g main_rg -n main_vm --query publicIps -o tsv)
 ```
 
-4.   get handout and change directory name to project
+4.   get handout and change directory name from "handout" to "project"
 ```
 wget https://cloudnativehandout.blob.core.windows.net/project1/handout.tar.gz
 tar -xvzf handout.tar.gz
@@ -76,19 +75,19 @@ terraform init
 terraform apply -var-file="secret.tfvars"
 ```
 
-9.   get db variables and write to file
+9.   get db variables and write to "run_monolith.sh"
 ```
 echo "export MYSQL_HOST=$(terraform output mysql_fqdn)" > db_variables.sh
 echo "export MYSQL_USER=$(terraform output mysql_admin_username)" >> db_variables.sh
 echo "export MYSQL_PASSWORD=$(terraform output mysql_admin_password)" >> db_variables.sh
 echo "export SPRING_REDIS_HOST=$(terraform output redis_hostname)" >> db_variables.sh
 echo "export SPRING_REDIS_PORT=$(terraform output redis_port)" >> db_variables.sh
-echo "export SPRING_REDIS_PASSWORD=$(terraform output redis_primary_access_key)" >> db_variables.sh
-chmod +x db_variables.sh
-source db_variables.sh
-chmod -x db_variables.sh
-echo "cd /home/packer" >> db_variables.sh
-echo "java -jar ./target/cloudchat-1.0.0.jar" >> db_variables.sh
+echo "export SPRING_REDIS_PASSWORD=$(terraform output redis_primary_access_key)" >> run_monolith.sh
+sudo chmod +x run_monolith.sh
+sudo source run_monolith.sh
+sudo chmod -x run_monolith.sh
+echo "cd /home/packer" >> run_monolith.sh
+echo "java -jar ./target/cloudchat-1.0.0.jar" >> run_monolith.sh
 ```
 
 10a.   application login (wait to login after you do 11b.)
@@ -103,7 +102,7 @@ mvn clean package
 java -jar ./target/cloudchat-1.0.0.jar
 ```
 
-11.   get packer
+11.   get packer and update/replace "run_monolith.sh" with previously written variables
 ```
 cd ~
 sudo apt-get install packer
@@ -112,7 +111,7 @@ mv -f ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/db_variables.
 cd ~/project/cloudchat/task1-monolith/packer
 ```
 
-12.   update file [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/project/cloudchat/task1-monolith/packer/ 
+12.   update file content [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/project/cloudchat/task1-monolith/packer/ 
 
 13.   create azure principle and write environment variables to secret.pkrvars.hcl
 ```
@@ -151,7 +150,7 @@ az vm create \
   --generate-ssh-keys
 ```
 
-17.   submit task 1
+17.   get submitter, rename "task1-monolith" directory to "monolith", and submit for task 1
 ```
 cd ~/project
 wget https://cloudnativehandout.blob.core.windows.net/project1/submitter && chmod +x submitter
