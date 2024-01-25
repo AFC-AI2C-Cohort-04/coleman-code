@@ -67,6 +67,13 @@ build {
   }
 
   provisioner "shell" {
+    environment_vars = [
+      "MYSQL_HOST=${var.MYSQL_HOST}",
+      "MYSQL_USER=${var.MYSQL_USER}",
+      "MYSQL_PASSWORD=${var.MYSQL_PASSWORD}",
+      "SPRING_REDIS_HOST=${var.SPRING_REDIS_HOST}",
+      "SPRING_REDIS_PORT=${var.SPRING_REDIS_PORT}",
+      "SPRING_REDIS_PASSWORD=${var.SPRING_REDIS_PASSWORD}"
     inline = [
       "cloud-init status --wait",
       "sudo apt-get update",
