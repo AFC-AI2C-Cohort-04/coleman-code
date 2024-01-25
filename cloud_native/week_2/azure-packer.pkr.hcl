@@ -52,6 +52,7 @@ build {
 
   # remove /home/azureuser/project/cloudchat/task1-monolith/packer/ from source paths
   # change /tmp/ to /home/packer/ for destination paths
+
   provisioner "file" {
     source = "myapp.service"
     destination = "/home/packer/myapp.service"
@@ -60,6 +61,11 @@ build {
   provisioner "file" {
     source = "run_monolith.sh"
     destination = "/home/packer/run_monolith.sh"
+  }
+
+  provisioner "file" {
+    source = "load_variables.sh"
+    destination = "/home/packer/load_variables.sh"
   }
 
   provisioner "file" {
@@ -73,8 +79,10 @@ build {
       "sudo apt-get update",
       "sudo apt-get install openjdk-17-jdk openjdk-17-jre jq -y",
       "sudo mv myapp.service /etc/systemd/system/myapp.service",
-      "sudo chmod +x run_monolith.sh",
       "chmod 644 /etc/systemd/system/myapp.service",
+      "sudo chmod +x run_monolith.sh",
+      "sudo chmod +x load_variables.sh",
+      "source ./load_variables.sh",
       "sudo systemctl enable myapp.service",
     ]
   }
