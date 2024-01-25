@@ -19,11 +19,11 @@ known red herrings and write-up inconsistencies
 ```
 az group create --name main_rg --location eastus2 && \
 az vm create \
-  --location eastus2 \
   --resource-group main_rg \
   --name main_vm \
-  --image Ubuntu2204 \
+  --image Canonical:0001-com-ubuntu-server-focal:20_04-lts-gen2:latest \
   --size Standard_B2s \
+  --location eastus2 \
   --admin-username azureuser \
   --admin-password <PASSWORD>
 ```
