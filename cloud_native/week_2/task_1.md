@@ -42,6 +42,7 @@ ssh azureuser@$(az vm show -d -g main_rg -n main_vm --query publicIps -o tsv)
 
 4.   get handout and change directory name from "handout" to "project"
 ```
+cd ~
 wget https://cloudnativehandout.blob.core.windows.net/project1/handout.tar.gz
 tar -xvzf handout.tar.gz
 mv ~/handout ~/project
@@ -49,6 +50,7 @@ mv ~/handout ~/project
 
 5.   get terraform
 ```
+cd ~
 sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
 wget -O- https://apt.releases.hashicorp.com/gpg | \
 gpg --dearmor | \
@@ -65,12 +67,14 @@ sudo apt-get install terraform
 
 6.   get azure cli and login
 ```
+cd ~
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 az login --use-device-code
 ```
 
 7.   get maven, kubectl, and helm
 ```
+cd ~
 sudo apt-get install maven openjdk-17-jdk openjdk-17-jre jq -y
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
@@ -86,6 +90,7 @@ terraform apply -var-file="secret.tfvars"
 
 9.   write db variables to "run_monolith.sh", run as source
 ```
+cd ~/project/cloudchat/terraform-setup/task1-monolith_data_tier
 echo "export MYSQL_HOST=\"$(terraform output -raw mysql_fqdn)\"" > run_monolith.sh
 echo "export MYSQL_USER=\"$(terraform output -raw mysql_admin_username)\"" >> run_monolith.sh
 echo "export MYSQL_PASSWORD=\"$(terraform output -raw mysql_admin_password)\"" >> run_monolith.sh
@@ -123,8 +128,9 @@ echo "/bin/java -jar ./target/cloudchat-1.0.0.jar" >> run_monolith.sh
 
 13.   create azure principle, and write environment variables to secret.pkrvars.hcl
 ```
-az group create -l eastus -n test_rg
-subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
+cd ~/project/cloudchat/task1-monolith/packer
+subscription_id=$(az account list --query "[?isDefault].id" --output tsv) && \
+az group create -l eastus -n test_rg && \
 sp_info=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$subscription_id --query "[appId, password, tenant]" --output tsv))
 echo "client_id = \"${sp_info[0]}\"" > secret.pkrvars.hcl
 echo "client_secret = \"${sp_info[1]}\"" >> secret.pkrvars.hcl
@@ -140,6 +146,7 @@ echo "spring_redis_password = \"${SPRING_REDIS_PASSWORD}\"" >> secret.pkrvars.hc
 
 14.   validate packer build
 ```
+cd ~/project/cloudchat/task1-monolith/packer
 packer validate \
   -var-file="secret.pkrvars.hcl" \
   -var "managed_image_name=test_image" \
@@ -148,6 +155,7 @@ packer validate \
 
 15.   perform packer build (~5 minutes)
 ```
+cd ~/project/cloudchat/task1-monolith/packer
 packer build \
   -var-file="secret.pkrvars.hcl" \
   -var "managed_image_name=test_image" \
