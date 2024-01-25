@@ -7,6 +7,96 @@ packer {
   }
 }
 
+variable "tenant_id" {
+  type = string
+  default = null
+}
+
+variable "subscription_id" {
+  type = string
+  default = null
+}
+
+variable "client_id" {
+  type = string
+  default = null
+}
+
+variable "client_secret" {
+  type = string
+  default = null
+}
+
+variable "location" {
+  type = string
+  default = "eastus2"
+}
+
+variable "resource_group" {
+  type = string
+  default = "cloud-native-week-01-packer" # this should exist already
+}
+
+variable "managed_image_name" {
+  type = string
+  default = "template_image"
+}
+
+variable "vm_os_type" {
+  type = string
+  default = "Linux" 
+}
+
+variable "vm_image_publisher" {
+  type = string
+  default = "Canonical" 
+}
+
+variable "vm_image_offer" {
+  type = string
+  default = "0001-com-ubuntu-server-jammy" 
+}
+
+variable "vm_image_sku" {
+  type = string
+  default = "22_04-lts" 
+}
+
+variable "vm_size" {
+  type = string
+  default = "Standard_B2s"
+}
+
+variable "mysql_host" {
+  type = string
+  default = null
+}
+
+variable "mysql_user" {
+  type = string
+  default = null
+}
+
+variable "mysql_password" {
+  type = string
+  default = null
+}
+
+variable "spring_redis_host" {
+  type = string
+  default = null
+}
+
+variable "spring_redis_port" {
+  type = string
+  default = null
+}
+
+variable "spring_redis_password" {
+  type = string
+  default = null
+}
+
 source "azure-arm" "main" {
   tenant_id = var.tenant_id
   subscription_id = var.subscription_id
@@ -28,22 +118,22 @@ build {
   ]
 
   provisioner "file" {
-    source      = "myapp.service"
+    source = "myapp.service"
     destination = "/home/packer/myapp.service"
   }
 
   provisioner "file" {
-    source      = "run_monolith.sh"
+    source = "run_monolith.sh"
     destination = "/home/packer/run_monolith.sh"
   }
 
   provisioner "file" {
-    source      = "../pom.xml"
+    source = "../pom.xml"
     destination = "/home/packer/pom.xml"
   }
 
   provisioner "file" {
-    source      = "../src"
+    source = "../src"
     destination = "/home/packer/src"
   }
 
