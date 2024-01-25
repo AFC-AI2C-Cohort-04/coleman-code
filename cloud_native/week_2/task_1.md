@@ -2,9 +2,9 @@
 
 1.   create main resource group and vm (replace password)
 ```
-az group create --name main_rg --location eastus2
+az group create --name main_rg --location eastus
 az vm create \
-  --location eastus2 \
+  --location eastus \
   --resource-group main_rg \
   --name main_vm \
   --image Ubuntu2204 \
@@ -109,7 +109,7 @@ cd ~/project/cloudchat/task1-monolith/packer
 
 13.   create azure principle and write environment variables to secret.pkrvars.hcl
 ```
-az group create -l eastus2 -n test_rg
+az group create -l eastus -n test_rg
 subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
 sp_info=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$subscription_id --query "[appId, password, tenant]" --output tsv))
 echo client_id=\"${sp_info[0]}\" > secret.pkrvars.hcl
@@ -148,5 +148,6 @@ az vm create \
 ```
 cd ~/project
 wget https://cloudnativehandout.blob.core.windows.net/project1/submitter && chmod +x submitter
+mv ~/project/cloudchat/task1-monolith ~project/cloudchat/monolith
 ./submitter task1
 ```
