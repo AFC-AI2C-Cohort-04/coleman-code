@@ -1,7 +1,5 @@
 ## Cloud Native | Week 2 | Task 1
 
-***fails at 15. perform packer build***
-
 1.   create main resource group and vm (replace password)
 ```
 az group create --name main_rg --location eastus2
@@ -128,7 +126,7 @@ packer validate \
   -var "resource_group=test_rg" .
 ```
 
-15.   perform packer build (fails to load context for cloudchat app)
+15.   perform packer build
 ```
 packer build \
   -var-file="secret.pkrvars.hcl" \
