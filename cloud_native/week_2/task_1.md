@@ -17,7 +17,7 @@ known red herrings and write-up inconsistencies
 
 1.   create main resource group and vm (replace password)
 ```
-az group create --name main_rg --location eastus2
+az group create --name main_rg --location eastus2 && \
 az vm create \
   --location eastus2 \
   --resource-group main_rg \
