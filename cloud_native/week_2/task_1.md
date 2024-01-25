@@ -86,7 +86,7 @@ terraform init
 terraform apply -var-file="secret.tfvars"
 ```
 
-9.   get db variables and write to "run_monolith.sh"
+9.   get db variables and write to "load_variables.sh", run as source
 ```
 echo "export MYSQL_HOST=\"$(terraform output -raw mysql_fqdn)\"" > load_variables.sh
 echo "export MYSQL_USER=\"$(terraform output -raw mysql_admin_username)\"" >> load_variables.sh
@@ -111,7 +111,7 @@ mvn clean package
 java -jar ./target/cloudchat-1.0.0.jar
 ```
 
-11.   get packer and update/replace "run_monolith.sh" with previously written variables
+11.   get packer, move "load_variables.sh" and write "run_monolith.sh"
 ```
 cd ~
 sudo apt-get install packer
