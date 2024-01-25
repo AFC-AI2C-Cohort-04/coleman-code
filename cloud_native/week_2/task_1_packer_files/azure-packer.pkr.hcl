@@ -1,77 +1,70 @@
-variable "client_id" {
-  type = string
-  sensitive = true
+packer {
+  required_plugins {
+    azure = {
+      version = ">= 2.0.2"
+      source  = "github.com/hashicorp/azure"
+    }
+  }
 }
 
-variable "client_secret" {
-  type = string
-  sensitive = true
-}
-
-variable "tenant_id" {
-  type = string
-  sensitive = true
-}
-
-variable "subscription_id" {
-  type = string
-  sensitive = true
-}
-
-variable "resource_group" {
-  type = string
-  default = ""
-}
-
-variable "managed_image_name" {
-  type = string
-  default = ""
-}
-
-source "azure-arm" "example" {
-  client_id = var.client_id
-  client_secret = var.client_secret
+source "azure-arm" "main" {
   tenant_id = var.tenant_id
   subscription_id = var.subscription_id
+  client_id = var.client_id
+  client_secret = var.client_secret
+  location = var.location
   managed_image_resource_group_name = var.resource_group
   managed_image_name = var.managed_image_name
-  os_type = "Linux"
-  image_publisher = "canonical"
-  image_offer = "0001-com-ubuntu-server-jammy"
-  image_sku = "22_04-lts"
-  vm_size = "Standard_B2s"
-  location = "eastus"
+  os_type = var.vm_os_type
+  image_publisher = var.vm_image_publisher
+  image_offer = var.vm_image_offer
+  image_sku = var.vm_image_sku
+  vm_size = var.vm_size
 }
 
 build {
   sources = [
-    "source.azure-arm.example"
+    "source.azure-arm.main"
   ]
 
   provisioner "file" {
-    source = "./myapp.service"
-    destination = "/tmp/myapp.service"
+    source      = "myapp.service"
+    destination = "/home/packer/myapp.service"
   }
 
   provisioner "file" {
-    source = "./run_monolith.sh"
-    destination = "/tmp/run_monolith.sh"
+    source      = "run_monolith.sh"
+    destination = "/home/packer/run_monolith.sh"
   }
 
   provisioner "file" {
-    source = "../target/cloudchat-1.0.0.jar"
-    destination = "/tmp/cloudchat-1.0.0.jar"
+    source      = "../pom.xml"
+    destination = "/home/packer/pom.xml"
+  }
+
+  provisioner "file" {
+    source      = "../src"
+    destination = "/home/packer/src"
   }
 
   provisioner "shell" {
+    environment_vars = [
+      "MYSQL_HOST=shared-mysql-fs-dnigtfhq.mysql.database.azure.com",
+      "MYSQL_USER=Monolithic_CloudChat_123",
+      "MYSQL_PASSWORD=Monolithic_CloudChat_123",
+      "SPRING_REDIS_HOST=redis-cache-rkgqfapa.redis.cache.windows.net",
+      "SPRING_REDIS_PORT=6379",
+      "SPRING_REDIS_PASSWORD=gHkEOlaYhIOrp7EGp1ZX0nWMZdFU6iOKRAzCaF5zzWM="
+    ]
     inline = [
       "cloud-init status --wait",
-      "sudo apt-get update",
-      "sudo apt-get install openjdk-17-jdk openjdk-17-jre jq -y",
-      "sudo mv /tmp/myapp.service /etc/systemd/system/myapp.service",
-      "chmod 644 /etc/systemd/system/myapp.service",
-      "sudo chmod +x /tmp/run_monolith.sh",
-      "sudo systemctl enable /etc/systemd/system/myapp.service",
+      "sudo apt update",
+      "sudo apt install -y maven openjdk-17-jdk openjdk-17-jre jq",
+      "sudo chmod +x run_monolith.sh",
+      "chmod 644 myapp.service",
+      "sudo cp myapp.service /etc/systemd/system/myapp.service",
+      "sudo systemctl enable myapp.service",
+      "mvn clean package"
     ]
   }
 }
