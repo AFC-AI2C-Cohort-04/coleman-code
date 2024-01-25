@@ -94,7 +94,7 @@ echo "export MYSQL_PASSWORD=\"$(terraform output -raw mysql_admin_password)\"" >
 echo "export SPRING_REDIS_HOST=\"$(terraform output -raw redis_hostname)\"" >> run_monolith.sh
 echo "export SPRING_REDIS_PORT=\"$(terraform output -raw redis_port)\"" >> run_monolith.sh
 echo "export SPRING_REDIS_PASSWORD=\"$(terraform output -raw redis_primary_access_key)\"" >> run_monolith.sh
-sudo chmox +x run_monolith.sh
+sudo chmod +x run_monolith.sh
 source ./run_monolith.sh
 ```
 
