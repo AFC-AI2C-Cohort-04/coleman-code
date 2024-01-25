@@ -120,7 +120,7 @@ echo "cd /home/packer"
 echo "/bin/java -jar ./target/cloudchat-1.0.0.jar" >> run_monolith.sh
 ```
 
-12.   update file contents [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_1_packer_files/azure-packer.pkr.hcl) & [myapp.service](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_1_packer_files/myapp.service) in ~/project/cloudchat/task1-monolith/packer/
+12.   update file contents [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_1_packer_files/azure-packer.pkr.hcl) in ~/project/cloudchat/task1-monolith/packer/
 
 13.   create azure principle, and write environment variables to secret.pkrvars.hcl
 ```
