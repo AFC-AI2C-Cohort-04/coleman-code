@@ -134,7 +134,7 @@ packer build \
   -var "resource_group=test_rg" .
 ```
 
-16.   press ctrl+Z and type 'bg' to move process to the background, connect to virtual machine and validate
+16.   create virtual machine from packer image
 ```
 az vm create \
   --resource-group test_rg \
