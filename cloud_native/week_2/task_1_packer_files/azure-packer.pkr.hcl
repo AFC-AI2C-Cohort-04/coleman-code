@@ -70,7 +70,7 @@ build {
       "sudo apt-get install openjdk-17-jdk openjdk-17-jre jq -y",
       "sudo mv /tmp/myapp.service /etc/systemd/system/myapp.service",
       "chmod 644 /etc/systemd/system/myapp.service",
-      "sudo chmod +x run_monolith.sh",
+      "sudo chmod +x /tmp/run_monolith.sh",
       "sudo systemctl enable myapp.service",
     ]
   }
