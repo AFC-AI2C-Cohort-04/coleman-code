@@ -88,15 +88,12 @@ terraform apply -var-file="secret.tfvars"
 
 9.   get db variables and write to "load_variables.sh", run as source
 ```
-echo "export MYSQL_HOST=\"$(terraform output -raw mysql_fqdn)\"" > load_variables.sh
-echo "export MYSQL_USER=\"$(terraform output -raw mysql_admin_username)\"" >> load_variables.sh
-echo "export MYSQL_PASSWORD=\"$(terraform output -raw mysql_admin_password)\"" >> load_variables.sh
-echo "export SPRING_REDIS_HOST=\"$(terraform output -raw redis_hostname)\"" >> load_variables.sh
-echo "export SPRING_REDIS_PORT=\"$(terraform output -raw redis_port)\"" >> load_variables.sh
-echo "export SPRING_REDIS_PASSWORD=\"$(terraform output -raw redis_primary_access_key)\"" >> load_variables.sh
-sudo chmod +x load_variables.sh
-source ./load_variables.sh
-sudo chmod -x load_variables.sh
+export MYSQL_HOST="$(terraform output -raw mysql_fqdn)"
+export MYSQL_USER="$(terraform output -raw mysql_admin_username)"
+export MYSQL_PASSWORD="$(terraform output -raw mysql_admin_password)"
+export SPRING_REDIS_HOST="$(terraform output -raw redis_hostname)"
+export SPRING_REDIS_PORT="$(terraform output -raw redis_port)"
+export SPRING_REDIS_PASSWORD="$(terraform output -raw redis_primary_access_key)"
 ```
 
 10a.   application login (login once 10b. successfully runs)
@@ -123,16 +120,21 @@ echo "/bin/java -jar ./target/cloudchat-1.0.0.jar" >> run_monolith.sh
 
 12.   update file content [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/project/cloudchat/task1-monolith/packer/ 
 
-13.   create azure principle, move load_variables.sh to secret.pkrvars.hcl and add azure principle variables to environment
+13.   create azure principle, and write environment variables to secret.pkrvars.hcl
 ```
 az group create -l eastus -n test_rg
 subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
 sp_info=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$subscription_id --query "[appId, password, tenant]" --output tsv))
-mv ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/load_variables.sh ~/project/cloudchat/task1-monolith/packer/secret.pkrvars.hcl
-echo client_id=\"${sp_info[0]}\" >> secret.pkrvars.hcl
+echo client_id=\"${sp_info[0]}\" > secret.pkrvars.hcl
 echo client_secret=\"${sp_info[1]}\" >> secret.pkrvars.hcl
 echo tenant_id=\"${sp_info[2]}\" >> secret.pkrvars.hcl
 echo subscription_id=\"$subscription_id\" >> secret.pkrvars.hcl
+echo MYSQL_HOST=\"$MYSQL_HOST\" >> secret.pkrvars.hcl
+echo MYSQL_USER=\"$MYSQL_USER\" >> secret.pkrvars.hcl
+echo MYSQL_PASSWORD=\"$MYSQL_PASSWORD\" >> secret.pkrvars.hcl
+echo SPRING_REDIS_HOST=\"$SPRING_REDIS_HOST\" >> secret.pkrvars.hcl
+echo SPRING_REDIS_PORT=\"$SPRING_REDIS_PORT\" >> secret.pkrvars.hcl
+echo SPRING_REDIS_PASSWORD=\"$SPRING_REDIS_PASSWORD\" >> secret.pkrvars.hcl
 ```
 
 14.   validate packer build
