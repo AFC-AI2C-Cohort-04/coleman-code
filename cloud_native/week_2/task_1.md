@@ -131,6 +131,12 @@ echo client_id=\"${sp_info[0]}\" > secret.pkrvars.hcl
 echo client_secret=\"${sp_info[1]}\" >> secret.pkrvars.hcl
 echo tenant_id=\"${sp_info[2]}\" >> secret.pkrvars.hcl
 echo subscription_id=\"$subscription_id\" >> secret.pkrvars.hcl
+echo "mysql_host = \"${MYSQL_HOST}\""
+echo "mysql_user = \"${MYSQl_USER}\""
+echo "mysql_password = \"${MYSQL_PASSWORD}\""
+echo "spring_redis_host = \"${SPRING_REDIS_HOST}\""
+echo "spring_redis_port = \"${SPRING_REDIS_PORT}\""
+echo "spring_redis_password = \"${SPRING_REDIS_PASSWORD}\""
 ```
 
 14.   validate packer build
