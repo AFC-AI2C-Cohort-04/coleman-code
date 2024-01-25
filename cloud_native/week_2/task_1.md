@@ -95,7 +95,7 @@ echo "export SPRING_REDIS_HOST=$(terraform output -raw redis_hostname)" >> db_va
 echo "export SPRING_REDIS_PORT=$(terraform output -raw redis_port)" >> db_variables.sh
 echo "export SPRING_REDIS_PASSWORD=$(terraform output -raw redis_primary_access_key)" >> db_variables.sh
 sudo chmod +x db_variables.sh
-sudo ./db_variables.sh
+./db_variables.sh
 ```
 
 10a.   application login (login once 10b. successfully runs)
