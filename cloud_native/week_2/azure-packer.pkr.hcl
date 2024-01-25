@@ -75,7 +75,7 @@ source "azure-arm" "example" {
   image_offer = "0001-com-ubuntu-server-jammy"
   image_sku = "22_04-lts"
   vm_size = "Standard_B2s"
-  location = "East US 2"
+  location = "eastus2"
 }
 
 build {
@@ -84,22 +84,22 @@ build {
   ]
 
   provisioner "file" {
-    source = "/home/azureuser/project/cloudchat/task1-monolith/packer/myapp.service"
+    source = "myapp.service"
     destination = "/home/packer/myapp.service"
   }
 
   provisioner "file" {
-    source = "/home/azureuser/project/cloudchat/task1-monolith/packer/run_monolith.sh"
+    source = "run_monolith.sh"
     destination = "/home/packer/run_monolith.sh"
   }
 
   provisioner "file" {
-    source = "/home/azureuser/project/cloudchat/task1-monolith/src"
+    source = "../src"
     destination = "/home/packer/src"
   }
 
   provisioner "file" {
-    source = "/home/azureuser/project/cloudchat/task1-monolith/pom.xml"
+    source = "../pom.xml"
     destination = "/home/packer/pom.xml"
   }
 
