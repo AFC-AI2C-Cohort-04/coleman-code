@@ -109,18 +109,17 @@ build {
       "MYSQL_USER=${var.MYSQL_USER}",
       "MYSQL_PASSWORD=${var.MYSQL_PASSWORD}",
       "SPRING_REDIS_HOST=${var.SPRING_REDIS_HOST}",
-      "SPRING_REDIS_PASSWORD=${var.SPRING_REDIS_PASSWORD}",
-      "SPRING_REDIS_PORT=${var.SPRING_REDIS_PORT}"
+      "SPRING_REDIS_PORT=${var.SPRING_REDIS_PORT}",
+      "SPRING_REDIS_PASSWORD=${var.SPRING_REDIS_PASSWORD}"
     ]
     inline = [
       "cloud-init status --wait",
       "sudo apt-get update",
-      "sudo apt-get install -y maven openjdk-17-jdk jq",
+      "sudo apt-get install -y openjdk-17-jdk",
       "sudo chmod +x run_monolith.sh",
       "sudo chmod 644 myapp.service",
       "sudo cp myapp.service /etc/systemd/system/myapp.service",
-      "sudo systemctl enable myapp.service",
-      "./run_monolith.sh"
+      "sudo systemctl enable myapp.service"
     ]
   }
 }
