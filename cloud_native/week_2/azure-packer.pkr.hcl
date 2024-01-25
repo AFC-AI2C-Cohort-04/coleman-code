@@ -30,6 +30,36 @@ variable "managed_image_name" {
   default = ""
 }
 
+variable "MYSQL_HOST" {
+  type = string
+  default = ""
+}
+
+variable "MYSQL_USER" {
+  type = string
+  default = ""
+}
+
+variable "MYSQL_PASSWORD" {
+  type = string
+  default = ""
+}
+
+variable "SPRING_REDIS_HOST" {
+  type = string
+  default = ""
+}
+
+variable "SPRING_REDIS_PORT" {
+  type = string
+  default = ""
+}
+
+variable "SPRING_REDIS_PASSWORD" {
+  type = string
+  default = ""
+}
+
 source "azure-arm" "example" {
   client_id = var.client_id
   client_secret = var.client_secret
@@ -74,6 +104,14 @@ build {
   }
 
   provisioner "shell" {
+    environment_vars = [
+      "MYSQL_HOST=${var.MYSQL_HOST}",
+      "MYSQL_USER=${var.MYSQL_USER}",
+      "MYSQL_PASSWORD=${var.MYSQL_PASSWORD}",
+      "SPRING_REDIS_HOST=${var.SPRING_REDIS_HOST}",
+      "SPRING_REDIS_PORT=${var.SPRING_REDIS_PORT}",
+      "SPRING_REDIS_PASSWORD=${var.SPRING_REDIT_PASSWORD}"
+    ]
     inline = [
       "cloud-init status --wait",
       "sudo apt-get update",
