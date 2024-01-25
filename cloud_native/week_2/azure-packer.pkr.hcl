@@ -51,21 +51,20 @@ build {
   ]
 
   # remove /home/azureuser/project/cloudchat/task1-monolith/packer/ from source paths
-  # change /tmp/ to /home/packer/ for destination paths
 
   provisioner "file" {
     source = "myapp.service"
-    destination = "/home/packer/myapp.service"
+    destination = "/tmp/myapp.service"
   }
 
   provisioner "file" {
     source = "run_monolith.sh"
-    destination = "/home/packer/run_monolith.sh"
+    destination = "/tmp/run_monolith.sh"
   }
 
   provisioner "file" {
     source = "../target/cloudchat-1.0.0.jar"
-    destination = "/home/packer/target/cloudchat-1.0.0.jar"
+    destination = "/tmp/cloudchat-1.0.0.jar"
   }
 
   provisioner "shell" {
@@ -73,11 +72,10 @@ build {
       "cloud-init status --wait",
       "sudo apt-get update",
       "sudo apt-get install openjdk-17-jdk openjdk-17-jre jq -y",
-      "sudo mv myapp.service /etc/systemd/system/myapp.service",
+      "sudo mv /tmp/myapp.service /etc/systemd/system/myapp.service",
       "chmod 644 /etc/systemd/system/myapp.service",
       "sudo chmod +x run_monolith.sh",
       "sudo systemctl enable myapp.service",
-      # maven build sequence not needed
     ]
   }
 }
