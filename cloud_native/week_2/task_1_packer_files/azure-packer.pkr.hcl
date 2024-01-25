@@ -49,12 +49,12 @@ build {
   ]
 
   provisioner "file" {
-    source = "myapp.service"
+    source = "./myapp.service"
     destination = "/tmp/myapp.service"
   }
 
   provisioner "file" {
-    source = "run_monolith.sh"
+    source = "./run_monolith.sh"
     destination = "/tmp/run_monolith.sh"
   }
 
@@ -71,7 +71,7 @@ build {
       "sudo mv /tmp/myapp.service /etc/systemd/system/myapp.service",
       "chmod 644 /etc/systemd/system/myapp.service",
       "sudo chmod +x /tmp/run_monolith.sh",
-      "sudo systemctl enable myapp.service",
+      "sudo systemctl enable /etc/systemd/system/myapp.service",
     ]
   }
 }
