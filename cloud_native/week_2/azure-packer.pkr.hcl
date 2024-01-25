@@ -103,6 +103,7 @@ build {
   provisioner "file" {
     source = "../target"
     destination = "/home/packer/target"
+  }
 
   provisioner "shell" {
     environment_vars = [
