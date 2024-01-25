@@ -95,7 +95,7 @@ echo "export SPRING_REDIS_HOST=$(terraform output redis_hostname)" >> db_variabl
 echo "export SPRING_REDIS_PORT=$(terraform output redis_port)" >> db_variables.sh
 echo "export SPRING_REDIS_PASSWORD=$(terraform output redis_primary_access_key)" >> run_monolith.sh
 sudo chmod +x run_monolith.sh
-sudo run_monolith.sh
+sudo ./run_monolith.sh
 sudo chmod -x run_monolith.sh
 echo "cd /home/packer" >> run_monolith.sh
 echo "java -jar ./target/cloudchat-1.0.0.jar" >> run_monolith.sh
