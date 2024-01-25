@@ -1,25 +1,21 @@
 # file goes in ~/project/cloudchat/task1-monolith/packer
 variable "client_id" {
   type = string
-  default = ""
   sensitive = true
 }
 
 variable "client_secret" {
   type = string
-  default = ""
   sensitive = true
 }
 
 variable "tenant_id" {
   type = string
-  default = ""
   sensitive = true
 }
 
 variable "subscription_id" {
   type = string
-  default = ""
   sensitive = true
 }
 
@@ -29,36 +25,6 @@ variable "resource_group" {
 }
 
 variable "managed_image_name" {
-  type = string
-  default = ""
-}
-
-variable "MYSQL_HOST" {
-  type = string
-  default = ""
-}
-
-variable "MYSQL_USER" {
-  type = string
-  default = ""
-}
-
-variable "MYSQL_PASSWORD" {
-  type = string
-  default = ""
-}
-
-variable "SPRING_REDIS_HOST" {
-  type = string
-  default = ""
-}
-
-variable "SPRING_REDIS_PORT" {
-  type = string
-  default = ""
-}
-
-variable "SPRING_REDIS_PASSWORD" {
   type = string
   default = ""
 }
@@ -101,23 +67,14 @@ build {
   }
 
   provisioner "shell" {
-    environment_vars = [
-      "MYSQL_HOST=${var.MYSQL_HOST}",
-      "MYSQL_USER=${var.MYSQL_USER}",
-      "MYSQL_PASSWORD=${var.MYSQL_PASSWORD}",
-      "SPRING_REDIS_HOST=${var.SPRING_REDIS_HOST}",
-      "SPRING_REDIS_PORT=${var.SPRING_REDIS_PORT}",
-      "SPRING_REDIS_PASSWORD=${var.SPRING_REDIS_PASSWORD}"
-    ]
     inline = [
       "cloud-init status --wait",
       "sudo apt-get update",
-      "sudo apt-get install maven openjdk-17-jdk openjdk-17-jre jq -y",
+      "sudo apt-get install openjdk-17-jdk openjdk-17-jre jq -y",
       "sudo mv myapp.service /etc/systemd/system/myapp.service",
       "sudo chmod +x run_monolith.sh",
       "chmod 644 /etc/systemd/system/myapp.service",
       "sudo systemctl enable myapp.service",
-      "mvn clean package",
     ]
   }
 }
