@@ -49,12 +49,12 @@ build {
 
   provisioner "shell" {
     environment_vars = [
-      "MYSQL_HOST=shared-mysql-fs-dnigtfhq.mysql.database.azure.com",
-      "MYSQL_USER=Monolithic_CloudChat_123",
-      "MYSQL_PASSWORD=Monolithic_CloudChat_123",
-      "SPRING_REDIS_HOST=redis-cache-rkgqfapa.redis.cache.windows.net",
-      "SPRING_REDIS_PORT=6379",
-      "SPRING_REDIS_PASSWORD=gHkEOlaYhIOrp7EGp1ZX0nWMZdFU6iOKRAzCaF5zzWM="
+      "MYSQL_HOST=${var.mysql_host}",
+      "MYSQL_USER=${var.mysql_user}",
+      "MYSQL_PASSWORD=${var.mysql_password}",
+      "SPRING_REDIS_HOST=${var.spring_redis_host}",
+      "SPRING_REDIS_PORT=${var.spring_redis_port}",
+      "SPRING_REDIS_PASSWORD=${var.spring_redis_password}"
     ]
     inline = [
       "cloud-init status --wait",
