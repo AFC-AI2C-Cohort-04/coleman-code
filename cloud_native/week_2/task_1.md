@@ -88,17 +88,17 @@ terraform apply -var-file="secret.tfvars"
 
 9.   get db variables and write to "run_monolith.sh"
 ```
-echo "export MYSQL_HOST=$(terraform output mysql_fqdn)" > run_monolith.sh
-echo "export MYSQL_USER=$(terraform output mysql_admin_username)" >> run_monolith.sh
-echo "export MYSQL_PASSWORD=$(terraform output mysql_admin_password)" >> run_monolith.sh
-echo "export SPRING_REDIS_HOST=$(terraform output redis_hostname)" >> run_monolith.sh
-echo "export SPRING_REDIS_PORT=$(terraform output redis_port)" >> run_monolith.sh
-echo "export SPRING_REDIS_PASSWORD=$(terraform output redis_primary_access_key)" >> run_monolith.sh
-sudo chmod +x run_monolith.sh
-sudo ./run_monolith.sh
-sudo chmod -x run_monolith.sh
-echo "cd /home/packer" >> run_monolith.sh
-echo "java -jar ./target/cloudchat-1.0.0.jar" >> run_monolith.sh
+echo "export MYSQL_HOST=$(terraform output mysql_fqdn)" > db_variables.sh
+echo "export MYSQL_USER=$(terraform output mysql_admin_username)" >> db_variables.sh
+echo "export MYSQL_PASSWORD=$(terraform output mysql_admin_password)" >> db_variables.sh
+echo "export SPRING_REDIS_HOST=$(terraform output redis_hostname)" >> db_variables.sh
+echo "export SPRING_REDIS_PORT=$(terraform output redis_port)" >> db_variables.sh
+echo "export SPRING_REDIS_PASSWORD=$(terraform output redis_primary_access_key)" >> db_variables.sh
+sudo chmod +x db_variables.sh
+sudo ./db_variables.sh
+sudo chmod -x db_variables.sh
+echo "cd /home/packer" >> db_variables.sh
+echo "java -jar ./target/cloudchat-1.0.0.jar" >> db_variables.sh
 ```
 
 10a.   application login (login once 10b. successfully runs)
@@ -118,7 +118,7 @@ java -jar ./target/cloudchat-1.0.0.jar
 cd ~
 sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
-mv -f ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/run_monolith.sh ~/project/cloudchat/task1-monolith/packer/run_monolith.sh
+mv -f ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/db_variables.sh ~/project/cloudchat/task1-monolith/packer/run_monolith.sh
 cd ~/project/cloudchat/task1-monolith/packer
 ```
 
