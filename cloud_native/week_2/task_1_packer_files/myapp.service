@@ -1,0 +1,8 @@
+[Unit]
+Description=Monolithic Application
+
+[Service]
+ExecStart=/tmp/run_monolith.sh
+
+[Install]
+WantedBy=multi-user.target
