@@ -4,7 +4,7 @@ known red herrings and write-up inconsistencies
 - location should be "eastus" not "eastus2"
 - change directory name "handout" to "project" to match write-up and provided code
 - terraform output variable strings need to be stored as raw (without quotation marks)
-- azure-packer.pkr.hcl provides false assumptions
+- azure-packer.pkr.hcl contains false assumptions
 - change directory name "task1-monolith" to "monolith" before submitting for task 1
 
 1.   create main resource group and vm (replace password)
