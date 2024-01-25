@@ -96,14 +96,18 @@ build {
   }
 
   provisioner "file" {
+    source = "../pom.xml"
+    destination = "/home/packer/pom.xml"
+  }
+
+  provisioner "file" {
     source = "../src"
     destination = "/home/packer/src"
   }
 
   provisioner "file" {
-    source = "../pom.xml"
-    destination = "/home/packer/pom.xml"
-  }
+    source = "../target"
+    destination = "/home/packer/target"
 
   provisioner "shell" {
     environment_vars = [
