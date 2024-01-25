@@ -74,6 +74,7 @@ build {
       "SPRING_REDIS_HOST=${var.SPRING_REDIS_HOST}",
       "SPRING_REDIS_PORT=${var.SPRING_REDIS_PORT}",
       "SPRING_REDIS_PASSWORD=${var.SPRING_REDIS_PASSWORD}"
+    ]
     inline = [
       "cloud-init status --wait",
       "sudo apt-get update",
