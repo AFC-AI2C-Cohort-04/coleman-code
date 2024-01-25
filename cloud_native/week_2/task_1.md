@@ -117,7 +117,7 @@ sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
 mv ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/run_monolith.sh ~/project/cloudchat/task1-monolith/packer/run_monolith.sh
 cd ~/project/cloudchat/task1-monolith/packer
-echo "cd /home/packer" > run_monolith.sh
+echo "cd /home/packer" >> run_monolith.sh
 echo "/bin/java -jar ./target/cloudchat-1.0.0.jar" >> run_monolith.sh
 ```
 
