@@ -96,13 +96,8 @@ build {
   }
 
   provisioner "file" {
-    source = "../pom.xml"
-    destination = "/home/packer/pom.xml"
-  }
-
-  provisioner "file" {
-    source = "../src"
-    destination = "/home/packer/src"
+    source = "../target/cloudchat-1.0.0.jar"
+    destination = "/home/packer/cloudchat-1.0.0.jar"
   }
 
   provisioner "shell" {
