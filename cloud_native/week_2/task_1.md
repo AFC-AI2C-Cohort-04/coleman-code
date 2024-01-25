@@ -88,14 +88,15 @@ terraform apply -var-file="secret.tfvars"
 
 9.   get db variables and write to "run_monolith.sh"
 ```
-echo "export MYSQL_HOST=\"$(terraform output -raw mysql_fqdn)\"" > run_monolith.sh
-echo "export MYSQL_USER=\"$(terraform output -raw mysql_admin_username)\"" >> run_monolith.sh
-echo "export MYSQL_PASSWORD=\"$(terraform output -raw mysql_admin_password)\"" >> run_monolith.sh
-echo "export SPRING_REDIS_HOST=\"$(terraform output -raw redis_hostname)\"" >> run_monolith.sh
-echo "export SPRING_REDIS_PORT=\"$(terraform output -raw redis_port)\"" >> run_monolith.sh
-echo "export SPRING_REDIS_PASSWORD=\"$(terraform output -raw redis_primary_access_key)\"" >> run_monolith.sh
-sudo chmod +x run_monolith.sh
-source ./run_monolith.sh
+echo "export MYSQL_HOST=\"$(terraform output -raw mysql_fqdn)\"" > load_variables.sh
+echo "export MYSQL_USER=\"$(terraform output -raw mysql_admin_username)\"" >> load_variables.sh
+echo "export MYSQL_PASSWORD=\"$(terraform output -raw mysql_admin_password)\"" >> load_variables.sh
+echo "export SPRING_REDIS_HOST=\"$(terraform output -raw redis_hostname)\"" >> load_variables.sh
+echo "export SPRING_REDIS_PORT=\"$(terraform output -raw redis_port)\"" >> load_variables.sh
+echo "export SPRING_REDIS_PASSWORD=\"$(terraform output -raw redis_primary_access_key)\"" >> load_variables.sh
+sudo chmod +x load_variables.sh
+source ./load_variables.sh
+sudo chmod -x load_variables.sh
 ```
 
 10a.   application login (login once 10b. successfully runs)
@@ -115,9 +116,8 @@ java -jar ./target/cloudchat-1.0.0.jar
 cd ~
 sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
-mv -f ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/run_monolith.sh ~/project/cloudchat/task1-monolith/packer/run_monolith.sh
+mv -f ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/load_variables.sh ~/project/cloudchat/task1-monolith/packer/load_variables.sh
 cd ~/project/cloudchat/task1-monolith/packer
-sudo chmod -x run_monolith.sh
 echo "cd /home/packer" >> run_monolith.sh
 echo "java -jar ./cloudchat-1.0.0.jar" >> run_monolith.sh
 ```
