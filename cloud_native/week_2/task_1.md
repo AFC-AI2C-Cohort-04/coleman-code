@@ -134,7 +134,7 @@ packer build \
   -var "resource_group=test_rg" .
 ```
 
-16.   create virtual machine from packer image
+16.   validate packer build by creating vm from image
 ```
 az vm create \
   --resource-group test_rg \
@@ -144,7 +144,7 @@ az vm create \
   --generate-ssh-keys
 ```
 
-17.   task 1 submitter
+17.   submit task 1
 ```
 cd ~/project
 wget https://cloudnativehandout.blob.core.windows.net/project1/submitter && chmod +x submitter
