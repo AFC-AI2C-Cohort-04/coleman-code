@@ -66,12 +66,6 @@ source "azure-arm" "example" {
   tenant_id = var.tenant_id
   subscription_id = var.subscription_id
   managed_image_resource_group_name = var.resource_group
-  MYSQL_HOST = var.MYSQL_HOST
-  MYSQL_USER = var.MYSQL_USER
-  MYSQL_PASSWORD = var.MYSQL_PASSWORD
-  SPRING_REDIS_HOST = var.SPRING_REDIS_HOST
-  SPRING_REDIS_PORT = var.SPRING_REDIS_PORT
-  SPRING_REDIS_PASSWORD = var.SPRING_REDIS_PASSWORD
   managed_image_name = var.managed_image_name
   os_type = "Linux"
   image_publisher = "canonical"
