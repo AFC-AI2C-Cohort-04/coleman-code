@@ -155,6 +155,6 @@ az vm create \
 ```
 cd ~/project
 wget https://cloudnativehandout.blob.core.windows.net/project1/submitter && chmod +x submitter
-mv ~/project/cloudchat/task1-monolith ~project/cloudchat/monolith
+mv ~/project/cloudchat/task1-monolith ~/project/cloudchat/monolith
 ./submitter task1
 ```
