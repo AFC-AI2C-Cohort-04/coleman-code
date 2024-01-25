@@ -1,5 +1,3 @@
-# file goes in ~/project/cloudchat/task1-monolith/packer
-
 variable "client_id" {
   type = string
   sensitive = true
@@ -50,8 +48,6 @@ build {
     "source.azure-arm.example"
   ]
 
-  # make source paths relative from /packer
-
   provisioner "file" {
     source = "myapp.service"
     destination = "/tmp/myapp.service"
@@ -76,7 +72,6 @@ build {
       "chmod 644 /etc/systemd/system/myapp.service",
       "sudo chmod +x run_monolith.sh",
       "sudo systemctl enable myapp.service",
-      # don't need maven build sequence
     ]
   }
 }
