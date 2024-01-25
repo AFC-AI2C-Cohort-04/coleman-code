@@ -2,7 +2,7 @@
 Description=Monolithic Application
 
 [Service]
-ExecStart=/tmp/run_monolith.sh
+ExecStart=/home/packer/run_monolith.sh
 
 [Install]
 WantedBy=multi-user.target
