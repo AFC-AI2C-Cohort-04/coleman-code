@@ -7,8 +7,8 @@ troubleshooting
 - [SUCCESS] packer builds image
 - [SUCCESS] can build vm from image
 - [FAILURE] vm from image can run java app and connect to db
-- [SUCCESS] submitter completes without error
-- [FAILURE] submitter runs application and connects to db
+- [SUCCESS 1/2] submitter completes without error
+- [FAILURE 2/2] submitter runs application and connects to db
 
 known red herrings and write-up inconsistencies
 - use the same subscription that is used by terraform when it creates the monolith db
