@@ -1,5 +1,12 @@
 ## Cloud Native | Week 2 | Task 1
 
+known red herrings and write-up inconsistencies
+- location should be "eastus" not "eastus2"
+- change directory name "handout" to "project" to match write-up and some provided code
+- terraform output variable strings need to be stored as raw (without quotation marks)
+- azure-packer.pkr.hcl provides false assumptions
+- change directory name "task1-monolith" to "monolith" before submitting for task 1
+
 1.   create main resource group and vm (replace password)
 ```
 az group create --name main_rg --location eastus
@@ -81,7 +88,7 @@ chmod +x db_variables.sh
 source db_variables.sh
 chmod -x db_variables.sh
 echo "cd /home/packer" >> db_variables.sh
-echo "nohup java -jar ./target/cloudchat-1.0.0.jar &" >> db_variables.sh
+echo "java -jar ./target/cloudchat-1.0.0.jar" >> db_variables.sh
 ```
 
 10a.   application login (wait to login after you do 11b.)
