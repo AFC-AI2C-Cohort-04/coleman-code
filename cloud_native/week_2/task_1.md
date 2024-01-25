@@ -8,7 +8,7 @@ troubleshooting
 - [SUCCESS] can build vm from image
 - [FAILURE] vm from image can run java app and connect to db
 - [SUCCESS] submitter completes without error
-- [FAILURE] port 8000/8080 open on vm built from image
+- [FAILURE] submitter runs application and connects to db
 
 known red herrings and write-up inconsistencies
 - use the same subscription that is used by terraform when it creates the monolith db
