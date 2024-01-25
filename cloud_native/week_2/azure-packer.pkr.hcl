@@ -50,7 +50,7 @@ build {
     "source.azure-arm.example"
   ]
 
-  # remove /home/azureuser/project/cloudchat/task1-monolith/packer/ from source paths
+  # make source paths relative from /packer
 
   provisioner "file" {
     source = "myapp.service"
@@ -76,6 +76,7 @@ build {
       "chmod 644 /etc/systemd/system/myapp.service",
       "sudo chmod +x run_monolith.sh",
       "sudo systemctl enable myapp.service",
+      # don't need maven build sequence
     ]
   }
 }
