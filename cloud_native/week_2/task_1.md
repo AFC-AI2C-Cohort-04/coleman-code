@@ -128,7 +128,7 @@ echo "/bin/java -jar ./target/cloudchat-1.0.0.jar" >> run_monolith.sh
 az group create -l eastus -n test_rg
 subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
 sp_info=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$subscription_id --query "[appId, password, tenant]" --output tsv))
-mv ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/load_variables.sh cd ~/project/cloudchat/task1-monolith/packer/secret.pkrvars.hcl
+mv ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/load_variables.sh ~/project/cloudchat/task1-monolith/packer/secret.pkrvars.hcl
 echo client_id=\"${sp_info[0]}\" >> secret.pkrvars.hcl
 echo client_secret=\"${sp_info[1]}\" >> secret.pkrvars.hcl
 echo tenant_id=\"${sp_info[2]}\" >> secret.pkrvars.hcl
