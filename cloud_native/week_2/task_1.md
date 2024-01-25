@@ -12,16 +12,15 @@ troubleshooting
 
 known red herrings and write-up inconsistencies
 - use the same subscription that is used by terraform when it creates the monolith db
-- location should be "eastus" not "eastus2"
 - change directory name "handout" to "project" to match write-up and provided code
 - "azure-packer.pkr.hcl" provided from handout contains false assumptions
 - change directory name "task1-monolith" to "monolith" before submitting for task 1
 
 1.   create main resource group and vm (replace password)
 ```
-az group create --name main_rg --location eastus
+az group create --name main_rg --location eastus2
 az vm create \
-  --location eastus \
+  --location eastus2 \
   --resource-group main_rg \
   --name main_vm \
   --image Ubuntu2204 \
