@@ -13,7 +13,6 @@ troubleshooting
 known red herrings and write-up inconsistencies
 - use the same subscription that is used by terraform when it creates the monolith db
 - change directory name "handout" to "project" to match write-up and provided code
-- "azure-packer.pkr.hcl" provided from handout contains false assumptions
 - change directory name "task1-monolith" to "monolith" before submitting for task 1
 
 1.   create main resource group and vm (replace password)
