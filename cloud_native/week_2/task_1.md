@@ -86,16 +86,14 @@ terraform init
 terraform apply -var-file="secret.tfvars"
 ```
 
-9.   get db variables and write to "run_monolith.sh"
+9.   get db variables from terraform output
 ```
-echo "export MYSQL_HOST=\"$(terraform output -raw mysql_fqdn)\"" > run_monolith.sh
-echo "export MYSQL_USER=\"$(terraform output -raw mysql_admin_username)\"" >> run_monolith.sh
-echo "export MYSQL_PASSWORD=\"$(terraform output -raw mysql_admin_password)\"" >> run_monolith.sh
-echo "export SPRING_REDIS_HOST=\"$(terraform output -raw redis_hostname)\"" >> run_monolith.sh
-echo "export SPRING_REDIS_PORT=\"$(terraform output -raw redis_port)\"" >> run_monolith.sh
-echo "export SPRING_REDIS_PASSWORD=\"$(terraform output -raw redis_primary_access_key)\"" >> run_monolith.sh
-sudo chmod +x run_monolith.sh
-source ./run_monolith.sh
+export MYSQL_HOST="$(terraform output -raw mysql_fqdn)"
+export MYSQL_USER="$(terraform output -raw mysql_admin_username)"
+export MYSQL_PASSWORD="$(terraform output -raw mysql_admin_password)"
+export SPRING_REDIS_HOST="$(terraform output -raw redis_hostname)"
+export SPRING_REDIS_PORT="$(terraform output -raw redis_port)"
+export SPRING_REDIS_PASSWORD="$(terraform output -raw redis_primary_access_key)"
 ```
 
 10a.   application login (login once 10b. successfully runs)
@@ -115,10 +113,8 @@ java -jar ./target/cloudchat-1.0.0.jar
 cd ~
 sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
-mv -f ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/run_monolith.sh ~/project/cloudchat/task1-monolith/packer/run_monolith.sh
 cd ~/project/cloudchat/task1-monolith/packer
-sudo chmod -x run_monolith.sh
-echo "cd /home/packer" >> run_monolith.sh
+echo "cd /home/packer" > run_monolith.sh
 echo "java -jar ./cloudchat-1.0.0.jar" >> run_monolith.sh
 ```
 
