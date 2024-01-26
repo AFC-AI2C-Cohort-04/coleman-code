@@ -89,6 +89,7 @@ az vm create \
   --resource-group test_rg \
   --name test_vm \
   --image test_image \
+  --size Standard_B2s \
   --admin-username azureuser \
   --generate-ssh-keys
 ```
