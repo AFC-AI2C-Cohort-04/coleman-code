@@ -39,12 +39,11 @@ az vm open-port --resource-group main_rg --name main_vm --port 8080 --priority 1
 ssh azureuser@$(az vm show -d -g main_rg -n main_vm --query publicIps -o tsv)
 ```
 
-4.   get handout and change directory name from "handout" to "project"
+4.   get handout
 ```
 cd ~
 wget https://cloudnativehandout.blob.core.windows.net/project1/handout.tar.gz
 tar -xvzf handout.tar.gz
-mv ~/handout ~/project
 ```
 
 5.   get terraform
@@ -82,14 +81,14 @@ curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
 8.   create monolith db (~25 minutes)
 ```
-cd ~/project/cloudchat/terraform-setup/task1-monolith_data_tier
+cd ~/handout/cloudchat/terraform-setup/task1-monolith_data_tier
 terraform init
 terraform apply -var-file="secret.tfvars"
 ```
 
 9.   write db variables to "run_monolith.sh", run as source
 ```
-cd ~/project/cloudchat/terraform-setup/task1-monolith_data_tier
+cd ~/handout/cloudchat/terraform-setup/task1-monolith_data_tier
 echo "export MYSQL_HOST=\"$(terraform output -raw mysql_fqdn)\"" > run_monolith.sh
 echo "export MYSQL_USER=\"$(terraform output -raw mysql_admin_username)\"" >> run_monolith.sh
 echo "export MYSQL_PASSWORD=\"$(terraform output -raw mysql_admin_password)\"" >> run_monolith.sh
@@ -107,7 +106,7 @@ echo "login with lucas for username and password @ http:$(az vm show -d -g main_
 
 10b.   test application (~5 minutes, ctrl+C after logging in and testing)
 ```
-cd ~/project/cloudchat/task1-monolith
+cd ~/handout/cloudchat/task1-monolith
 mvn clean package
 java -jar ./target/cloudchat-1.0.0.jar
 ```
@@ -117,17 +116,17 @@ java -jar ./target/cloudchat-1.0.0.jar
 cd ~
 sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
-mv ~/project/cloudchat/terraform-setup/task1-monolith_data_tier/run_monolith.sh ~/project/cloudchat/task1-monolith/packer/run_monolith.sh
-cd ~/project/cloudchat/task1-monolith/packer
+mv ~/handout/cloudchat/terraform-setup/task1-monolith_data_tier/run_monolith.sh ~/handout/cloudchat/task1-monolith/packer/run_monolith.sh
+cd ~/handout/cloudchat/task1-monolith/packer
 echo "cd /home/packer" >> run_monolith.sh
 echo "/bin/java -jar ./target/cloudchat-1.0.0.jar" >> run_monolith.sh
 ```
 
-12.   update file contents [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_1_packer_files/azure-packer.pkr.hcl) in ~/project/cloudchat/task1-monolith/packer/
+12.   update file contents [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_1_packer_files/azure-packer.pkr.hcl) in ~/handout/cloudchat/task1-monolith/packer/
 
 13.   create azure principle, and write environment variables to secret.pkrvars.hcl
 ```
-cd ~/project/cloudchat/task1-monolith/packer
+cd ~/handout/cloudchat/task1-monolith/packer
 subscription_id=$(az account list --query "[?isDefault].id" --output tsv) && \
 az group create -l eastus -n test_rg && \
 sp_info=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$subscription_id --query "[appId, password, tenant]" --output tsv))
@@ -145,7 +144,7 @@ echo "spring_redis_password = \"${SPRING_REDIS_PASSWORD}\"" >> secret.pkrvars.hc
 
 14.   validate packer build
 ```
-cd ~/project/cloudchat/task1-monolith/packer
+cd ~/handout/cloudchat/task1-monolith/packer
 packer validate \
   -var-file="secret.pkrvars.hcl" \
   -var "managed_image_name=test_image" \
@@ -154,7 +153,7 @@ packer validate \
 
 15.   perform packer build (~5 minutes)
 ```
-cd ~/project/cloudchat/task1-monolith/packer
+cd ~/handout/cloudchat/task1-monolith/packer
 packer build \
   -var-file="secret.pkrvars.hcl" \
   -var "managed_image_name=test_image" \
@@ -174,7 +173,7 @@ az vm create \
 
 17.   export your submission credentials are run submitter (~10 minutes)
 ```
-cd ~/project
+cd ~/handout
 wget https://cloudnativehandout.blob.core.windows.net/project1/submitter && chmod +x submitter
 export SUBMISSION_USERNAME=<USERNAME>
 export SUBMISSION_PASSWORD=<PASSWORD>
