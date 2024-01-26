@@ -13,11 +13,13 @@ variable "client_secret" {
 variable "tenant_id" {
   type    = string
   default = ""
+  sensitive = true
 }
 
 variable "subscription_id" {
   type    = string
   default = ""
+  sensitive = true
 }
 
 variable "mysql_host" {
