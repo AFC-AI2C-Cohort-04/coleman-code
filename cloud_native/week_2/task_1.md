@@ -172,9 +172,11 @@ az vm create \
   --generate-ssh-keys
 ```
 
-17.   submitter (~10 minutes)
+17.   export your submission credentials are run submitter (~10 minutes)
 ```
 cd ~/project
 wget https://cloudnativehandout.blob.core.windows.net/project1/submitter && chmod +x submitter
+export SUBMISSION_USERNAME=<USERNAME>
+export SUBMISSION_PASSWORD=<PASSWORD>
 ./submitter task1
 ```
