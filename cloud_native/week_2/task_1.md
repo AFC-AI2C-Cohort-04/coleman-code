@@ -173,7 +173,7 @@ az vm create \
   --generate-ssh-keys
 ```
 
-17.   get submitter, rename "task1-monolith" directory to "monolith", and submit for task 1 (~10 minutes)
+17.   submitter (~10 minutes)
 ```
 cd ~/project
 wget https://cloudnativehandout.blob.core.windows.net/project1/submitter && chmod +x submitter
