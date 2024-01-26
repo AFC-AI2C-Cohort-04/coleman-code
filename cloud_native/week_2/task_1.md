@@ -20,12 +20,12 @@ sudo chmod +x run_monolith.sh
 source ./run_monolith.sh
 ```
 
-3a.   application login (login once 3b. successfully runs)
+3a.   generate application url for login (login once 3b. successfully runs)
 ```
 echo "login with lucas for username and password @ http:$(az vm show -d -g main_rg -n main_vm --query publicIps -o tsv):8080/login"
 ```
 
-3b.   test application (~5 minutes, ctrl+C after logging in and testing)
+3b.   test application (~5 minutes, ctrl+C after done with testing)
 ```
 cd ~/handout/cloudchat/task1-monolith
 mvn clean package
