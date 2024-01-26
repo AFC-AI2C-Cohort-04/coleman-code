@@ -81,7 +81,7 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 ```
 
-8.   create monolith db (20~30 minutes)
+8.   create monolith db (~25 minutes)
 ```
 cd ~/project/cloudchat/terraform-setup/task1-monolith_data_tier
 terraform init
