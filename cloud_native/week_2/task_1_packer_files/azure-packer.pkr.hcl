@@ -27,6 +27,16 @@ variable "subscription_id" {
   default = null
 }
 
+variable "resource_group" {
+  type = string
+  default = "test_rg"
+}
+
+variable "managed_image_name" {
+  type = string
+  default = "test_image"
+}
+
 variable "mysql_host" {
   type = string
   default = null
@@ -60,16 +70,6 @@ variable "spring_redis_password" {
 variable "location" {
   type = string
   default = "eastus2"
-}
-
-variable "resource_group" {
-  type = string
-  default = "cloud-native-week-01-packer" # this should exist already
-}
-
-variable "managed_image_name" {
-  type = string
-  default = "template_image"
 }
 
 variable "vm_os_type" {
