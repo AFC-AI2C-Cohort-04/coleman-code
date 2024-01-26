@@ -1,6 +1,6 @@
 ## Cloud Native | Week 2 | Task 1
 
-troubleshooting
+success steps
 - [SUCCESS] terraform builds db
 - [SUCCESS] maven builds java app
 - [SUCCESS] java app runs and connects to db
@@ -10,7 +10,7 @@ troubleshooting
 - [SUCCESS 1/2] submitter completes without error
 - [FAILURE 2/2] submitter runs application and connects to db
 
-known red herrings and write-up inconsistencies
+notice
 - use the same subscription that is used by terraform when it creates the monolith db
 - change directory name "handout" to "project" to match write-up and provided code
 
