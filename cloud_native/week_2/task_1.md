@@ -20,10 +20,10 @@ known red herrings and write-up inconsistencies
 az group create --name main_rg --location eastus2 && \
 az vm create \
   --resource-group main_rg \
+  --location eastus2 \
   --name main_vm \
   --image Canonical:0001-com-ubuntu-server-focal:20_04-lts-gen2:latest \
   --size Standard_B2s \
-  --location eastus2 \
   --admin-username azureuser \
   --admin-password <PASSWORD>
 ```
@@ -165,6 +165,7 @@ packer build \
 16.   validate packer build by creating vm from image
 ```
 az vm create \
+  --location eastus2 \
   --resource-group test_rg \
   --name test_vm \
   --image test_image \
