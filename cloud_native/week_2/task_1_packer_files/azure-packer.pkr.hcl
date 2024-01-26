@@ -87,22 +87,22 @@ build {
   ]
 
   provisioner "file" {
-    source = "/home/azureuser/project/cloudchat/task1-monolith/packer/myapp.service"
+    source = "/home/azureuser/handout/cloudchat/task1-monolith/packer/myapp.service"
     destination = "/home/packer/myapp.service"
   }
 
   provisioner "file" {
-    source = "/home/azureuser/project/cloudchat/task1-monolith/packer/run_monolith.sh"
+    source = "/home/azureuser/handout/cloudchat/task1-monolith/packer/run_monolith.sh"
     destination = "/home/packer/run_monolith.sh"
   }
 
   provisioner "file" {
-    source = "/home/azureuser/project/cloudchat/task1-monolith/pom.xml"
+    source = "/home/azureuser/handout/cloudchat/task1-monolith/pom.xml"
     destination = "/home/packer/pom.xml"
   }
 
   provisioner "file" {
-    source = "/home/azureuser/project/cloudchat/task1-monolith/src"
+    source = "/home/azureuser/handout/cloudchat/task1-monolith/src"
     destination = "/home/packer/src"
   }
 
