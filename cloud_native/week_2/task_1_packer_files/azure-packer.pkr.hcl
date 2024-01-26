@@ -110,7 +110,6 @@ build {
 
   provisioner "shell" {
     environment_vars = [
-      "DEBIANT_FRONTEND=noninteractive",
       "MYSQL_HOST=${var.mysql_host}",
       "MYSQL_USER=${var.mysql_user}",
       "MYSQL_PASSWORD=${var.mysql_password}",
