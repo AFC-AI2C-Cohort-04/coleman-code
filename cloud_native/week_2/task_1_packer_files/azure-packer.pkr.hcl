@@ -75,7 +75,7 @@ source "azure-arm" "main" {
   subscription_id = var.subscription_id
   managed_image_resource_group_name = var.resource_group
   managed_image_name = var.managed_image_name
-  location = "East US 2"
+  location = "eastus"
   os_type = "Linux"
   image_publisher = "Canonical"
   image_offer = "0001-com-ubuntu-server-jammy"
@@ -89,22 +89,22 @@ build {
   ]
 
   provisioner "file" {
-    source = "/home/azureuser/handout/cloudchat/task1-monolith/packer/myapp.service"
+    source = "/home/azureuser/handout/cloudchat/monolith/packer/myapp.service"
     destination = "/home/packer/myapp.service"
   }
 
   provisioner "file" {
-    source = "/home/azureuser/handout/cloudchat/task1-monolith/packer/run_monolith.sh"
+    source = "/home/azureuser/handout/cloudchat/monolith/packer/run_monolith.sh"
     destination = "/home/packer/run_monolith.sh"
   }
 
   provisioner "file" {
-    source = "/home/azureuser/handout/cloudchat/task1-monolith/pom.xml"
+    source = "/home/azureuser/handout/cloudchat/monolith/pom.xml"
     destination = "/home/packer/pom.xml"
   }
 
   provisioner "file" {
-    source = "/home/azureuser/handout/cloudchat/task1-monolith/src"
+    source = "/home/azureuser/handout/cloudchat/monolith/src"
     destination = "/home/packer/src"
   }
 
