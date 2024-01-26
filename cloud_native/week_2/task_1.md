@@ -1,5 +1,10 @@
 ## Cloud Native | Week 2 | Task 1
 
+0.   rename /task1-monolith/ directory to /monolith/ (submitter requirement)
+```
+mv ~/handout/cloudchat/task1-monolith ~/handout/cloudchat/monolith
+```
+
 1.   create monolith db (~25 minutes)
 ```
 cd ~/handout/cloudchat/terraform-setup/task1-monolith_data_tier
@@ -28,7 +33,7 @@ echo "login with lucas for username and password @ http:$(az vm show -d -g main_
 
 3b.   test application (~5 minutes, ctrl+C after done with testing)
 ```
-cd ~/handout/cloudchat/task1-monolith
+cd ~/handout/cloudchat/monolith
 mvn clean package
 java -jar ./target/cloudchat-1.0.0.jar
 ```
@@ -38,17 +43,17 @@ java -jar ./target/cloudchat-1.0.0.jar
 cd ~
 sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
-mv ~/handout/cloudchat/terraform-setup/task1-monolith_data_tier/run_monolith.sh ~/handout/cloudchat/task1-monolith/packer/run_monolith.sh
-cd ~/handout/cloudchat/task1-monolith/packer
+mv ~/handout/cloudchat/terraform-setup/task1-monolith_data_tier/run_monolith.sh ~/handout/cloudchat/monolith/packer/run_monolith.sh
+cd ~/handout/cloudchat/monolith/packer
 echo "cd /home/packer" >> run_monolith.sh
 echo "/bin/java -jar ./target/cloudchat-1.0.0.jar" >> run_monolith.sh
 ```
 
-5.   update file contents [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_1_packer_files/azure-packer.pkr.hcl) in ~/handout/cloudchat/task1-monolith/packer/
+5.   update file contents [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_1_packer_files/azure-packer.pkr.hcl) in ~/handout/cloudchat/monolith/packer/
 
 6.   create azure principle, and write environment variables to secret.pkrvars.hcl
 ```
-cd ~/handout/cloudchat/task1-monolith/packer
+cd ~/handout/cloudchat/monolith/packer
 subscription_id=$(az account list --query "[?isDefault].id" --output tsv) && \
 az group create -l eastus -n test_rg && \
 sp_info=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$subscription_id --query "[appId, password, tenant]" --output tsv))
@@ -66,7 +71,7 @@ echo "spring_redis_password = \"${SPRING_REDIS_PASSWORD}\"" >> secret.pkrvars.hc
 
 7.   validate packer build
 ```
-cd ~/handout/cloudchat/task1-monolith/packer
+cd ~/handout/cloudchat/monolith/packer
 packer validate \
   -var-file="secret.pkrvars.hcl" \
   -var "managed_image_name=test_image" \
@@ -75,7 +80,7 @@ packer validate \
 
 8.   perform packer build (~5 minutes)
 ```
-cd ~/handout/cloudchat/task1-monolith/packer
+cd ~/handout/cloudchat/monolith/packer
 packer build \
   -var-file="secret.pkrvars.hcl" \
   -var "managed_image_name=test_image" \
