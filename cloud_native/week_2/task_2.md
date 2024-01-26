@@ -1,7 +1,9 @@
 ## Cloud Native | Week 2 | Task 2
 
 success steps
-- [_______] terraform builds db
+- [SUCCESS] terraform builds db
+- [_______] ...
+- [_______] ...
 
 1.   create profile db
 ```
