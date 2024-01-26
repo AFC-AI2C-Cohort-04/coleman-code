@@ -120,14 +120,12 @@ build {
     inline = [
       "cloud-init status --wait",
       "sudo apt-get update",
-      "sudo apt-get install -y maven openjdk-17-jdk openjdk-17-jre jq",
-      "sudo chmod +x run_monolith.sh",
-      "chmod 644 myapp.service",
-      "sudo cp myapp.service /etc/systemd/system/myapp.service",
-      "sudo systemctl enable myapp.service",
+      "sudo apt-get install maven openjdk-17-jdk openjdk-17-jre jq -y",
+      "sudo chmod +x /home/packer/run_monolith.sh",
+      "sudo chmod 644 /home/packer/myapp.service",
+      "sudo mv /home/packer/myapp.service /etc/systemd/system/myapp.service",
+      "sudo systemctl enable /etc/systemd/system/myapp.service",
       "mvn clean package",
-      "sudo systemctl stop myapp.service",
-      "sudo systemctl start myapp.service"
     ]
   }
 }
