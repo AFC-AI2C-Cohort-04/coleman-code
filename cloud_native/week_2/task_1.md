@@ -18,6 +18,7 @@ echo "export SPRING_REDIS_PORT=\"$(terraform output -raw redis_port)\"" >> run_m
 echo "export SPRING_REDIS_PASSWORD=\"$(terraform output -raw redis_primary_access_key)\"" >> run_monolith.sh
 sudo chmod +x run_monolith.sh
 source ./run_monolith.sh
+sudo chmod -x run_monolith.sh
 ```
 
 3a.   generate application url for login (login once 3b. successfully runs)
