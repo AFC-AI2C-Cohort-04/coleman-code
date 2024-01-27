@@ -117,7 +117,7 @@ az group delete --name test_rg --yes --no-wait
 
 ---
 
-5.   export your submission credentials and run submitter (~10 minutes)
+5.   export your submission credentials and run the original submitter (~10 minutes)
 ```
 export SUBMISSION_USERNAME=<USERNAME>
 export SUBMISSION_PASSWORD=<PASSWORD>
@@ -125,7 +125,7 @@ cd ~/handout
 ./submitter task1
 ```
 
-*** OPEN PORT 8080 IN THE NETWORK SECURITY GROUP AFTER VM BUILDS FROM IMAGE (IT'S OKAY TO WAIT 30 SECONDS, AS THE JAVA APP WILL RESTART CONTINUOUSLY UNTIL IT RUNS) ***
+*** OPEN PORT 8080 AS AN INBOUND RULE IN THE NETWORK SECURITY GROUP IN THE SUBMITTER RESOURCE GROUP AFTER VM BUILDS FROM THE IMAGE (IT'S OKAY TO WAIT 30 SECONDS, AS THE JAVA APP WILL RESTART CONTINUOUSLY UNTIL IT RUNS) ***
 
 ---
 
