@@ -32,16 +32,9 @@ mvn clean package
 java -jar ./target/cloudchat-1.0.0.jar
 ```
 
-3.   get packer
-```
-cd ~
-sudo apt-get install packer
-packer plugins install github.com/hashicorp/azure
-```
+3a.   update [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/handout/cloudchat/monolith/packer/
 
-4.   update [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/handout/cloudchat/monolith/packer/
-
-5.   update myapp.service
+3b.   update myapp.service
 ```
 cd ~/handout/cloudchat/monolith/packer
 rm run_monolith.sh
@@ -64,7 +57,7 @@ echo "[Install]" >> myapp.service
 echo "WantedBy=multi-user.target" >> myapp.service
 ```
 
-6.   create azure principle, and update secret.pkrvars.hcl
+3c.   create azure principle, and update secret.pkrvars.hcl
 ```
 cd ~/handout/cloudchat/monolith/packer
 subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
@@ -75,7 +68,7 @@ echo "tenant_id = \"${service_principle[2]}\"" >> secret.pkrvars.hcl
 echo "subscription_id = \"$subscription_id\"" >> secret.pkrvars.hcl
 ```
 
-7a.   validate packer build
+4a.   validate packer build
 ```
 cd ~/handout/cloudchat/monolith/packer
 az group create -l eastus -n test_rg && \
@@ -85,7 +78,7 @@ packer validate \
   -var "resource_group=test_rg" .
 ```
 
-7b.   perform packer build (~5 minutes)
+4b.   perform packer build (~5 minutes)
 ```
 cd ~/handout/cloudchat/monolith/packer
 packer build \
@@ -94,7 +87,7 @@ packer build \
   -var "resource_group=test_rg" .
 ```
 
-7c.   test image by creating vm
+4c.   test image by creating vm
 ```
 az vm create \
   --location eastus \
@@ -107,12 +100,12 @@ az vm open-port --resource-group test_rg --name test_vm --port 8080 --priority 1
 echo -e "\nlogin with lucas for username and password @ $(az vm show -d -g test_rg -n test_vm --query publicIps -o tsv):8080/login\n"
 ```
 
-7d.   delete test resource group
+4d.   delete test resource group
 ```
 az group delete --name test_rg --yes --no-wait
 ```
 
-8.   export your submission credentials and run submitter (~10 minutes)
+5.   export your submission credentials and run submitter (~10 minutes)
 ```
 export SUBMISSION_USERNAME=<USERNAME>
 export SUBMISSION_PASSWORD=<PASSWORD>
