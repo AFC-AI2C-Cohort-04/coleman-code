@@ -39,7 +39,7 @@ sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
 ```
 
-5.   update file contents [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_1_packer_files/azure-packer.pkr.hcl) in ~/handout/cloudchat/monolith/packer/
+5.   update file contents [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/handout/cloudchat/monolith/packer/
 
 6.   create azure principle, and write environment variables to secret.pkrvars.hcl
 ```
