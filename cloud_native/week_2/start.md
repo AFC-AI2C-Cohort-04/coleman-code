@@ -32,11 +32,12 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 az login --use-device-code
 ```
 
-5.   get handout
+5.   get handout and submitter, rename 'task1-monolith' to 'monolith'
 ```
 cd ~
 wget https://cloudnativehandout.blob.core.windows.net/project1/handout.tar.gz
 tar -xvzf handout.tar.gz
+wget https://cloudnativehandout.blob.core.windows.net/project1/submitter && chmod +x submitter
 mv ~/handout/cloudchat/task1-monolith ~/handout/cloudchat/monolith
 ```
 
