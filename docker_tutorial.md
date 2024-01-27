@@ -1,11 +1,17 @@
 ## Docker Tutorial
 
 
-0a.   open ports on vm
+0a.   install docker
 ```
-az vm open-port --resource-group main_rg --name main_vm --port 22 --priority 1001
-az vm open-port --resource-group main_rg --name main_vm --port 8000 --priority 1002
-az vm open-port --resource-group main_rg --name main_vm --port 8080 --priority 1003
+ curl -fsSL https://get.docker.com -o get-docker.sh
+ sudo sh get-docker.sh
+```
+
+*.   how to uninstall docker
+```
+sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
+sudo rm -rf /var/lib/docker
+sudo rm -rf /var/lib/containerd
 ```
 
 ---
