@@ -71,7 +71,7 @@ dockerfile_path=./
 docker build --rm --tag $container $dockerfile_path
 ```
 
-3b.   display images
+3b.   display / delete images
 ```
 docker images
 
