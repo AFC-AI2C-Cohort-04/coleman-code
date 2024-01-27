@@ -1,3 +1,23 @@
+variable "client_id" {
+  type = string
+  default = ""
+}
+
+variable "client_secret" {
+  type = string
+  default = ""
+}
+
+variable "tenant_id" {
+  type = string
+  default = ""
+}
+
+variable "subscription_id" {
+  type = string
+  default = ""
+}
+
 variable "resource_group" {
   type = string
   default = ""
@@ -9,20 +29,18 @@ variable "managed_image_name" {
 }
 
 source "azure-arm" "main" {
-  client_id = "7ddc2442-34e6-4c88-beb9-7a945b0566b5"
-  client_secret = "Uqf8Q~NqctAThiGtsBonTnWveo~DNsxrVxVUuaxN"
-  tenant_id = "7054bedc-f003-44d5-841f-cb36c2f8de54"
-  subscription_id = "78a0ba1b-e701-4e60-9794-8d8f104c454c"
-
+  client_id                         = var.client_id
+  client_secret                     = var.client_secret
+  tenant_id                         = var.tenant_id
+  subscription_id                   = var.subscription_id
   managed_image_resource_group_name = var.resource_group
-  managed_image_name = var.managed_image_name
-
-  location = "eastus"
-  os_type = "Linux"
-  image_publisher = "Canonical"
-  image_offer = "0001-com-ubuntu-server-jammy"
-  image_sku = "22_04-lts"
-  vm_size = "Standard_B2s"
+  managed_image_name                = var.managed_image_name
+  location                          = "eastus" # submitter needs 'eastus'
+  os_type                           = "Linux"
+  image_publisher                   = "Canonical"
+  image_offer                       = "0001-com-ubuntu-server-jammy"
+  image_sku                         = "22_04-lts"
+  vm_size                           = "Standard_B2s" # submitter will ignore and create 'Standard_DS1_v2'
 }
 
 build {
@@ -31,44 +49,23 @@ build {
   ]
 
   provisioner "file" {
-    source      = "/home/azureuser/handout/cloudchat/monolith/target/cloudchat-1.0.0.jar"
-    destination = "cloudchat-1.0.0.jar"
+    source      = "myapp.service"
+    destination = "/etc/systemd/system/myapp.service"
+  }
+
+  provisioner "file" {
+    source      = "../target/cloudchat-1.0.0.jar"
+    destination = "/home/packer/cloudchat-1.0.0.jar"
   }
 
   provisioner "shell" {
     inline = [
       "cloud-init status --wait",
-      "sudo apt update",
-      "sudo apt install -y openjdk-17-jdk openjdk-17-jre jq",
-      "export MYSQL_HOST=\"shared-mysql-fs-duepnhee.mysql.database.azure.com\"",
-      "export MYSQL_USER=\"Monolithic_CloudChat_123\"",
-      "export MYSQL_PASSWORD=\"Monolithic_CloudChat_123\"",
-      "export SPRING_REDIS_HOST=\"redis-cache-ewqntvzm.redis.cache.windows.net\"",
-      "export SPRING_REDIS_PORT=\"6379\"",
-      "export SPRING_REDIS_PASSWORD=\"hUZdj6ly0nfYDiaZ8fY4pR7HVSkev188tAzCaGQGe7U=\"",
-      "sudo cp cloudchat-1.0.0.jar /opt/cloudchat-1.0.0.jar",
-      "sudo tee /etc/systemd/system/cloudchat.service <<EOF",
-      "[Unit]",
-      "Description=CloudChat Service",
-      "After=network.target",
-      "",
-      "[Service]",
-      "User=root",
-      "Environment=\"MYSQL_HOST=$MYSQL_HOST\"",
-      "Environment=\"MYSQL_USER=$MYSQL_USER\"",
-      "Environment=\"MYSQL_PASSWORD=$MYSQL_PASSWORD\"",
-      "Environment=\"SPRING_REDIS_HOST=$SPRING_REDIS_HOST\"",
-      "Environment=\"SPRING_REDIS_PORT=$SPRING_REDIS_PORT\"",
-      "Environment=\"SPRING_REDIS_PASSWORD=$SPRING_REDIS_PASSWORD\"",
-      "ExecStart=/usr/bin/java -jar /opt/cloudchat-1.0.0.jar",
-      "Restart=always",
-      "",
-      "[Install]",
-      "WantedBy=multi-user.target",
-      "EOF",
+      "sudo apt-get update",
+      "sudo apt-get install -y openjdk-17-jdk openjdk-17-jre jq",
       "sudo systemctl daemon-reload",
-      "sudo systemctl enable cloudchat.service",
-      "sudo systemctl start cloudchat.service"
+      "sudo systemctl enable myapp.service",
+      "sudo systemctl start myapp.service"
     ]
   }
 }
