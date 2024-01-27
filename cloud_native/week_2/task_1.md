@@ -58,7 +58,6 @@ echo "Environment=\"SPRING_REDIS_HOST=$SPRING_REDIS_HOST\"" >> myapp.service
 echo "Environment=\"SPRING_REDIS_PORT=$SPRING_REDIS_PORT\"" >> myapp.service
 echo "Environment=\"SPRING_REDIS_PASSWORD=$SPRING_REDIS_PASSWORD\"" >> myapp.service
 echo "ExecStart=java -jar /home/packer/cloudchat-1.0.0.jar" >> myapp.service
-echo "Restart=always" >> myapp.service
 echo "" >> myapp.service
 echo "[Install]" >> myapp.service
 echo "WantedBy=multi-user.target" >> myapp.service
