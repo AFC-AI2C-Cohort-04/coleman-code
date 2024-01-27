@@ -36,7 +36,7 @@ az login --use-device-code
 
 ---
 
-2a.   get handout and submitter, rename 'task1-monolith' to 'monolith'
+2a.   get handout and submitter, rename 'task1-monolith' to 'monolith' (uses the original submitter)
 ```
 cd ~
 wget https://cloudnativehandout.blob.core.windows.net/project1/handout.tar.gz
