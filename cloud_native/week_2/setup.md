@@ -1,6 +1,6 @@
 ## Cloud Native | Week 2 | Setup
 
-1.   create main resource group and vm (replace password)
+1.   create main resource group and vm
 ```
 az group create --name main_rg --location eastus2 && \
 az vm create \
