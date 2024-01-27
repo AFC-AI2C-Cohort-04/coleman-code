@@ -78,8 +78,11 @@ echo "subscription_id = \"$subscription_id\"" >> secret.pkrvars.hcl
 
 ---
 
-4a.   create test resource group and validate packer build
+4a.   get packer, create test resource group, and validate packer build
 ```
+cd ~
+sudo apt-get install packer
+packer plugins install github.com/hashicorp/azure
 cd ~/handout/cloudchat/monolith/packer
 az group create -l eastus -n test_rg && \
 packer validate \
