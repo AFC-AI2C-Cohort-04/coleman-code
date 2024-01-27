@@ -2,14 +2,14 @@
 
 [<< Start](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/start.md)
 
-1.   create monolith db (~25 minutes)
+0.   create monolith db (~25 minutes)
 ```
 cd ~/handout/cloudchat/terraform-setup/task1-monolith_data_tier
 terraform init
 terraform apply -var-file="secret.tfvars"
 ```
 
-2.   get db variables (used by maven during build test, and needed by java file to connect)
+1.   get db variables (used by maven during build test, and needed by java file to connect)
 ```
 cd ~/handout/cloudchat/terraform-setup/task1-monolith_data_tier
 export MYSQL_HOST="$(terraform output -raw mysql_fqdn)"
@@ -20,28 +20,28 @@ export SPRING_REDIS_PORT="$(terraform output -raw redis_port)"
 export SPRING_REDIS_PASSWORD="$(terraform output -raw redis_primary_access_key)"
 ```
 
-3a.   generate application url for login (login once 3b. successfully runs)
+2a.   generate application url for login (login once 2b. successfully runs)
 ```
 echo -e "\nlogin with lucas for username and password @ $(az vm show -d -g main_rg -n main_vm --query publicIps -o tsv):8080/login\n"
 ```
 
-3b.   test application (~5 minutes, ctrl+C after done with testing)
+2b.   test application (~5 minutes, ctrl+C after done with testing)
 ```
 cd ~/handout/cloudchat/monolith
 mvn clean package
 java -jar ./target/cloudchat-1.0.0.jar
 ```
 
-4.   get packer
+3.   get packer
 ```
 cd ~
 sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
 ```
 
-5.   update [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/handout/cloudchat/monolith/packer/
+4.   update [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/handout/cloudchat/monolith/packer/
 
-6.   update myapp.service
+5.   update myapp.service
 ```
 cd ~/handout/cloudchat/monolith/packer
 rm run_monolith.sh
@@ -64,7 +64,7 @@ echo "[Install]" >> myapp.service
 echo "WantedBy=multi-user.target" >> myapp.service
 ```
 
-7.   create azure principle, and update secret.pkrvars.hcl
+6.   create azure principle, and update secret.pkrvars.hcl
 ```
 cd ~/handout/cloudchat/monolith/packer
 subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
@@ -75,7 +75,7 @@ echo "tenant_id = \"${service_principle[2]}\"" >> secret.pkrvars.hcl
 echo "subscription_id = \"$subscription_id\"" >> secret.pkrvars.hcl
 ```
 
-8a.   validate packer build
+7a.   validate packer build
 ```
 cd ~/handout/cloudchat/monolith/packer
 az group create -l eastus -n test_rg && \
@@ -85,7 +85,7 @@ packer validate \
   -var "resource_group=test_rg" .
 ```
 
-8b.   perform packer build (~5 minutes)
+7b.   perform packer build (~5 minutes)
 ```
 cd ~/handout/cloudchat/monolith/packer
 packer build \
@@ -94,7 +94,7 @@ packer build \
   -var "resource_group=test_rg" .
 ```
 
-8c.   test image by creating vm
+7c.   test image by creating vm
 ```
 az vm create \
   --location eastus \
@@ -107,12 +107,12 @@ az vm open-port --resource-group test_rg --name test_vm --port 8080 --priority 1
 echo -e "\nlogin with lucas for username and password @ $(az vm show -d -g test_rg -n test_vm --query publicIps -o tsv):8080/login\n"
 ```
 
-8d.   delete test resource group
+7d.   delete test resource group
 ```
 az group delete --name test_rg --yes --no-wait
 ```
 
-9.   export your submission credentials and run submitter (~10 minutes)
+8.   export your submission credentials and run submitter (~10 minutes)
 ```
 export SUBMISSION_USERNAME=<USERNAME>
 export SUBMISSION_PASSWORD=<PASSWORD>
