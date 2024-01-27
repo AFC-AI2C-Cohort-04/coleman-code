@@ -114,10 +114,9 @@ az group delete --name test_rg --yes --no-wait
 
 9.   export your submission credentials and run submitter (~10 minutes)
 ```
-cd ~/handout
-wget https://cloudnativehandout.blob.core.windows.net/project1/submitter && chmod +x submitter
 export SUBMISSION_USERNAME=<USERNAME>
 export SUBMISSION_PASSWORD=<PASSWORD>
+cd ~/handout
 ./submitter task1
 ```
 
