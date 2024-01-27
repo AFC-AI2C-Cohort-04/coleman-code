@@ -96,6 +96,7 @@ az vm create \
   --image test_image \
   --admin-username azureuser \
   --generate-ssh-keys
+az vm open-port --resource-group test_rg --name test_vm --port 8080 --priority 1010
 ```
 
 10.   export your submission credentials are run submitter (~10 minutes)
