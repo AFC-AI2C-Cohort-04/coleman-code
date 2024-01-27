@@ -63,8 +63,9 @@ tar -xvzf sample-containerized-webservice.tgz
 # --rm removes previous version
 image_name=image_test
 version=latest
-path=./
-docker build --rm --tag $image_name:$version $path
+container=$image_name:$version
+dockerfile_path=./
+docker build --rm --tag $container $dockerfile_path
 ```
 
 3b.   display images
