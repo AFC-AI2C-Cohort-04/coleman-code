@@ -71,6 +71,9 @@ docker build --rm --tag $container $dockerfile_path
 3b.   display images
 ```
 docker iamges
+
+# delete docker images with this
+# docker rmi <image_id_or_name>
 ```
 
 ---
