@@ -103,6 +103,7 @@ az vm create \
   --admin-username azureuser \
   --generate-ssh-keys
 az vm open-port --resource-group test_rg --name test_vm --port 8080 --priority 1010
+echo -e "\nlogin with lucas for username and password @ $(az vm show -d -g test_rg -n test_vm --query publicIps -o tsv):8080/login\n"
 ```
 
 11.   export your submission credentials are run submitter (~10 minutes)
