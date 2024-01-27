@@ -25,7 +25,7 @@ export SPRING_REDIS_PASSWORD="$(terraform output -raw redis_primary_access_key)"
 echo -e "\nlogin with lucas for username and password @ $(az vm show -d -g main_rg -n main_vm --query publicIps -o tsv):8080/login\n"
 ```
 
-2b.   test application (~5 minutes, ctrl+C after done with testing)
+2b.   build and test application (~5 minutes, ctrl+C in terminal after done with testing)
 ```
 cd ~/handout/cloudchat/monolith
 mvn clean package
