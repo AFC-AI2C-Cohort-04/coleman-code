@@ -66,4 +66,4 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 ```
 
-[Task 1](https://github.com/AFC-AI2C-Cohort-04/coleman-code/tree/main/cloud_native/week_2)
+[Task 1](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_1.md)
