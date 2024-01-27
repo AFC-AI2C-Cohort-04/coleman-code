@@ -65,7 +65,7 @@ echo "[Install]" >> myapp.service
 echo "WantedBy=multi-user.target" >> myapp.service
 ```
 
-3c.   create azure principle, and update secret.pkrvars.hcl
+3c.   create azure service principle, and update secret.pkrvars.hcl (make sure to delete your old service principles by going to Entra ID > App Registrations)
 ```
 cd ~/handout/cloudchat/monolith/packer
 subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
@@ -132,7 +132,9 @@ cd ~/handout
 
 ---
 
-6.   delete monolith db resource groups '*redis-rg-...*' and '*shared-mysql-...*'
+6a.   delete monolith db resource groups '*redis-rg-...*' and '*shared-mysql-...*'
+
+6b.   make sure to delete your old service principles by going to Entra ID > App Registrations
 
 ---
 
