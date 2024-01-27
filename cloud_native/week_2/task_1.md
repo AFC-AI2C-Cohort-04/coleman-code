@@ -22,7 +22,7 @@ export SPRING_REDIS_PASSWORD="$(terraform output -raw redis_primary_access_key)"
 
 3a.   generate application url for login (login once 3b. successfully runs)
 ```
-echo "login with lucas for username and password @ http:$(az vm show -d -g main_rg -n main_vm --query publicIps -o tsv):8080/login"
+echo "\nlogin with lucas for username and password @ http:$(az vm show -d -g main_rg -n main_vm --query publicIps -o tsv):8080/login\n"
 ```
 
 3b.   test application (~5 minutes, ctrl+C after done with testing)
