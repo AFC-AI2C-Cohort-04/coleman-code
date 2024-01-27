@@ -81,7 +81,8 @@ docker images
 4.   start app container
 ```
 my_ip=$(curl ifconfig.me)
-docker run -d -p 8080:80 $image_name:$version && \
+docker run -d -p 8080:80 $image_name:$version
+# wait a few seconds
 curl $my_ip:8080
 # -d runs "detached" (in the background)
 # -p maps container port(s) to host port
