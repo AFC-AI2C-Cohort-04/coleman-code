@@ -1,14 +1,14 @@
 ## Docker Tutorial
 
 
-0a.   install docker and create test directory
+0a.   install docker
 ```
 curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
-mkdir docker_test && cd docker_test
 ```
 
-0b.   create docker group, add current user, activate group, and verify docker is running
+0b.   create test directory, create docker group, add current user, activate group, and verify docker is running
 ```
+mkdir docker_test && cd docker_test
 sudo groupadd docker
 sudo usermod -aG docker $(whoami)
 newgrp docker
