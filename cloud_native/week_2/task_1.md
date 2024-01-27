@@ -100,7 +100,7 @@ packer build \
   -var "resource_group=test_rg" .
 ```
 
-4c.   test image by creating vm
+4c.   test image by creating vm and confirm java app runs
 ```
 az vm create \
   --location eastus \
