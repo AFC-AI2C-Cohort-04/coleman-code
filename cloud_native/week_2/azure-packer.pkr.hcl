@@ -54,7 +54,7 @@ build {
 
   provisioner "file" {
     source      = "myapp.service"
-    destination = "/etc/systemd/system/myapp.service"
+    destination = "/home/packer/myapp.service"
   }
 
   provisioner "file" {
@@ -67,6 +67,7 @@ build {
       "cloud-init status --wait",
       "sudo apt-get update",
       "sudo apt-get install -y openjdk-17-jdk openjdk-17-jre jq",
+      "sudo mv myapp.service /etc/systemd/system/myapp.service",
       "sudo systemctl daemon-reload",
       "sudo systemctl enable myapp.service",
       "sudo systemctl start myapp.service"
