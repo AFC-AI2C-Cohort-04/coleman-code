@@ -7,18 +7,15 @@ terraform init
 terraform apply -var-file="secret.tfvars"
 ```
 
-2.   write db variables to "run_monolith.sh", run as source
+2.   get db variables (used by maven during build test, and needed by java file to connect)
 ```
 cd ~/handout/cloudchat/terraform-setup/task1-monolith_data_tier
-echo "export MYSQL_HOST=\"$(terraform output -raw mysql_fqdn)\"" > run_monolith.sh
-echo "export MYSQL_USER=\"$(terraform output -raw mysql_admin_username)\"" >> run_monolith.sh
-echo "export MYSQL_PASSWORD=\"$(terraform output -raw mysql_admin_password)\"" >> run_monolith.sh
-echo "export SPRING_REDIS_HOST=\"$(terraform output -raw redis_hostname)\"" >> run_monolith.sh
-echo "export SPRING_REDIS_PORT=\"$(terraform output -raw redis_port)\"" >> run_monolith.sh
-echo "export SPRING_REDIS_PASSWORD=\"$(terraform output -raw redis_primary_access_key)\"" >> run_monolith.sh
-sudo chmod +x run_monolith.sh
-source ./run_monolith.sh
-sudo chmod -x run_monolith.sh
+export MYSQL_HOST="$(terraform output -raw mysql_fqdn)"
+export MYSQL_USER="$(terraform output -raw mysql_admin_username)"
+export MYSQL_PASSWORD="$(terraform output -raw mysql_admin_password)"
+export SPRING_REDIS_HOST="$(terraform output -raw redis_hostname)"
+export SPRING_REDIS_PORT="$(terraform output -raw redis_port)"
+export SPRING_REDIS_PASSWORD="$(terraform output -raw redis_primary_access_key)"
 ```
 
 3a.   generate application url for login (login once 3b. successfully runs)
