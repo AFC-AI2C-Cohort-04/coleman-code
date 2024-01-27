@@ -33,17 +33,14 @@ tar -xvzf sample-containerized-webservice.tgz
 # base image
 # FROM ubuntu:18.04
 
-# base directory path for image
-# WORKDIR /app
-
-# add or copy files from host file system
-# ADD ./target/demo-1.0-SNAPSHOT-jar-with-dependencies.jar /
-
 # run install commands
 # RUN apt-get update && apt-get -y install default-jre
 
-# open ports
+# open container port
 # EXPOSE 80
+
+# add or copy files from host file system
+# ADD ./target/demo-1.0-SNAPSHOT-jar-with-dependencies.jar /
 
 # use bash as the container's entry point
 # ENTRYPOINT ["/bin/bash", "-c"]
@@ -54,6 +51,12 @@ tar -xvzf sample-containerized-webservice.tgz
 
 # ENTRYPOINT and CMD work together to create a single following command when container starts
 # /bin/bash -c "java -cp demo-1.0-SNAPSHOT-jar-with-dependencies.jar HelloWorld"
+
+# base directory path for image (not used in this example)
+# WORKDIR /app
+
+# copy can also be used to add files from host file system
+# COPY . .
 ```
 
 ---
