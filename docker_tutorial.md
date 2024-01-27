@@ -6,7 +6,7 @@
 curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
 ```
 
-0b.   create docker group, add current user, and activate group, and verify docker is running
+0b.   create docker group, add current user, activate group, and verify docker is running
 ```
 sudo groupadd docker
 sudo usermod -aG docker $(whoami)
