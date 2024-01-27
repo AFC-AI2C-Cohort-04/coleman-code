@@ -58,15 +58,9 @@ tar -xvzf sample-containerized-webservice.tgz
 
 ---
 
-3a.   build image
+3a.   build docker image from docker file
 ```
-cd /path/to/getting-started-app
-
-# example 1
-# docker build -t getting-started .
-
-# example 2
-# docker build --rm --tag clouduser/primer:latest .
+# docker build --rm --tag Dockerfile
 ```
 
 3b.   display images
