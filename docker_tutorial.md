@@ -25,25 +25,25 @@ mvn clean package
 
 ---
 
-2.   configure dockerfile or use handout
+2.   configure dockerfile (handout reference)
 ```
 wget https://s3.amazonaws.com/cmucc-public/container-detail/sample-containerized-webservice.tgz -O sample-containerized-webservice.tgz
 tar -xvzf sample-containerized-webservice.tgz
 
-# FROM ubuntu:18.04                # base image
+# base image
+# FROM ubuntu:18.04
 
-# WORKDIR /app                # base directory path
+# base directory path for image
+# WORKDIR /app
 
 # add or copy files from host file system
-# ADD ./target/app.jar /
-# COPY . .
+# ADD ./target/demo-1.0-SNAPSHOT-jar-with-dependencies.jar /
 
-# example of run install commands
-# RUN yarn install --production
+# run install commands
 # RUN apt-get update && apt-get -y install default-jre
 
 # open ports
-# EXPOSE 8000
+# EXPOSE 80
 
 # use bash as the container's entry point
 # ENTRYPOINT ["/bin/bash", "-c"]
@@ -60,7 +60,11 @@ tar -xvzf sample-containerized-webservice.tgz
 
 3a.   build docker image from docker file
 ```
-docker build --rm --tag Dockerfile
+# --rm removes previous version
+image_name=image_test
+version=latest
+path=./
+docker build --rm --tag $image_name:$version $path
 ```
 
 3b.   display images
