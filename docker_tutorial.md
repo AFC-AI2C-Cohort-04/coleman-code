@@ -24,11 +24,9 @@ docker run hello-world
 wget https://s3.amazonaws.com/cmucc-public/container-detail/sample-containerized-webservice.tgz -O sample-containerized-webservice.tgz
 tar -xvzf sample-containerized-webservice.tgz
 
-# choose base image
-# FROM ubuntu:18.04
+# FROM ubuntu:18.04                # base image
 
-# choose base directory path
-# WORKDIR /app
+# WORKDIR /app                # base directory path
 
 # add or copy files from host file system
 # ADD ./target/app.jar /
