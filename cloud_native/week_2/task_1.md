@@ -44,6 +44,7 @@ packer plugins install github.com/hashicorp/azure
 6.   update myapp.service
 ```
 cd ~/handout/cloudchat/monolith/packer
+rm run_monolith.sh
 echo "[Unit]" > myapp.service
 echo "Description=Cloudchat Service" >> myapp.service
 echo "After=network.target" >> myapp.service
