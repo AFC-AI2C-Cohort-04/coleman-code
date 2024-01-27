@@ -1,8 +1,0 @@
-[Unit]
-Description=Monolithic Application
-
-[Service]
-ExecStart=/home/packer/run_monolith.sh
-
-[Install]
-WantedBy=multi-user.target
