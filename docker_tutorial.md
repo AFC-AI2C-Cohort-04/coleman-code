@@ -60,7 +60,7 @@ tar -xvzf sample-containerized-webservice.tgz
 
 3a.   build docker image from docker file
 ```
-# docker build --rm --tag Dockerfile
+docker build --rm --tag Dockerfile
 ```
 
 3b.   display images
