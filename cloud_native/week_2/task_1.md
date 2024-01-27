@@ -42,7 +42,7 @@ java -jar ./target/cloudchat-1.0.0.jar
 
 3a.   update [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/handout/cloudchat/monolith/packer/
 
-3b.   update myapp.service
+3b.   run the code below in terminal and it will update your myapp.service
 ```
 cd ~/handout/cloudchat/monolith/packer
 rm run_monolith.sh
