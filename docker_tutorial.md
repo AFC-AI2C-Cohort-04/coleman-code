@@ -94,17 +94,13 @@ curl $my_ip:8080
 
 ---
 
-5.   list containers/processes
+5.   list/stop/delete containers/processes
 ```
 docker ps
-# docker ps -a (lsit all containers/processess including stopped)
-```
-
-6.   stop container/process
-```
-container=<container-id from docker ps -a>
-docker stop $container
-docker rm $container
+docker ps -a # (list all containers/processess including stopped)
+container=<container-id>
+docker stop $container # stops container/process
+docker rm $container # deletes container/process
 ```
 
 ---
@@ -116,7 +112,7 @@ sudo rm -rf /var/lib/docker
 sudo rm -rf /var/lib/containerd
 ```
 
-*.   enable docker start-up on boot
+*.   how to enable docker start-up on boot
 ```
 sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
