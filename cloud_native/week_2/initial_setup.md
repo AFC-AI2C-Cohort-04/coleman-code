@@ -25,14 +25,21 @@ az vm open-port --resource-group main_rg --name main_vm --port 8080 --priority 1
 ssh azureuser@$(az vm show -d -g main_rg -n main_vm --query publicIps -o tsv)
 ```
 
-4.   get handout
+4.   get azure cli and login
+```
+cd ~
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+az login --use-device-code
+```
+
+5.   get handout
 ```
 cd ~
 wget https://cloudnativehandout.blob.core.windows.net/project1/handout.tar.gz
 tar -xvzf handout.tar.gz
 ```
 
-5.   get terraform
+6.   get terraform
 ```
 cd ~
 sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
@@ -47,13 +54,6 @@ https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
 sudo tee /etc/apt/sources.list.d/hashicorp.list
 sudo apt update
 sudo apt-get install terraform
-```
-
-6.   get azure cli and login
-```
-cd ~
-curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-az login --use-device-code
 ```
 
 7.   get maven, kubectl, and helm
