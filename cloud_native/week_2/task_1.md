@@ -94,7 +94,7 @@ packer build \
   -var "resource_group=test_rg" .
 ```
 
-10.   test image by creating vm
+10a.   test image by creating vm
 ```
 az vm create \
   --location eastus \
@@ -105,6 +105,11 @@ az vm create \
   --generate-ssh-keys
 az vm open-port --resource-group test_rg --name test_vm --port 8080 --priority 1010
 echo -e "\nlogin with lucas for username and password @ $(az vm show -d -g test_rg -n test_vm --query publicIps -o tsv):8080/login\n"
+```
+
+10b.   delete test resource group
+```
+az group delete --name test_rg --yes --no-wait
 ```
 
 11.   export your submission credentials and run submitter (~10 minutes)
