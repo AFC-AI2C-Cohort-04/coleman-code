@@ -78,7 +78,7 @@ echo "subscription_id = \"$subscription_id\"" >> secret.pkrvars.hcl
 
 ---
 
-4a.   validate packer build
+4a.   create test resource group and validate packer build
 ```
 cd ~/handout/cloudchat/monolith/packer
 az group create -l eastus -n test_rg && \
@@ -88,7 +88,7 @@ packer validate \
   -var "resource_group=test_rg" .
 ```
 
-4b.   perform packer build (~5 minutes)
+4b.   create image file from packer build (~5 minutes)
 ```
 cd ~/handout/cloudchat/monolith/packer
 packer build \
@@ -129,3 +129,4 @@ cd ~/handout
 
 ---
 
+[Task 2 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_2.md)
