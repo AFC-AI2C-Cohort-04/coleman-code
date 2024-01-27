@@ -10,7 +10,7 @@ az vm create \
   --image Canonical:0001-com-ubuntu-server-focal:20_04-lts-gen2:latest \
   --size Standard_B2s \
   --admin-username azureuser \
-  --admin-password <PASSWORD>
+  --admin-password 12qwasQWASZX
 ```
 
 2.   open ports on vm
