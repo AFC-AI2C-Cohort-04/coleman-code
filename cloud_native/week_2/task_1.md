@@ -2,6 +2,8 @@
 
 [<< Start](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/start.md)
 
+---
+
 0.   create monolith db (~25 minutes)
 ```
 cd ~/handout/cloudchat/terraform-setup/task1-monolith_data_tier
@@ -9,8 +11,7 @@ terraform init
 terraform apply -var-file="secret.tfvars"
 ```
 
-
-
+---
 
 1.   get db variables (used by maven during build test, and needed by java file to connect)
 ```
@@ -23,8 +24,7 @@ export SPRING_REDIS_PORT="$(terraform output -raw redis_port)"
 export SPRING_REDIS_PASSWORD="$(terraform output -raw redis_primary_access_key)"
 ```
 
-
-
+---
 
 2a.   generate application url for login (login once 2b. successfully runs)
 ```
@@ -38,8 +38,7 @@ mvn clean package
 java -jar ./target/cloudchat-1.0.0.jar
 ```
 
-
-
+---
 
 3a.   update [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/handout/cloudchat/monolith/packer/
 
@@ -77,8 +76,7 @@ echo "tenant_id = \"${service_principle[2]}\"" >> secret.pkrvars.hcl
 echo "subscription_id = \"$subscription_id\"" >> secret.pkrvars.hcl
 ```
 
-
-
+---
 
 4a.   validate packer build
 ```
@@ -117,8 +115,7 @@ echo -e "\nlogin with lucas for username and password @ $(az vm show -d -g test_
 az group delete --name test_rg --yes --no-wait
 ```
 
-
-
+---
 
 5.   export your submission credentials and run submitter (~10 minutes)
 ```
@@ -129,3 +126,6 @@ cd ~/handout
 ```
 
 *** OPEN PORT 8080 IN THE NETWORK SECURITY GROUP AFTER VM BUILDS FROM IMAGE (IT'S OKAY TO WAIT 30 SECONDS, AS THE JAVA APP WILL RESTART CONTINUOUSLY UNTIL IT RUNS) ***
+
+---
+
