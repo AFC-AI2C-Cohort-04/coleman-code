@@ -96,7 +96,7 @@ packer build \
 10.   validate packer build by creating vm from image
 ```
 az vm create \
-  --location eastus2 \
+  --location eastus \
   --resource-group test_rg \
   --name test_vm \
   --image test_image \
