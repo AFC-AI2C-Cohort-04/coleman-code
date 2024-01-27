@@ -1,10 +1,5 @@
 ## Cloud Native | Week 2 | Task 1
 
-0.   rename /task1-monolith/ directory to /monolith/ (submitter requirement)
-```
-mv ~/handout/cloudchat/task1-monolith ~/handout/cloudchat/monolith
-```
-
 1.   create monolith db (~25 minutes)
 ```
 cd ~/handout/cloudchat/terraform-setup/task1-monolith_data_tier
