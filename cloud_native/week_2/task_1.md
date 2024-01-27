@@ -129,4 +129,8 @@ cd ~/handout
 
 ---
 
+6.   delete monolith db resource groups '*redis-rg-...*' and '*shared-mysql-...*'
+
+---
+
 [Task 2 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_2.md)
