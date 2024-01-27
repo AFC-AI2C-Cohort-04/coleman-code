@@ -92,6 +92,7 @@ curl $my_ip:8080
 5.   list containers/processes
 ```
 docker ps
+# docker ps -a (lsit all containers/processess including stopped)
 ```
 
 6.   stop container/process
