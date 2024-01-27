@@ -73,7 +73,8 @@ docker build --rm --tag $container $dockerfile_path
 docker images
 
 # delete docker images (container must be stopped and removed first)
-# docker rmi <image_id_or_name>
+docker_image = <image_id>
+docker rmi $docker_image
 ```
 
 ---
@@ -98,7 +99,7 @@ docker ps
 
 6.   stop container/process
 ```
-# container=<container-id from docker ps>
+container=<container-id from docker ps -a>
 docker stop $container
 docker rm $container
 ```
