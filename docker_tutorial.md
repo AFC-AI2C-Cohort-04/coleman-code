@@ -76,7 +76,7 @@ docker iamges
 
 4.   start app container
 ```
-docker run -dp 127.0.0.1:3000:3000 getting-started
+docker run -d -p 80:80 $image_name:$version
 # -d runs "detached" (in the background)
 # -p maps container port(s) to host port
 ```
