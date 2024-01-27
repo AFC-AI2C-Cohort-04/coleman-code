@@ -1,6 +1,6 @@
 ## Cloud Native | Week 2 | Start
 
-1.   create main resource group and vm
+1.   create main resource group and vm (change password)
 ```
 az group create --name main_rg --location eastus2 && \
 az vm create \
@@ -10,7 +10,7 @@ az vm create \
   --image Canonical:0001-com-ubuntu-server-focal:20_04-lts-gen2:latest \
   --size Standard_B2s \
   --admin-username azureuser \
-  --admin-password 12qwasQWASZX
+  --admin-password <PASSWORD>
 ```
 
 2.   open ports on vm
