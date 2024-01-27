@@ -1,5 +1,7 @@
 ## Cloud Native | Week 2 | Task 1
 
+[<< Setup](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/setup.md)
+
 1.   create monolith db (~25 minutes)
 ```
 cd ~/handout/cloudchat/terraform-setup/task1-monolith_data_tier
