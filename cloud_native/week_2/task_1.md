@@ -66,18 +66,18 @@ echo "WantedBy=multi-user.target" >> myapp.service
 7.   create azure principle, and update secret.pkrvars.hcl
 ```
 cd ~/handout/cloudchat/monolith/packer
-subscription_id=$(az account list --query "[?isDefault].id" --output tsv) && \
-az group create -l eastus -n test_rg && \
-sp_info=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$subscription_id --query "[appId, password, tenant]" --output tsv))
-echo "client_id = \"${sp_info[0]}\"" > secret.pkrvars.hcl
-echo "client_secret = \"${sp_info[1]}\"" >> secret.pkrvars.hcl
-echo "tenant_id = \"${sp_info[2]}\"" >> secret.pkrvars.hcl
+subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
+service_principle=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$subscription_id --query "[appId, password, tenant]" --output tsv))
+echo "client_id = \"${service_principle[0]}\"" > secret.pkrvars.hcl
+echo "client_secret = \"${service_principle[1]}\"" >> secret.pkrvars.hcl
+echo "tenant_id = \"${service_principle[2]}\"" >> secret.pkrvars.hcl
 echo "subscription_id = \"$subscription_id\"" >> secret.pkrvars.hcl
 ```
 
 8.   validate packer build
 ```
 cd ~/handout/cloudchat/monolith/packer
+az group create -l eastus -n test_rg && \
 packer validate \
   -var-file="secret.pkrvars.hcl" \
   -var "managed_image_name=test_image" \
