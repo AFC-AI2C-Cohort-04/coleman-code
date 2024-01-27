@@ -1,4 +1,4 @@
-## Cloud Native | Week 2 | Setup
+## Cloud Native | Week 2 | Start
 
 1.   create main resource group and vm
 ```
