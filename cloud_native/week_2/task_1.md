@@ -107,7 +107,7 @@ az vm open-port --resource-group test_rg --name test_vm --port 8080 --priority 1
 echo -e "\nlogin with lucas for username and password @ $(az vm show -d -g test_rg -n test_vm --query publicIps -o tsv):8080/login\n"
 ```
 
-11.   export your submission credentials are run submitter (~10 minutes)
+11.   export your submission credentials and run submitter (~10 minutes)
 ```
 cd ~/handout
 wget https://cloudnativehandout.blob.core.windows.net/project1/submitter && chmod +x submitter
@@ -115,3 +115,5 @@ export SUBMISSION_USERNAME=<USERNAME>
 export SUBMISSION_PASSWORD=<PASSWORD>
 ./submitter task1
 ```
+
+*** OPEN PORT 8080 ON THE NETWORK SECURITY GROUP AFTER VM BUILDS FROM IMAGE ***
