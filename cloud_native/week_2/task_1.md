@@ -39,9 +39,31 @@ sudo apt-get install packer
 packer plugins install github.com/hashicorp/azure
 ```
 
-5.   update file contents [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/handout/cloudchat/monolith/packer/
+5.   update [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/handout/cloudchat/monolith/packer/
 
-6.   create azure principle, and write environment variables to secret.pkrvars.hcl
+6.   update myapp.service
+```
+cd ~/handout/cloudchat/monolith/packer
+echo "[Unit]" > myapp.service
+echo "Description=Cloudchat Service" >> myapp.service
+echo "After=network.target" >> myapp.service
+echo "" >> myapp.service
+echo "[Service]" >> myapp.service
+echo "User=root" >> myapp.service
+echo "Environment=\"MYSQL_HOST=$MYSQL_HOST\"" >> myapp.service
+echo "Environment=\"MYSQL_USER=$MYSQL_USER\"" >> myapp.service
+echo "Environment=\"MYSQL_PASSWORD=$MYSQL_PASSWORD\"" >> myapp.service
+echo "Environment=\"SPRING_REDIS_HOST=$SPRING_REDIS_HOST\"" >> myapp.service
+echo "Environment=\"SPRING_REDIS_PORT=$SPRING_REDIS_PORT\"" >> myapp.service
+echo "Environment=\"SPRING_REDIS_PASSWORD=$SPRING_REDIS_PASSWORD\"" >> myapp.service
+echo "ExecStart=java -jar /home/packer/cloudchat-1.0.0.jar" >> myapp.service
+echo "Restart=always" >> myapp.service
+echo "" >> myapp.service
+echo "[Install]" >> myapp.service
+echo "WantedBy=multi-user.target" >> myapp.service
+```
+
+7.   create azure principle, and update secret.pkrvars.hcl
 ```
 cd ~/handout/cloudchat/monolith/packer
 subscription_id=$(az account list --query "[?isDefault].id" --output tsv) && \
@@ -59,7 +81,7 @@ echo "spring_redis_port = \"${SPRING_REDIS_PORT}\"" >> secret.pkrvars.hcl
 echo "spring_redis_password = \"${SPRING_REDIS_PASSWORD}\"" >> secret.pkrvars.hcl
 ```
 
-7.   validate packer build
+8.   validate packer build
 ```
 cd ~/handout/cloudchat/monolith/packer
 packer validate \
@@ -68,7 +90,7 @@ packer validate \
   -var "resource_group=test_rg" .
 ```
 
-8.   perform packer build (~5 minutes)
+9.   perform packer build (~5 minutes)
 ```
 cd ~/handout/cloudchat/monolith/packer
 packer build \
@@ -77,7 +99,7 @@ packer build \
   -var "resource_group=test_rg" .
 ```
 
-9.   validate packer build by creating vm from image
+10.   validate packer build by creating vm from image
 ```
 az vm create \
   --location eastus2 \
@@ -89,7 +111,7 @@ az vm create \
 az vm open-port --resource-group test_rg --name test_vm --port 8080 --priority 1010
 ```
 
-10.   export your submission credentials are run submitter (~10 minutes)
+11.   export your submission credentials are run submitter (~10 minutes)
 ```
 cd ~/handout
 wget https://cloudnativehandout.blob.core.windows.net/project1/submitter && chmod +x submitter
