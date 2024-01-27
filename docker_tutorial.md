@@ -1,8 +1,9 @@
 ## Docker Tutorial
 
 
-0a.   install docker
+0a.   create test directory and install docker
 ```
+mkdir docker_test && cd docker_test
 curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
 ```
 
