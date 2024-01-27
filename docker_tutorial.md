@@ -3,8 +3,8 @@
 
 0a.   install docker and create test directory
 ```
-mkdir docker_test && cd docker_test
 curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
+mkdir docker_test && cd docker_test
 ```
 
 0b.   create docker group, add current user, activate group, and verify docker is running
