@@ -15,11 +15,17 @@ newgrp docker
 docker run hello-world
 ```
 
+---
 
+1.   package app
+```
+sudo apt-get install -y maven
+mvn clean package
+```
 
 ---
 
-1.   create dockerfile or use handout
+2.   configure dockerfile or use handout
 ```
 wget https://s3.amazonaws.com/cmucc-public/container-detail/sample-containerized-webservice.tgz -O sample-containerized-webservice.tgz
 tar -xvzf sample-containerized-webservice.tgz
@@ -52,7 +58,7 @@ tar -xvzf sample-containerized-webservice.tgz
 
 ---
 
-2a.   build image
+3a.   build image
 ```
 cd /path/to/getting-started-app
 
@@ -63,14 +69,14 @@ cd /path/to/getting-started-app
 # docker build --rm --tag clouduser/primer:latest .
 ```
 
-2b.   display images
+3b.   display images
 ```
 docker iamges
 ```
 
 ---
 
-3.   start app container
+4.   start app container
 ```
 docker run -dp 127.0.0.1:3000:3000 getting-started
 # -d runs "detached" (in the background)
@@ -79,12 +85,12 @@ docker run -dp 127.0.0.1:3000:3000 getting-started
 
 ---
 
-4.   list containers/processes
+5.   list containers/processes
 ```
 docker ps
 ```
 
-5.   stop container/process
+6.   stop container/process
 ```
 docker stop <the-container-id>
 docker rm <the-container-id>
