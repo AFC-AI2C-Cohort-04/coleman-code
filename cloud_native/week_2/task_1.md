@@ -94,7 +94,7 @@ packer build \
   -var "resource_group=test_rg" .
 ```
 
-10.   validate packer build by creating vm from image
+10.   test image by creating vm
 ```
 az vm create \
   --location eastus \
