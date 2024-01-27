@@ -41,7 +41,7 @@ az login --use-device-code
 cd ~
 wget https://cloudnativehandout.blob.core.windows.net/project1/handout.tar.gz
 tar -xvzf handout.tar.gz
-chmod +x submitter
+chmod +x ./handout/submitter
 mv ~/handout/cloudchat/task1-monolith ~/handout/cloudchat/monolith
 ```
 
