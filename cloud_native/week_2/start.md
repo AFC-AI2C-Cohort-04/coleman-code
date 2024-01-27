@@ -1,6 +1,6 @@
 ## Cloud Native | Week 2 | Start
 
-0.   create main resource group and vm (change password)
+0a.   create main resource group and vm (change password)
 ```
 az group create --name main_rg --location eastus2 && \
 az vm create \
@@ -13,26 +13,26 @@ az vm create \
   --admin-password <PASSWORD>
 ```
 
-1.   open ports on vm
+0b.   open ports on vm
 ```
 az vm open-port --resource-group main_rg --name main_vm --port 22 --priority 1001
 az vm open-port --resource-group main_rg --name main_vm --port 8000 --priority 1002
 az vm open-port --resource-group main_rg --name main_vm --port 8080 --priority 1003
 ```
 
-2.   ssh into vm and authenticate with password
+1.   ssh into vm and authenticate with password
 ```
 ssh azureuser@$(az vm show -d -g main_rg -n main_vm --query publicIps -o tsv)
 ```
 
-3.   get azure cli and login
+2.   get azure cli and login
 ```
 cd ~
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 az login --use-device-code
 ```
 
-4.   get handout and submitter, rename 'task1-monolith' to 'monolith'
+3a.   get handout and submitter, rename 'task1-monolith' to 'monolith'
 ```
 cd ~
 wget https://cloudnativehandout.blob.core.windows.net/project1/handout.tar.gz
@@ -41,7 +41,7 @@ wget https://cloudnativehandout.blob.core.windows.net/project1/submitter && chmo
 mv ~/handout/cloudchat/task1-monolith ~/handout/cloudchat/monolith
 ```
 
-5.   get terraform
+3b.   get terraform
 ```
 cd ~
 sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
@@ -58,7 +58,7 @@ sudo apt update
 sudo apt-get install terraform
 ```
 
-6.   get maven, kubectl, and helm
+3c.   get maven, kubectl, and helm
 ```
 cd ~
 sudo apt-get install maven openjdk-17-jdk openjdk-17-jre jq -y
