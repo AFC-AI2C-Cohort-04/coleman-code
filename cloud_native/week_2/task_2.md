@@ -55,8 +55,10 @@ echo 'EXPOSE 3306' >> Dockerfile
 
 ---
 
-4.   build docker image
+4.   move .jar file and build docker image
 ```
+cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
+mv ../target/profile-0.1.0.jar profile-0.1.0.jar
 image_name=profile
 version=latest
 container=$image_name:$version
