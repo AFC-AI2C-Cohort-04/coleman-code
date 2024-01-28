@@ -82,7 +82,7 @@ docker rmi $docker_image
 
 ---
 
-4.   start app container
+4.   start app container from image
 ```
 my_ip=$(curl ifconfig.me)
 docker run -d -p 8080:80 $image_name:$version
