@@ -46,10 +46,10 @@ mvn clean package
 3a.   configure .env file
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
-echo "MYSQL_DB_HOST=\"${MYSQL_DB_HOST}\"" > .env
-echo "MYSQL_DB_USER=\"${MYSQL_DB_USER}\"" >> .env
-echo "MYSQL_DB_PASSWORD=\"${MYSQL_DB_PASSWORD}\"" >> .env
-echo "MYSQL_DB_PORT=\"${MYSQL_DB_PORT}\"" >> .env
+echo "MYSQL_DB_HOST=${MYSQL_DB_HOST}" > .env
+echo "MYSQL_DB_USER=${MYSQL_DB_USER}" >> .env
+echo "MYSQL_DB_PASSWORD=${MYSQL_DB_PASSWORD}" >> .env
+echo "MYSQL_DB_PORT=${MYSQL_DB_PORT}" >> .env
 ```
 
 ---
@@ -58,10 +58,8 @@ echo "MYSQL_DB_PORT=\"${MYSQL_DB_PORT}\"" >> .env
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
 echo 'FROM openjdk:17-jdk-slim' > Dockerfile
-echo 'WORKDIR /app' >> Dockerfile
-echo 'COPY ../target/profile-0.1.0.jar /app/profile-0.1.0.jar' >> Dockerfile
-echo 'ENTRYPOINT ["java", "-jar", "/app/profile-0.1.0.jar"]' >> Dockerfile
-echo 'EXPOSE 80' >> Dockerfile
+echo 'COPY profile-0.1.0.jar profile-0.1.0.jar' >> Dockerfile
+echo 'ENTRYPOINT ["java", "-jar", "profile-0.1.0.jar"]' >> Dockerfile
 ```
 
 ---
@@ -89,7 +87,5 @@ docker run -d -p 8000:8080 --env-file .env $container
 5.   connect to container
 ```
 VM_IP=$(curl ifconfig.me)
-curl $VM_IP:8000/profile?username=ye
+curl $VM_IP:8000/profile?username=lucas
 ```
-
-
