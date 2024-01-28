@@ -83,7 +83,7 @@ mv profile-0.1.0.jar ../target/profile-0.1.0.jar
 4b.   run docker container
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
-docker run -d -p 8000:8080 --env-file .env $container
+docker run -d -p 8080:80 --env-file .env $container
 ```
 
 5.   connect to container
