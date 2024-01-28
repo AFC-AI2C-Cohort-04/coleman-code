@@ -2,6 +2,8 @@
 
 [<< Start](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/start.md)    [<< Task 1](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_1.md)
 
+[Docker Tutorial](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/docker_tutorial.md)
+
 ---
 
 0a.   create profile db (~5 minutes)
