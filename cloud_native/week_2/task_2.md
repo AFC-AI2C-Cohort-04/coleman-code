@@ -61,7 +61,7 @@ echo 'FROM openjdk:17-jdk-slim' > Dockerfile
 echo 'WORKDIR /app' >> Dockerfile
 echo 'COPY ../target/profile-0.1.0.jar /app/profile-0.1.0.jar' >> Dockerfile
 echo 'ENTRYPOINT ["java", "-jar", "/app/profile-0.1.0.jar"]' >> Dockerfile
-echo 'EXPOSE 3306' >> Dockerfile
+echo 'EXPOSE 80' >> Dockerfile
 ```
 
 ---
