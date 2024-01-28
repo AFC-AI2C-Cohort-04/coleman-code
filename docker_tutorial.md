@@ -112,7 +112,7 @@ sudo systemctl stop docker
 sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-ce-rootless-extras
 sudo rm $(which docker)
 sudo rm ~/get-docker.sh
-sudo rm -rf ~/docket_test
+sudo rm -rf ~/docker_test
 sudo rm -rf /etc/docker
 sudo rm -rf /etc/default/docker
 sudo rm -rf /var/lib/docker
