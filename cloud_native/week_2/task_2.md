@@ -43,7 +43,7 @@ mvn clean package
 
 ---
 
-3.   update Dockerfile
+3.   configure Dockerfile
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
 echo 'FROM openjdk:17-jdk-slim' > Dockerfile
@@ -52,3 +52,18 @@ echo 'COPY ../target/profile-0.1.0.jar /app/profile-0.1.0.jar' >> Dockerfile
 echo 'ENTRYPOINT ["java", "-jar", "/app/profile-0.1.0.jar"]' >> Dockerfile
 echo 'EXPOSE 3306' >> Dockerfile
 ```
+
+---
+
+4.   build docker image
+```
+dockerfile_path=./
+image_name=profile
+version=latest
+container=$image_name:$version
+build_path=./
+docker build --rm -f $dockerfile_path -t $container $build_path
+```
+
+
+
