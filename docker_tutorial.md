@@ -12,7 +12,7 @@ curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
 sudo groupadd docker # should already exist
 sudo usermod -aG docker $USER
 newgrp docker
-su - $USER
+su - $USER # re-enter password
 mkdir ~/docker_test && cd ~/docker_test
 docker run hello-world
 ```
