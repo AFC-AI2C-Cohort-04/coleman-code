@@ -122,7 +122,6 @@ sudo rm -rf /var/run/docker.pid
 sudo rm -rf /var/run/docker
 sudo rm -rf /var/lib/containerd
 sudo delgroup docker
-sudo rm $(which docker)
 ```
 
 *.   how to enable docker start-up on boot
