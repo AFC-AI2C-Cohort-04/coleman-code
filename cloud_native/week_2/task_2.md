@@ -46,7 +46,10 @@ mvn clean package
 3a.   configure .env file
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
-echo 'MYSQL_DB_HOST="$MYSQL_DB_HOST"' > .env
+echo "MYSQL_DB_HOST=\"${MYSQL_DB_HOST}\"" > .env
+echo "MYSQL_DB_USER=\"${MYSQL_DB_USER}\"" >> .env
+echo "MYSQL_DB_PASSWORD=\"${MYSQL_DB_PASSWORD}\"" >> .env
+echo "MYSQL_DB_PORT=\"${MYSQL_DB_PORT}\"" >> .env
 ```
 
 ---
