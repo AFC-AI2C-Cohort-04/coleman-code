@@ -12,10 +12,10 @@ terraform apply -var-file="secret.tfvars"
 0b.   get db variables
 ```
 cd ~/handout/cloudchat/terraform-setup/task2-3-profile_data_tier
-export MYSQL_DB_HOST=$(terraform output -raw mysql_fqdn)"
-export MYSQL_DB_USER=$(terraform output -raw mysql_admin_username)"
-export MYSQL_DB_PASSWORD=$(terraform output -raw mysql_admin_password)"
-export MYSQL_DB_PORT=3306
+export MYSQL_DB_HOST="$(terraform output -raw mysql_fqdn)"
+export MYSQL_DB_USER="$(terraform output -raw mysql_admin_username)"
+export MYSQL_DB_PASSWORD="$(terraform output -raw mysql_admin_password)"
+export MYSQL_DB_PORT="3306"
 ```
 
 1a.   install docker
