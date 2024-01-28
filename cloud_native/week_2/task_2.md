@@ -1,18 +1,15 @@
 ## Cloud Native | Week 2 | Task 2
 
-success steps
-- [SUCCESS] terraform builds db
-- [_______] ...
-- [_______] ...
+[<< Start](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/start.md) [<< Task 1](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_1.md)
 
-1.   create profile db
+0a.   create profile db
 ```
 cd ~/project/cloudchat/terraform-setup/task2-3-profile_data_tier
 terraform init
 terraform apply -var-file="secret.tfvars"
 ```
 
-2.   write terraform output to "db_variables.sh", run as source
+0b.   write terraform output to "db_variables.sh", run as source
 ```
 cd ~/project/cloudchat/terraform-setup/task2-3-profile_data_tier
 echo "export MYSQL_HOST=\"$(terraform output -raw mysql_fqdn)\"" > db_variables.sh
@@ -22,9 +19,23 @@ sudo chmod +x db_variables.sh
 source ./db_variables.sh
 ```
 
+1a.   install docker
+```
+cd ~
+curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
+```
 
+1b.   create test directory, create docker group, add current user, activate group, and verify docker is running
+```
+sudo groupadd docker # should already exist
+sudo usermod -aG docker $USER
+newgrp docker
+su - $USER # re-enter password
+mkdir ~/docker_test && cd ~/docker_test
+docker run hello-world
+```
 
-3.   create a Dockerfile to containerize the Profile service.
+2.   create a Dockerfile to containerize the Profile service.
 ```
 cd ~/project/cloudchat/task2-4-microservices/profile/task2-docker
 
