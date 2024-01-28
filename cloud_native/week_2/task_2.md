@@ -2,6 +2,8 @@
 
 [<< Start](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/start.md)    [<< Task 1](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_1.md)
 
+---
+
 0a.   create profile db (~5 minutes)
 ```
 cd ~/handout/cloudchat/terraform-setup/task2-3-profile_data_tier
@@ -91,3 +93,5 @@ docker run -d -p 8000:8080 --env-file .env $container
 VM_IP=$(curl ifconfig.me)
 curl $VM_IP:8000/profile?username=lucas
 ```
+
+---
