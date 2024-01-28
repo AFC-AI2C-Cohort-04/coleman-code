@@ -43,7 +43,15 @@ mvn clean package
 
 ---
 
-3.   configure Dockerfile
+3a.   configure .env file
+```
+cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
+echo 'MYSQL_DB_HOST="$MYSQL_DB_HOST"' > .env
+```
+
+---
+
+3b.   configure Dockerfile
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
 echo 'FROM openjdk:17-jdk-slim' > Dockerfile
