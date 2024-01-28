@@ -43,10 +43,12 @@ mvn clean package
 
 ---
 
-3.   create a Dockerfile to containerize the Profile service.
+3.   update Dockerfile
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
-echo "FROM maven:3.8.4-openjdk-17-slim" > Dockerfile
-echo "WORKDIR /app" >> Dockerfile
-echo "COPY ../target/profile-0.1.0.jar ." >> Dockerfile
+echo 'FROM openjdk:17-jdk-slim' > Dockerfile
+echo 'WORKDIR /app' >> Dockerfile
+echo 'COPY ../target/profile-0.1.0.jar /app/profile-0.1.0.jar' >> Dockerfile
+echo 'ENTRYPOINT ["java", "-jar", "/app/profile-0.1.0.jar"]' >> Dockerfile
+echo 'EXPOSE 3306' >> Dockerfile
 ```
