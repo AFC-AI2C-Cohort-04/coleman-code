@@ -18,6 +18,8 @@ export MYSQL_DB_PASSWORD="$(terraform output -raw mysql_admin_password)"
 export MYSQL_DB_PORT="3306"
 ```
 
+---
+
 1a.   install docker
 ```
 cd ~
