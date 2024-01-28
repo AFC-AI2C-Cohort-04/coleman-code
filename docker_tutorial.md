@@ -76,7 +76,7 @@ docker build --rm --tag $container $dockerfile_path
 docker images
 
 # delete docker images (container must be stopped and removed first)
-docker_image = <image_id>
+docker_image=<image_id>
 docker rmi $docker_image
 ```
 
