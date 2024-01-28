@@ -92,7 +92,7 @@ cont_port=8080
 docker run -d -p $host_port:$cont_port --env-file .env $container
 ```
 
-5a.   connect to container
+5a.   test connection to container
 ```
 vm_ip=$(curl ifconfig.me)
 curl $vm_ip:$host_port/profile?username=lucas
