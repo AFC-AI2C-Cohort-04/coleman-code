@@ -85,7 +85,7 @@ docker rmi $docker_image
 
 4.   start app container from docker image
 ```
-docker run -d -p 8080:80 $container
+docker run -d -p 8080:8080 $container
 # wait a few seconds, then curl
 my_ip=$(curl ifconfig.me)
 curl $my_ip:8080
