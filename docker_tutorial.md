@@ -84,10 +84,9 @@ docker rmi $docker_image
 
 4.   start app container from container image
 ```
-my_ip=$(curl ifconfig.me)
 docker run -d -p 8080:80 $container
-# wait a few seconds
-curl $my_ip:8080
+# wait a few seconds, then curl
+curl $(curl ifconfig.me):8080
 # -d runs "detached" (in the background)
 # -p maps container port(s) to host port
 ```
