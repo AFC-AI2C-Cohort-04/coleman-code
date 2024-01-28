@@ -64,6 +64,7 @@ version=latest
 container=$image_name:$version
 build_path=./
 docker build --rm --tag $container $build_path
+mv profile-0.1.0.jar ../target/profile-0.1.0.jar
 ```
 
 
