@@ -95,3 +95,14 @@ curl $VM_IP:8000/profile?username=lucas
 ```
 
 ---
+
+6.   export submission credentials and run submitter
+```
+export SUBMISSION_USERNAME=<USERNAME>
+export SUBMISSION_PASSWORD=<PASSWORD>
+cd ~/handout
+./submitter task2
+```
+
+---
+
