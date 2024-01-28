@@ -24,14 +24,13 @@ cd ~
 curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
 ```
 
-1b.   create test directory, create docker group, add current user, activate group, and verify docker is running
+1b.   create docker group, add current user, activate group, refresh session, and verify docker is running
 ```
 sudo groupadd docker # should already exist
 sudo usermod -aG docker $USER
 newgrp docker
 su - $USER # re-enter password
-mkdir ~/docker_test && cd ~/docker_test
-docker run hello-world
+docker --version
 ```
 
 2.   create a Dockerfile to containerize the Profile service.
