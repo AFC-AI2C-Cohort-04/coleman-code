@@ -87,13 +87,15 @@ mv profile-0.1.0.jar ../target/profile-0.1.0.jar
 5b.   run docker container
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
-docker run -d -p 8080:8080 --env-file .env $container
+host_port=8000
+cont_port=8080
+docker run -d -p $host_port:$cont_port --env-file .env $container
 ```
 
 5a.   connect to container
 ```
-VM_IP=$(curl ifconfig.me)
-curl $VM_IP:8080/profile?username=lucas
+vm_ip=$(curl ifconfig.me)
+curl $vm_ip:$host_port/profile?username=lucas
 ```
 
 ---
