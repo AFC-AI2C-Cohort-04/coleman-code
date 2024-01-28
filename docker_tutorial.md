@@ -10,8 +10,9 @@ curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
 ```
 mkdir docker_test && cd docker_test
 sudo groupadd docker
-sudo usermod -aG docker $(whoami)
+sudo usermod -aG docker $USER
 newgrp docker
+su - $USER
 docker run hello-world
 ```
 
