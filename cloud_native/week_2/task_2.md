@@ -89,7 +89,7 @@ docker run -d -p 8080:80 --env-file .env $container
 5.   connect to container
 ```
 my_ip=$(curl ifconfig.me)
-curl $my_ip:8000/profile?username=lucas
+curl $my_ip:8080/profile?username=lucas
 ```
 
 
