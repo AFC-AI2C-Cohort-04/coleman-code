@@ -4,14 +4,14 @@
 
 0a.   create profile db
 ```
-cd ~/project/cloudchat/terraform-setup/task2-3-profile_data_tier
+cd ~/handout/cloudchat/terraform-setup/task2-3-profile_data_tier
 terraform init
 terraform apply -var-file="secret.tfvars"
 ```
 
 0b.   write terraform output to "db_variables.sh", run as source
 ```
-cd ~/project/cloudchat/terraform-setup/task2-3-profile_data_tier
+cd ~/handout/cloudchat/terraform-setup/task2-3-profile_data_tier
 echo "export MYSQL_HOST=\"$(terraform output -raw mysql_fqdn)\"" > db_variables.sh
 echo "export MYSQL_USER=\"$(terraform output -raw mysql_admin_username)\"" >> db_variables.sh
 echo "export MYSQL_PASSWORD=\"$(terraform output -raw mysql_admin_password)\"" >> db_variables.sh
@@ -37,6 +37,6 @@ docker run hello-world
 
 2.   create a Dockerfile to containerize the Profile service.
 ```
-cd ~/project/cloudchat/task2-4-microservices/profile/task2-docker
+cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
 
 ```
