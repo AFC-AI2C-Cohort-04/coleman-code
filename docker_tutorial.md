@@ -112,11 +112,13 @@ sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin do
 sudo rm $(which docker)
 sudo rm ~/get-docker.sh
 sudo rm -rf ~/docket_test
-sudo rm -rf /etc/docker /etc/default/docker
+sudo rm -rf /etc/docker
+sudo rm -rf /etc/default/docker
 sudo rm -rf /var/lib/docker
-sudo rm -rf /var/run/docker.sock /var/run/docker.pid /var/run/docker
+sudo rm -rf /var/run/docker.sock
+sudo rm -rf /var/run/docker.pid
+sudo rm -rf /var/run/docker
 sudo rm -rf /var/lib/containerd
-sudo deluser docker
 sudo delgroup docker
 ```
 
