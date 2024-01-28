@@ -64,7 +64,7 @@ echo 'ENTRYPOINT ["java", "-jar", "profile-0.1.0.jar"]' >> Dockerfile
 
 ---
 
-4a.   move .jar file and build docker image
+4.   move .jar file and build docker image
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
 mv ../target/profile-0.1.0.jar profile-0.1.0.jar
@@ -78,13 +78,13 @@ mv profile-0.1.0.jar ../target/profile-0.1.0.jar
 
 ---
 
-4b.   run docker container
+5b.   run docker container
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
 docker run -d -p 8000:8080 --env-file .env $container
 ```
 
-5.   connect to container
+5a.   connect to container
 ```
 VM_IP=$(curl ifconfig.me)
 curl $VM_IP:8000/profile?username=lucas
