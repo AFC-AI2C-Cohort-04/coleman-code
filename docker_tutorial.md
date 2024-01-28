@@ -82,7 +82,7 @@ docker rmi $docker_image
 
 ---
 
-4.   start app container from container image
+4.   start app container from docker image
 ```
 docker run -d -p 8080:80 $container
 # wait a few seconds, then curl
