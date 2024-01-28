@@ -33,8 +33,18 @@ su - $USER # re-enter password
 docker --version
 ```
 
-2.   create a Dockerfile to containerize the Profile service.
+---
+
+2.   compile the application using maven
+```
+cd ~/handout/cloudchat/task2-4-microservices/profile
+mvn clean package
+```
+
+---
+
+3.   create a Dockerfile to containerize the Profile service.
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
-
+echo "" > Dockerfile
 ```
