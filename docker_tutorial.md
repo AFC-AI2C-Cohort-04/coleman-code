@@ -19,37 +19,35 @@ docker run hello-world
 
 ---
 
-1.   package app
+1.   get example handout and package app
 ```
+wget https://s3.amazonaws.com/cmucc-public/container-detail/sample-containerized-webservice.tgz -O sample-containerized-webservice.tgz
+tar -xvzf sample-containerized-webservice.tgz
 sudo apt-get install -y maven
 mvn clean package
 ```
 
 ---
 
-2.   configure dockerfile (handout reference)
+2.   configure dockerfile (handout reference below is pre-configured)
 ```
-wget https://s3.amazonaws.com/cmucc-public/container-detail/sample-containerized-webservice.tgz -O sample-containerized-webservice.tgz
-tar -xvzf sample-containerized-webservice.tgz
-
 # base image
-# FROM ubuntu:18.04
+FROM ubuntu:18.04
 
 # run install commands
-# RUN apt-get update && apt-get -y install default-jre
+RUN apt-get update && apt-get -y install default-jre
 
 # open container port
-# EXPOSE 80
+EXPOSE 80
 
 # add or copy files from host file system
-# ADD ./target/demo-1.0-SNAPSHOT-jar-with-dependencies.jar /
+ADD ./target/demo-1.0-SNAPSHOT-jar-with-dependencies.jar /
 
 # use bash as the container's entry point
-# ENTRYPOINT ["/bin/bash", "-c"]
+ENTRYPOINT ["/bin/bash", "-c"]
 
 # define command which runs when the container starts
-# CMD ["node", "src/index.js"]
-# CMD ["java -cp demo-1.0-SNAPSHOT-jar-with-dependencies.jar HelloWorld"]
+CMD ["java -cp demo-1.0-SNAPSHOT-jar-with-dependencies.jar HelloWorld"]
 
 # ENTRYPOINT and CMD work together to create a single following command when container starts
 # /bin/bash -c "java -cp demo-1.0-SNAPSHOT-jar-with-dependencies.jar HelloWorld"
