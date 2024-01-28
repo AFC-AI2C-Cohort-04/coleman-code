@@ -64,11 +64,12 @@ CMD ["java -cp demo-1.0-SNAPSHOT-jar-with-dependencies.jar HelloWorld"]
 3a.   build docker image from docker file
 ```
 # --rm removes previous version
+dockerfile_path=./
 image_name=image_test
 version=latest
 container=$image_name:$version
-dockerfile_path=./
-docker build --rm --tag $container $dockerfile_path
+build_path=./
+docker build --rm -f $dockerfile_path -t $container $build_path
 ```
 
 3b.   display / delete images
@@ -104,6 +105,11 @@ docker rm $container # deletes container/process
 ```
 
 ---
+
+*.   run docker image in interactive mode
+```
+docker run -it <image_name> /bin/bash
+```
 
 *.   how to uninstall docker
 ```
