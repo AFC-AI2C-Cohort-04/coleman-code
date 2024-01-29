@@ -65,19 +65,19 @@ az aks update \
 
 ---
 
-3.   connect to AKS cluster
+3a.   get kubectl
+```
+cd ~
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+```
+
+3b.   connect to AKS cluster
 ```
 az aks get-credentials \
   --resource-group aks_rg \
   --name $aks_name && \
 kubectl get nodes
-```
-
-*.   try re-installing kubectl if 'command kubectl not found'
-```
-cd ~
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 ```
 
 ---
