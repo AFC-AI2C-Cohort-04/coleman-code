@@ -40,9 +40,42 @@ java -jar ./target/cloudchat-1.0.0.jar
 
 ---
 
-3a.   update [azure-packer.pkr.hcl](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/azure-packer.pkr.hcl) in ~/handout/cloudchat/monolith/packer/
+3a.   update azure-packer.pkr.hcl
+```
+cd ~/handout/cloudchat/monolith/packer
+echo -e 'variable "client_id" {\n  type = string\n  default = ""
+  sensitive = true\n}\n\nvariable "client_secret" {\n  type = string
+  default = ""\n  sensitive = true\n}\n\nvariable "tenant_id" {\n  type = string
+  default = ""\n  sensitive = true\n}\n\nvariable "subscription_id" {
+  type = string\n  default = ""\n  sensitive = true\n}\n
+variable "resource_group" {\n  type = string\n  default = ""\n}\n
+variable "managed_image_name" {\n  type = string\n  default = ""\n}\n
+source "azure-arm" "main" {\n  client_id = var.client_id
+  client_secret = var.client_secret\n  tenant_id = var.tenant_id
+  subscription_id = var.subscription_id
+  managed_image_resource_group_name = var.resource_group
+  managed_image_name = var.managed_image_name
+  location = "eastus" # submitter needs 'eastus'
+  os_type = "Linux"\n  image_publisher = "Canonical"
+  image_offer = "0001-com-ubuntu-server-jammy"\n  image_sku = "22_04-lts"
+  vm_size = "Standard_B2s" # submitter will ignore and create 'Standard_DS1_v2'
+}\n\nbuild {\n  sources = [\n    "source.azure-arm.main"\n  ]\n
+  provisioner "file" {\n    source = "myapp.service"
+    destination = "/home/packer/myapp.service"\n  }\n\n  provisioner "file" {
+    source = "../target/cloudchat-1.0.0.jar"
+    destination = "/home/packer/cloudchat-1.0.0.jar"\n  }\n
+  provisioner "shell" {\n    inline = [\n      "cloud-init status --wait",
+      "sudo apt-get update",
+      "sudo apt-get install -y openjdk-17-jdk openjdk-17-jre jq",
+      "sudo mv myapp.service /etc/systemd/system/myapp.service",
+      "sudo systemctl daemon-reload",
+      "sudo systemctl enable myapp.service",
+      "sudo systemctl start myapp.service"\n    ]\n  }
+}' > azure-packer.pkr.hcl
+```
 
-3b.   run the code below in terminal and it will update your myapp.service
+
+3b.   update myapp.service
 ```
 cd ~/handout/cloudchat/monolith/packer
 rm run_monolith.sh
