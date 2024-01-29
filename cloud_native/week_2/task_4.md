@@ -200,27 +200,26 @@ export LOGIN_DB_PASSWORD="$(terraform output -raw mysql_admin_password)"
 7b.   create login helm files and install helm login
 ```
 cd ~/handout/cloudchat/task2-4-microservices/
-cp profile/task4-helm/profile/templates/* chat/helm/chat/templates/
-cd chat/helm/chat/templates/
-sed -i 's/profile/chat/g' configmap.yaml
+cp profile/task4-helm/profile/templates/* login/helm/login/templates/
+cd login/helm/login/templates/
+sed -i 's/profile/login/g' configmap.yaml
 sed -i '/^data:/q' configmap.yaml
-echo -e "  MYSQL_DB_HOST: \"$CHAT_DB_HOST\"
-  SPRING_REDIS_HOST: \"$CHAT_REDIS_HOST\"" >> configmap.yaml
-sed -i 's/profile/chat/g' deployment.yaml
-sed -i 's/profile/chat/g' secret.yaml
+echo -e "  MYSQL_DB_HOST: \"$LOGIN_DB_HOST\"
+  MYSQL_DB_PORT: \"$LOGIN_DB_PORT\"
+  CHAT_ENDPOINT: \"$LOAD_BALANCER_EXTERNAL_IP\"" >> configmap.yaml
+sed -i 's/profile/login/g' deployment.yaml
+sed -i 's/profile/login/g' secret.yaml
 sed -i '/^stringData:/q' secret.yaml
-echo -e "  MYSQL_DB_PORT: \"$CHAT_DB_PORT\"\n  MYSQL_DB_USER: \"$CHAT_DB_USER\"
-  MYSQL_DB_PASSWORD: \"$CHAT_DB_PASSWORD\"
-  SPRING_REDIS_PORT: \"$CHAT_REDIS_PORT\"
-  SPRING_REDIS_PASSWORD: \"$CHAT_REDIS_PASSWORD\"" >> secret.yaml
-sed -i 's/profile/chat/g' service.yaml
-cd ~/handout/cloudchat/task2-4-microservices/chat
-helm install chat helm/chat/
+echo -e "  MYSQL_DB_USER: \"$LOGIN_DB_USER\"
+  MYSQL_DB_PASSWORD: \"$LOGIN_DB_PASSWORD\"" >> secret.yaml
+sed -i 's/profile/login/g' service.yaml
+cd ~/handout/cloudchat/task2-4-microservices/login
+helm install login helm/login/
 ```
 
 7c.   verify login service
 ```
-curl http://$LOAD_BALANCER_EXTERNAL_IP/chat
+curl http://$LOAD_BALANCER_EXTERNAL_IP/login
 ```
 
 ---
