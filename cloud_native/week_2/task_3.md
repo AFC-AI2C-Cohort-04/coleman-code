@@ -43,6 +43,8 @@ docker tag $container $acr_server/$container
 docker push $acr_server/$container
 ```
 
+---
+
 2.   create azure kubernetes cluster (AKS)
 ```
 az group create \
@@ -57,5 +59,6 @@ az aks create \
   --node-count 2 \
   --generate-ssh-keys
 ```
+---
 
 [<< Task 2](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_2.md)      [Task 4 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_4.md)
