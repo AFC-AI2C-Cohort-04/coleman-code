@@ -93,4 +93,14 @@ mv login-0.1.0.jar ../target/login-0.1.0.jar
 
 ---
 
+3.create Ingress resource
+```
+cd ~
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo update
+helm install my-nginx bitnami/nginx-ingress-controller --version v9.3.24
+```
+
+---
+
 [<< Task 3](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_3.md)
