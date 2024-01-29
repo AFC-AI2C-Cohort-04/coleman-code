@@ -111,7 +111,7 @@ echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
       - name: profile\n        image: $acr_server/$container\n        ports:
         - containerPort: 8080\n        envFrom:\n        - configMapRef:
             name: spring-profile-configmap\n        - secretRef:
-            name: spring-profile-secret\n" > deployment.yaml
+            name: spring-profile-secret" > deployment.yaml
 ```
 
 4d.   create profile secret.yaml
