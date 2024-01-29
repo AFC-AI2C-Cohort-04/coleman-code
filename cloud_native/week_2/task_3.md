@@ -87,7 +87,7 @@ kubectl get nodes
 cd ~/handout/cloudchat/terraform-setup/task2-3-profile_data_tier
 export MYSQL_DB_HOST="$(terraform output -raw mysql_fqdn)" && \
 export MYSQL_DB_PORT="3306" && \
-export MYSQL_DB_USERNAME="$(terraform output -raw mysql_admin_username)" && \
+export MYSQL_DB_USER="$(terraform output -raw mysql_admin_username)" && \
 export MYSQL_DB_PASSWORD="$(terraform output -raw mysql_admin_password)"
 ```
 
@@ -114,9 +114,9 @@ echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
               name: spring-profile-configmap\n              key: MYSQL_DB_HOST
         - name: MYSQL_DB_PORT\n          valueFrom:
             configMapKeyRef:\n              name: spring-profile-configmap
-              key: MYSQL_DB_PORT\n        - name: MYSQL_DB_USERNAME
+              key: MYSQL_DB_PORT\n        - name: MYSQL_DB_USER
           valueFrom:\n            secretKeyRef:
-              name: spring-profile-secret\n              key: MYSQL_DB_USERNAME
+              name: spring-profile-secret\n              key: MYSQL_DB_USER
         - name: MYSQL_DB_PASSWORD\n          valueFrom:
             secretKeyRef:\n              name: spring-profile-secret
               key: MYSQL_DB_PASSWORD" > deployment.yaml
