@@ -123,12 +123,18 @@ kubectl create -f ingress.yaml && \
 kubectl get ingress
 ```
 
----
-
-4.   delete task 3 kubernetes service
+3d.   delete task 3 kubernetes service
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
 kubectl delete -f .
+```
+
+---
+
+4a.   copy profile k8s config files to helm templates
+```
+cd ~/handout/cloudchat/task2-4-microservices/profile
+cp task3-k8s/* /task4-helm/profile/templates/
 ```
 
 ---
