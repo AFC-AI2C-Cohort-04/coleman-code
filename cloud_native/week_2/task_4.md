@@ -149,6 +149,9 @@ curl http://$LOAD_BALANCER_EXTERNAL_IP/profile?username=lucas
 ```
 # (3a., 3b., 3c.) re-install ingress controller, update ingress file, and create ingress profile
 
+# show cluster services
+kubectl get services
+
 # show helm services
 helm list
 
