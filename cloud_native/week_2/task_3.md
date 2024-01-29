@@ -109,17 +109,9 @@ echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
   replicas: 3\n  selector:\n    matchLabels:\n      app: profile\n  template:
     metadata:\n      labels:\n        app: profile\n    spec:\n      containers:
       - name: profile\n        image: $acr_server/$container\n        ports:
-        - containerPort: 8080\n        env:\n        - name: MYSQL_DB_HOST
-          valueFrom:\n            configMapKeyRef:
-              name: spring-profile-configmap\n              key: MYSQL_DB_HOST
-        - name: MYSQL_DB_PORT\n          valueFrom:
-            configMapKeyRef:\n              name: spring-profile-configmap
-              key: MYSQL_DB_PORT\n        - name: MYSQL_DB_USER
-          valueFrom:\n            secretKeyRef:
-              name: spring-profile-secret\n              key: MYSQL_DB_USER
-        - name: MYSQL_DB_PASSWORD\n          valueFrom:
-            secretKeyRef:\n              name: spring-profile-secret
-              key: MYSQL_DB_PASSWORD" > deployment.yaml
+        - containerPort: 8080\n        envFrom:\n        - configMapRef:
+            name: spring-chat-configmap\n        - secretRef:
+            name: spring-chat-secret\n" > deployment.yaml
 ```
 
 4d.   create secret.yaml
