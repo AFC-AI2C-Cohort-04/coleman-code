@@ -131,7 +131,7 @@ kubectl delete -f .
 
 ---
 
-4a.   copy profile k8s config files to helm templates, make updates, and install helm charts
+4.   copy profile k8s config files to helm templates, make updates, and install helm charts
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile
 cp task3-k8s/* task4-helm/profile/templates/
