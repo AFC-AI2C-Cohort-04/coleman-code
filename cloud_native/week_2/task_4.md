@@ -145,6 +145,15 @@ LOAD_BALANCER_EXTERNAL_IP=$(kubectl get services -o json | jq -r '.items[] | sel
 curl http://$LOAD_BALANCER_EXTERNAL_IP/profile?username=lucas
 ```
 
+*.   (helm troubleshooting)
+```
+# show helm services
+helm list
+
+# remove helm service
+helm delete <name>
+```
+
 ### STUCK: CURLING THE EXTERNAL IP OF THE NGINX LOAD BALANCER RESULTS IN 404
 
 ---
