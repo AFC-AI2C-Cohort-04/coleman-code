@@ -140,13 +140,15 @@ helm delete <name>
 
 ---
 
-5a.   create RBAC for chat service
+5.   create RBAC for chat service
 ```
 cd ~/handout/cloudchat/task2-4-microservices/task4-rbac/
 kubectl apply -f .
 ```
 
-5b.   get chat db variables
+---
+
+6a.   get chat db variables
 ```
 cd ~/handout/cloudchat/terraform-setup/task4-chat_data_tier
 export CHAT_DB_HOST="$(terraform output -raw mysql_fqdn)" && \
@@ -158,7 +160,7 @@ export CHAT_REDIS_PORT="$(terraform output -raw redis_port)" && \
 export CHAT_REDIS_PASSWORD="$(terraform output -raw redis_primary_access_key)"
 ```
 
-5c.   create chat helm files and install helm chat
+6b.   create chat helm files and install helm chat
 ```
 cd ~/handout/cloudchat/task2-4-microservices/
 cp profile/task4-helm/profile/templates/* chat/helm/chat/templates/
@@ -179,26 +181,47 @@ cd ~/handout/cloudchat/task2-4-microservices/chat
 helm install chat helm/chat/
 ```
 
-5d.   verify chat service (should return HTML "503 Service Temporarily Unavailable")
+6c.   verify chat service (should return HTML "503 Service Temporarily Unavailable")
 ```
 curl http://$LOAD_BALANCER_EXTERNAL_IP/chat
 ```
 
 ---
 
-
-
-
-.   get login db variables
+7a.   get login db variables
 ```
 cd ~/handout/cloudchat/terraform-setup/task4-login_data_tier
 export LOGIN_DB_HOST="$(terraform output -raw mysql_fqdn)" && \
+export LOGIN_DB_PORT="3306" && \
 export LOGIN_DB_USER="$(terraform output -raw mysql_admin_username)" && \
-export LOGIN_DB_PASSWORD="$(terraform output -raw mysql_admin_password)" && \
-export LOGIN_DB_PORT="3001"
+export LOGIN_DB_PASSWORD="$(terraform output -raw mysql_admin_password)"
 ```
 
+7b.   create login helm files and install helm login
+```
+cd ~/handout/cloudchat/task2-4-microservices/
+cp profile/task4-helm/profile/templates/* chat/helm/chat/templates/
+cd chat/helm/chat/templates/
+sed -i 's/profile/chat/g' configmap.yaml
+sed -i '/^data:/q' configmap.yaml
+echo -e "  MYSQL_DB_HOST: \"$CHAT_DB_HOST\"
+  SPRING_REDIS_HOST: \"$CHAT_REDIS_HOST\"" >> configmap.yaml
+sed -i 's/profile/chat/g' deployment.yaml
+sed -i 's/profile/chat/g' secret.yaml
+sed -i '/^stringData:/q' secret.yaml
+echo -e "  MYSQL_DB_PORT: \"$CHAT_DB_PORT\"\n  MYSQL_DB_USER: \"$CHAT_DB_USER\"
+  MYSQL_DB_PASSWORD: \"$CHAT_DB_PASSWORD\"
+  SPRING_REDIS_PORT: \"$CHAT_REDIS_PORT\"
+  SPRING_REDIS_PASSWORD: \"$CHAT_REDIS_PASSWORD\"" >> secret.yaml
+sed -i 's/profile/chat/g' service.yaml
+cd ~/handout/cloudchat/task2-4-microservices/chat
+helm install chat helm/chat/
+```
 
+7c.   verify login service
+```
+curl http://$LOAD_BALANCER_EXTERNAL_IP/chat
+```
 
 ---
 
