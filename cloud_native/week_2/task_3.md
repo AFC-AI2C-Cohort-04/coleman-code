@@ -78,20 +78,22 @@ kubectl get nodes
 4a.   create deployment.yaml
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
-echo "metadata:
-  name: spring-profile-deployment
-  labels:
-    app: spring-profile-service
-  template:
-    metadata:
-      labels:
-        app: spring-profile-service
-    spec:
-      containers:
-      - name: spring-profile-container
-        image: $container
-        ports:
-        - containerPort: 8080" > deployment.yaml
+echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
+  name: spring-profile-deployment\n  labels:\n    app: profile\nspec:
+  replicas: 3\n  selector:\n    matchLabels:\n      app: profile\n  template:
+    metadata:\n      labels:\n        app: profile\n    spec:\n      containers:
+      - name: profile\n        image: $acr_server/$container\n        ports:
+        - containerPort: 8080\n        env:\n        - name: MYSQL_DB_HOST
+          valueFrom:\n            configMapKeyRef:
+              name: spring-profile-configmap\n              key: mysql_db_host
+        - name: MYSQL_DB_PORT\n          valueFrom:
+            configMapKeyRef:\n              name: spring-profile-configmap
+              key: mysql_db_port\n        - name: MYSQL_DB_USER
+          valueFrom:\n            secretKeyRef:
+              name: spring-profile-secret\n              key: mysql_db_username
+        - name: MYSQL_DB_PASSWORD\n          valueFrom:
+            secretKeyRef:\n              name: spring-profile-secret
+              key: mysql_db_password" > deployment.yaml
 ```
 
 ---
