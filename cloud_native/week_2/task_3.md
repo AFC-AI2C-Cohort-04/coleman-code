@@ -59,7 +59,7 @@ az aks create \
 ```
 az aks update \
   --name <AKS_NAME> \
-  --resource-group <AKS_RG_NAME>\
+  --resource-group <AKS_RG_NAME> \
   --attach-acr <ACR_NAME>
 ```
 
