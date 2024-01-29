@@ -22,6 +22,18 @@ export CHAT_REDIS_PORT="$(terraform output -raw redis_port)"
 export CHAT_REDIS_PASSWORD="$(terraform output -raw redis_primary_access_key)"
 ```
 
+0c.   create login db
+```
+cd ~/handout/cloudchat/terraform-setup/task4-login_data_tier
+terraform init
+terraform apply -var-file="secret.tfvars"
+```
+
+0d.   get login db variables
+```
+
+```
+
 ---
 
 [<< Task 3](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_3.md)
