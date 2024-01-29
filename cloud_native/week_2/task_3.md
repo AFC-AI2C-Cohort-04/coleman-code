@@ -64,14 +64,17 @@ az aks update \
 
 ---
 
-3a.   get AKS credentials
+3.   connect to AKS cluster
 ```
 az aks get-credentials \
   --resource-group aks_rg \
-  --name $aks_name
+  --name $aks_name && \
+kubectl get nodes
 ```
 
-3a.   connect to AKS cluster
+---
+
+4.   a
 ```
 
 ```
