@@ -160,6 +160,9 @@ curl http://$LOAD_BALANCER_EXTERNAL_IP/profile?username=lucas
 # list all services in the default namespace (ensure load balancer external ip exists)
 kubectl get services
 
+# remove service
+kubectl delete service <service-nane>
+
 # list all pods in the default namespace
 kubectl get pods
 
