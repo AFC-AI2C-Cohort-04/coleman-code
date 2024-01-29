@@ -6,6 +6,7 @@
 
 0a.   create azure container registry (ACR)
 ```
+cd ~
 acr_name=acrcloudchat
 az group create \
   --name acr_rg \
