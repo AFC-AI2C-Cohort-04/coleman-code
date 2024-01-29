@@ -217,7 +217,7 @@ cd ~/handout/cloudchat/task2-4-microservices/login
 helm install login helm/login/
 ```
 
-7c.   verify login service
+7c.   verify login service (may take a few minutes)
 ```
 curl http://$LOAD_BALANCER_EXTERNAL_IP/login
 ```
