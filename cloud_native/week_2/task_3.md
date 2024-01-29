@@ -96,7 +96,7 @@ export MYSQL_DB_PASSWORD="$(terraform output -raw mysql_admin_password)"
 cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
 sql_db_name=$(az resource list --query "[?starts_with(name, 'profile-mysql-fs')].resourceGroup" -o tsv) && \
 echo -e "apiVersion: v1\nkind: ConfigMap\nmetadata:
-  name: spring-profile-configmap\nstringData:
+  name: spring-profile-configmap\ndata:
   MYSQL_DB_HOST: \"${sql_db_name}.mysql.database.azure.com\"
   MYSQL_DB_PORT: \"3306\"" > configmap.yaml
 ```
@@ -121,7 +121,7 @@ MYSQL_DB_USER=$(terraform output -raw mysql_admin_username)
 MYSQL_DB_PASSWORD=$(terraform output -raw mysql_admin_password)
 cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
 echo -e "apiVersion: v1\nkind: Secret\nmetadata:\n  name: spring-profile-secret
-stringData:\n  MYSQL_DB_USER: \"${MYSQL_DB_USER}\"
+type: Opaque\nstringData:\n  MYSQL_DB_USER: \"${MYSQL_DB_USER}\"
   MYSQL_DB_PASSWORD: \"${MYSQL_DB_PASSWORD}\"" > secret.yaml
 ```
 
