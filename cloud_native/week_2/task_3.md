@@ -43,9 +43,19 @@ docker tag $container $acr_server/$container
 docker push $acr_server/$container
 ```
 
-2.   a
+2.   create azure kubernetes cluster (AKS)
 ```
-
+az group create \
+  --name aks_rg \
+  --location eastus && \
+aks_name=aks-cloudchat && \
+az aks create \
+  --resource-group aks_rg \
+  --name $aks_name \
+  --attach-acr $acr_name \
+  --node-vm-size "Standard_B2s" \
+  --node-count 2 \
+  --generate-ssh-keys
 ```
 
 [<< Task 2](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_2.md)      [Task 4 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_4.md)
