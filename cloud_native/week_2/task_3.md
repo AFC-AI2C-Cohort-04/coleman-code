@@ -6,12 +6,13 @@
 
 0a.   create azure container registry (ACR)
 ```
+acr_name=acrprofile
 az group create \
   --name acr_rg \
   --location eastus && \
 az acr create \
   --resource-group acr_rg \
-  --name acrprofile \
+  --name $acr_name \
   --sku Basic
 ```
 
@@ -31,5 +32,19 @@ az acr login \
 ```
 
 ---
+
+1a.   tag the container image that was built from task 2
+```
+image_name=profile
+version=latest
+container=$image_name:$version
+acr_server=$acr_name.azurecr.io
+docker tag $container $acr_server/$container
+```
+
+1b.   push container image
+```
+
+```
 
 [<< Task 2](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_2.md)      [Task 4 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_4.md)
