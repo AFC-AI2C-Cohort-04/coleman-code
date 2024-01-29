@@ -17,10 +17,17 @@ az acr create \
 
 0b.   login to ACR
 ```
-#az acr login \
-  --name $ACR_SERVER_NAME \
-  -u $ACR_USERNAME \
-  -p $ACR_PASSWORD
+assignee=$(az ad signed-in-user show --query id -o tsv) && \
+subscription_id=$(az account show --query id -o tsv) && \
+scope1="/subscriptions/$subscription_id/resourceGroups/acr_rg" && \
+scope2="providers/Microsoft.ContainerRegistry/registries/acrprofile" && \
+az role assignment create \
+  --assignee $assignee \
+  --role Owner \
+  --scope $scope1/$scope2 && \
+az login --use-device-code && \
+az acr login \
+  --name acrprofile
 ```
 
 ---
