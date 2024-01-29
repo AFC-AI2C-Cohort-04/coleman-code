@@ -197,7 +197,7 @@ cd ~/handout/cloudchat/task2-4-microservices/chat
 helm install chat helm/chat/
 ```
 
-6c.   verify chat service (should return HTML "503 Service Temporarily Unavailable")
+6c.   verify chat service (should return JSON)
 ```
 curl http://$LOAD_BALANCER_EXTERNAL_IP/chat
 ```
