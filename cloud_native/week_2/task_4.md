@@ -113,7 +113,6 @@ cd ~/handout/cloudchat/task2-4-microservices/profile
 cp task3-k8s/* task4-helm/profile/templates/
 cd task4-helm/profile/templates/
 sed -i 's/containerPort: 8080/containerPort: 80/' deployment.yaml && \
-echo '  MYSQL_DB_PORT: "3306"' >> secret.yaml && \
 sed -i 's/type: LoadBalancer/type: NodePort/' service.yaml && \
 cd ~/handout/cloudchat/task2-4-microservices/profile && \
 helm install profile task4-helm/profile/
