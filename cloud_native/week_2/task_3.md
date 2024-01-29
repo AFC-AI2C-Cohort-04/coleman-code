@@ -33,7 +33,7 @@ image_name=profile
 version=latest
 container=$image_name:$version
 acr_server=$acr_name.azurecr.io
-docker tag $container $acr_server/$container
+docker tag $container $acr_server/$container && \
 docker push $acr_server/$container
 ```
 
