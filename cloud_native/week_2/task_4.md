@@ -140,7 +140,13 @@ helm delete <name>
 
 ---
 
-5a.   get chat db variables
+5a.   create RBAC for chat service
+```
+cd ~/handout/cloudchat/task2-4-microservices/task4-rbac/
+kubectl apply -f .
+```
+
+5b.   get chat db variables
 ```
 cd ~/handout/cloudchat/terraform-setup/task4-chat_data_tier
 export CHAT_DB_HOST="$(terraform output -raw mysql_fqdn)" && \
@@ -152,7 +158,7 @@ export CHAT_REDIS_PORT="$(terraform output -raw redis_port)" && \
 export CHAT_REDIS_PASSWORD="$(terraform output -raw redis_primary_access_key)"
 ```
 
-5b.   create chat helm files and install helm chat
+5c.   create chat helm files and install helm chat
 ```
 cd ~/handout/cloudchat/task2-4-microservices/
 cp profile/task4-helm/profile/templates/* chat/helm/chat/templates/
