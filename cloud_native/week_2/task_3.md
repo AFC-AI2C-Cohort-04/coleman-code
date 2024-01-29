@@ -127,10 +127,31 @@ echo -e "apiVersion: v1\nkind: Service\nmetadata:
 
 ---
 
-5.   deploy profile application to AKS cluster
+5a.   deploy profile application to AKS cluster
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
 kubectl apply -f .
+```
+
+5b.   verify profile service
+```
+LOAD_BALANCER_EXTERNAL_IP=$(kubectl get service spring-profile-service --output=jsonpath='{.status.loadBalancer.ingress[0].ip}')
+curl http://$LOAD_BALANCER_EXTERNAL_IP/profile?username=lucas
+```
+
+*.   (troubleshooting commands)
+```
+# List all services in the default namespace
+kubectl get services
+
+# List all pods in the default namespace
+kubectl get pods
+
+# Retrieve the logs for a specific pod
+kubectl logs <POD_NAME>
+
+# The exec command will give you the terminal access inside of the pod
+kubectl exec -it <POD_NAME> -- /bin/sh
 ```
 
 [<< Task 2](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_2.md)      [Task 4 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_4.md)
