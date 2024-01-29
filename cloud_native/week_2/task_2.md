@@ -71,7 +71,7 @@ mv profile-0.1.0.jar ../target/profile-0.1.0.jar
 
 ---
 
-4.   configure .env file
+3c.   configure .env file
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
 echo "MYSQL_DB_HOST=${MYSQL_DB_HOST}" > .env && \
@@ -82,7 +82,7 @@ echo "MYSQL_DB_PORT=${MYSQL_DB_PORT}" >> .env
 
 ---
 
-5a.   run docker container
+4a.   run docker container
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
 host_port=8000
@@ -90,7 +90,7 @@ cont_port=8080
 docker run -d -p $host_port:$cont_port --env-file .env $container
 ```
 
-5b.   test connection to container
+4b.   test connection to container
 ```
 vm_ip=$(curl ifconfig.me)
 curl $vm_ip:$host_port/profile?username=lucas
@@ -98,7 +98,7 @@ curl $vm_ip:$host_port/profile?username=lucas
 
 ---
 
-6.   export submission credentials and run submitter
+5.   export submission credentials and run submitter
 ```
 export SUBMISSION_USERNAME=<USERNAME>
 export SUBMISSION_PASSWORD=<PASSWORD>
