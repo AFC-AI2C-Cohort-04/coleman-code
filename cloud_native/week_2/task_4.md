@@ -136,6 +136,7 @@ kubectl delete -f .
 cd ~/handout/cloudchat/task2-4-microservices/profile
 cp task3-k8s/* task4-helm/profile/templates/
 cd task4-helm/profile/templates/
+sed -i 's/^mysql_db_host:/MYSQL_DB_HOST:/' configmap.yaml
 sed -i '/mysql_db_port: "3306"/d' configmap.yaml
 sed -i 's/containerPort: 8080/containerPort: 80/' deployment.yaml
 sed -i '/containerPort: 80/q' deployment.yaml
