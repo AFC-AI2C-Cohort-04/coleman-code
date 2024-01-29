@@ -88,8 +88,8 @@ cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
 sql_db_name=$(az resource list --query "[?starts_with(name, 'profile-mysql-fs')].resourceGroup" -o tsv) && \
 echo -e "apiVersion: v1\nkind: ConfigMap\nmetadata:
   name: spring-profile-configmap\ndata:
-  mysql_db_host: \"${sql_db_name}.mysql.database.azure.com\"
-  mysql_db_port: \"3306\"" > configmap.yaml
+  MYSQL_DB_HOST: ${sql_db_name}.mysql.database.azure.com
+  MYSQL_DB_PORT: 3306" > configmap.yaml
 ```
 
 4b.   create deployment.yaml
@@ -102,15 +102,15 @@ echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
       - name: profile\n        image: $acr_server/$container\n        ports:
         - containerPort: 8080\n        env:\n        - name: MYSQL_DB_HOST
           valueFrom:\n            configMapKeyRef:
-              name: spring-profile-configmap\n              key: mysql_db_host
+              name: spring-profile-configmap\n              key: MYSQL_DB_HOST
         - name: MYSQL_DB_PORT\n          valueFrom:
             configMapKeyRef:\n              name: spring-profile-configmap
-              key: mysql_db_port\n        - name: MYSQL_DB_USER
+              key: MYSQL_DB_PORT\n        - name: MYSQL_DB_USERNAME
           valueFrom:\n            secretKeyRef:
-              name: spring-profile-secret\n              key: mysql_db_username
+              name: spring-profile-secret\n              key: MYSQL_DB_USERNAME
         - name: MYSQL_DB_PASSWORD\n          valueFrom:
             secretKeyRef:\n              name: spring-profile-secret
-              key: mysql_db_password" > deployment.yaml
+              key: MYSQL_DB_PASSWORD" > deployment.yaml
 ```
 
 4c.   create secret.yaml
