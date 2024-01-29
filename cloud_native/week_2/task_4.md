@@ -134,10 +134,6 @@ cd task4-helm/profile/templates/
 sed -i 's/mysql_db_host:/MYSQL_DB_HOST:/' configmap.yaml
 sed -i '/mysql_db_port: "3306"/d' configmap.yaml
 sed -i 's/containerPort: 8080/containerPort: 80/' deployment.yaml
-sed -i '/containerPort: 80/q' deployment.yaml
-echo -e "        envFrom:\n        - configMapRef:
-            name: spring-profile-configmap\n        - secretRef:
-            name: spring-profile-secret" >> deployment.yaml
 sed -i 's/mysql_db_username/MYSQL_DB_USER/g; s/mysql_db_password/MYSQL_DB_PASSWORD/g' secret.yaml
 sed -i 's/MYSQL_DB_USER: \(.*\)/MYSQL_DB_USER: "\1"/' secret.yaml
 sed -i 's/MYSQL_DB_PASSWORD: \(.*\)/MYSQL_DB_PASSWORD: "\1"/' secret.yaml
