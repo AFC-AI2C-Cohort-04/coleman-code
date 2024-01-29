@@ -107,15 +107,15 @@ helm install my-nginx bitnami/nginx-ingress-controller --version v9.3.24
 ```
 cd ~/handout/cloudchat/task2-4-microservices/task4-ingress
 echo -e "apiVersion: networking.k8s.io/v1\nkind: Ingress\nmetadata:
-  name: microservices-ingress\nspec:\n  rules:\n  - http:\n      paths:
-      - path: /profile\n        pathType: Prefix\n        backend:
-          service:\n            name: spring-profile-service\n            port:
-              number: 80\n      - path: /chat\n        pathType: Prefix
-        backend:\n          service:\n            name: spring-chat-service
-            port:\n              number: 80\n      - path: /login
+  name: microservices-ingress\nspec:\n  ingressClassName: nginx\n  rules:
+  - http:\n      paths:\n      - path: /profile\n        pathType: Prefix
+        backend:\n          service:\n            name: spring-profile-service
+            port:\n              number: 80\n      - path: /chat
         pathType: Prefix\n        backend:\n          service:
-            name: spring-login-service\n            port:
-              number: 80" > ingress.yaml
+            name: spring-chat-service\n            port:
+              number: 80\n      - path: /login\n        pathType: Prefix
+        backend:\n          service:\n            name: spring-login-service
+            port:\n              number: 80" > ingress.yaml
 ```
 
 3c.   create ingress resource and check state
