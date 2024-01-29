@@ -144,6 +144,7 @@ helm delete <name>
 ```
 cd ~/handout/cloudchat/terraform-setup/task4-chat_data_tier
 export CHAT_DB_HOST="$(terraform output -raw mysql_fqdn)" && \
+export CHAT_DB_PORT="3306" && \
 export CHAT_DB_USER="$(terraform output -raw mysql_admin_username)" && \
 export CHAT_DB_PASSWORD="$(terraform output -raw mysql_admin_password)" && \
 export CHAT_REDIS_HOST="$(terraform output -raw redis_hostname)" && \
@@ -161,12 +162,14 @@ sed -i '/^stringData:/q' configmap.yaml
 echo -e "  MYSQL_DB_HOST: \"$CHAT_DB_HOST\"
   SPRING_REDIS_HOST: \"$CHAT_REDIS_HOST\"" >> configmap.yaml
 sed -i 's/profile/chat/g' deployment.yaml
-
-sed -i 's/containerPort: 8080/containerPort: 80/' deployment.yaml && \
-echo '  MYSQL_DB_PORT: "3306"' >> secret.yaml && \
-sed -i 's/type: LoadBalancer/type: NodePort/' service.yaml && \
-
-cd ~/handout/cloudchat/task2-4-microservices/chat && \
+sed -i 's/profile/chat/g' secret.yaml
+sed -i '/^stringData:/q' secret.yaml
+echo -e "  MYSQL_DB_PORT: \"$CHAT_DB_PORT\"\n  MYSQL_DB_USER: \"$CHAT_DB_USER\"
+  MYSQL_DB_PASSWORD: \"$CHAT_DB_PASSWORD\"
+  SPRING_REDIS_PORT: \"$CHAT_REDIS_PORT\"
+  SPRING_REDIS_PASSWORD: \"$CHAT_REDIS_PASSWORD\"" >> secret.yaml
+sed -i 's/profile/chat/g' service.yaml
+cd ~/handout/cloudchat/task2-4-microservices/chat
 helm install chat helm/chat/
 ```
 
