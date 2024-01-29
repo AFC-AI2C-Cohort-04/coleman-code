@@ -145,8 +145,10 @@ LOAD_BALANCER_EXTERNAL_IP=$(kubectl get services -o json | jq -r '.items[] | sel
 curl http://$LOAD_BALANCER_EXTERNAL_IP/profile?username=lucas
 ```
 
-*.   (helm troubleshooting)
+*.   (ingress & helm troubleshooting)
 ```
+# (3a., 3b., 3c.) re-install ingress controller, update ingress file, and create ingress profile
+
 # show helm services
 helm list
 
