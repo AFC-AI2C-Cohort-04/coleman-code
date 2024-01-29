@@ -131,7 +131,7 @@ kubectl delete -f .
 
 ---
 
-4.   copy profile k8s config files to helm templates, make updates, and install helm charts
+4a.   copy profile k8s config files to helm templates, make updates, and install helm charts
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile
 cp task3-k8s/* task4-helm/profile/templates/
@@ -150,6 +150,16 @@ echo '  MYSQL_DB_PORT: "3306"' >> secret.yaml
 sed -i 's/type: LoadBalancer/type: NodePort/' service.yaml
 cd ~/handout/cloudchat/task2-4-microservices/profile
 helm install profile task4-helm/profile/
+```
+
+4b.   verify profile service
+```
+LOAD_BALANCER_EXTERNAL_IP=$(kubectl get service spring-profile-service --output=jsonpath='{.status.loadBalancer.ingress[0].ip}')
+curl http://$LOAD_BALANCER_EXTERNAL_IP/profile?username=lucas
+
+
+#LOAD_BALANCER_EXTERNAL_IP=$(kubectl get services -o json | jq -r '.items[] | select(.spec.type == "LoadBalancer") | .status.loadBalancer.ingress[].ip // .status.loadBalancer.ingress[].hostname')
+
 ```
 
 ### STUCK: CURLING THE EXTERNAL IP OF THE NGINX LOAD BALANCER RESULTS IN 404
