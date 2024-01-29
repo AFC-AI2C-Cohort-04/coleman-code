@@ -154,12 +154,8 @@ helm install profile task4-helm/profile/
 
 4b.   verify profile service
 ```
-LOAD_BALANCER_EXTERNAL_IP=$(kubectl get service spring-profile-service --output=jsonpath='{.status.loadBalancer.ingress[0].ip}')
+LOAD_BALANCER_EXTERNAL_IP=$(kubectl get services -o json | jq -r '.items[] | select(.spec.type == "LoadBalancer") | .status.loadBalancer.ingress[].ip // .status.loadBalancer.ingress[].hostname')
 curl http://$LOAD_BALANCER_EXTERNAL_IP/profile?username=lucas
-
-
-#LOAD_BALANCER_EXTERNAL_IP=$(kubectl get services -o json | jq -r '.items[] | select(.spec.type == "LoadBalancer") | .status.loadBalancer.ingress[].ip // .status.loadBalancer.ingress[].hostname')
-
 ```
 
 ### STUCK: CURLING THE EXTERNAL IP OF THE NGINX LOAD BALANCER RESULTS IN 404
