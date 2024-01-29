@@ -75,9 +75,9 @@ mv profile-0.1.0.jar ../target/profile-0.1.0.jar
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
 echo "MYSQL_DB_HOST=${MYSQL_DB_HOST}" > .env && \
-echo "MYSQL_DB_USER=${MYSQL_DB_USER}" >> .env && \
-echo "MYSQL_DB_PASSWORD=${MYSQL_DB_PASSWORD}" >> .env && \
-echo "MYSQL_DB_PORT=${MYSQL_DB_PORT}" >> .env
+echo "MYSQL_DB_PORT=${MYSQL_DB_PORT}" >> .env && \
+echo "MYSQL_DB_USERNAME=${MYSQL_DB_USERNAME}" >> .env && \
+echo "MYSQL_DB_PASSWORD=${MYSQL_DB_PASSWORD}" >> .env
 ```
 
 ---
