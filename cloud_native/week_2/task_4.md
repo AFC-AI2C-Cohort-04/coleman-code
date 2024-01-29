@@ -97,9 +97,9 @@ mv login-0.1.0.jar ../target/login-0.1.0.jar
 3a.   get helm and NGINX ingress controller
 ```
 cd ~
-curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm repo update
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash && \
+helm repo add bitnami https://charts.bitnami.com/bitnami && \
+helm repo update && \
 helm install my-nginx bitnami/nginx-ingress-controller --version v9.3.24
 ```
 
