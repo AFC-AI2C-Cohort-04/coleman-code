@@ -14,10 +14,12 @@ terraform apply -var-file="secret.tfvars"
 0b.   get chat db variables
 ```
 cd ~/handout/cloudchat/terraform-setup/task4-chat_data_tier
-# export MYSQL_DB_HOST="$(terraform output -raw mysql_fqdn)"
-# export MYSQL_DB_USER="$(terraform output -raw mysql_admin_username)"
-# export MYSQL_DB_PASSWORD="$(terraform output -raw mysql_admin_password)"
-# export MYSQL_DB_PORT="3306"
+export CHAT_DB_HOST="$(terraform output -raw mysql_fqdn)"
+export CHAT_DB_USER="$(terraform output -raw mysql_admin_username)"
+export CHAT_DB_PASSWORD="$(terraform output -raw mysql_admin_password)"
+export CHAT_REDIS_HOST="$(terraform output -raw redis_hostname)"
+export CHAT_REDIS_PORT="$(terraform output -raw redis_port)"
+export CHAT_REDIS_PASSWORD="$(terraform output -raw redis_primary_access_key)"
 ```
 
 ---
