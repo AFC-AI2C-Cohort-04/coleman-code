@@ -19,8 +19,8 @@ az vm create \
 
 0b.   open ports on vm
 ```
-az vm open-port --resource-group main_rg --name main_vm --port 22 --priority 1001
-az vm open-port --resource-group main_rg --name main_vm --port 8000 --priority 1002
+az vm open-port --resource-group main_rg --name main_vm --port 22 --priority 1001 && \
+az vm open-port --resource-group main_rg --name main_vm --port 8000 --priority 1002 && \
 az vm open-port --resource-group main_rg --name main_vm --port 8080 --priority 1003
 ```
 
