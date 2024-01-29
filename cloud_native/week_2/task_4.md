@@ -164,7 +164,7 @@ cd ~/handout/cloudchat/task2-4-microservices/
 cp profile/task4-helm/profile/templates/* chat/helm/chat/templates/
 cd chat/helm/chat/templates/
 sed -i 's/profile/chat/g' configmap.yaml
-sed -i '/^stringData:/q' configmap.yaml
+sed -i '/^data:/q' configmap.yaml
 echo -e "  MYSQL_DB_HOST: \"$CHAT_DB_HOST\"
   SPRING_REDIS_HOST: \"$CHAT_REDIS_HOST\"" >> configmap.yaml
 sed -i 's/profile/chat/g' deployment.yaml
