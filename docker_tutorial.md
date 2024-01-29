@@ -108,12 +108,12 @@ docker rm $container # deletes container/process
 
 ---
 
-*.   run docker image in interactive mode
+*.   (run docker image in interactive mode)
 ```
 docker run -it <image_name> /bin/bash
 ```
 
-*.   how to uninstall docker
+*.   (how to uninstall docker)
 ```
 cd ~
 sudo systemctl stop docker
@@ -132,7 +132,7 @@ sudo rm -rf /var/lib/containerd
 sudo delgroup docker
 ```
 
-*.   how to enable docker start-up on boot
+*.   (how to enable docker start-up on boot)
 ```
 sudo systemctl enable docker.service
 sudo systemctl enable containerd.service
