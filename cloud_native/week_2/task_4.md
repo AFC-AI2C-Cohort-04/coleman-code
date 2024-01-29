@@ -60,7 +60,7 @@ echo 'COPY groupchat-0.1.0.jar groupchat-0.1.0.jar' >> Dockerfile
 echo 'ENTRYPOINT ["java", "-jar", "groupchat-0.1.0.jar"]' >> Dockerfile
 ```
 
-2b.   move .jar file and build chat docker image
+2b.   build chat docker image
 ```
 cd ~/handout/cloudchat/task2-4-microservices/chat/docker
 mv ../target/groupchat-0.1.0.jar groupchat-0.1.0.jar
@@ -80,7 +80,7 @@ echo 'COPY login-0.1.0.jar login-0.1.0.jar' >> Dockerfile
 echo 'ENTRYPOINT ["java", "-jar", "login-0.1.0.jar"]' >> Dockerfile
 ```
 
-2d.   move .jar file and build login docker image
+2d.   build login docker image
 ```
 cd ~/handout/cloudchat/task2-4-microservices/login/docker
 mv ../target/login-0.1.0.jar login-0.1.0.jar
