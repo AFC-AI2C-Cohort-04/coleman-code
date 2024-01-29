@@ -143,8 +143,8 @@ sed -i '/containerPort: 80/q' deployment.yaml
 echo -e "        envFrom:\n        - configMapRef:
             name: spring-profile-configmap\n        - secretRef:
             name: spring-profile-secret" >> deployment.yaml
-sed -i 's/mysql_db_username/MYSQL_DB_USERNAME/g; s/mysql_db_password/MYSQL_DB_PASSWORD/g' secret.yaml
-sed -i 's/MYSQL_DB_USERNAME: \(.*\)/MYSQL_DB_USERNAME: "\1"/' secret.yaml
+sed -i 's/mysql_db_username/MYSQL_DB_USER/g; s/mysql_db_password/MYSQL_DB_PASSWORD/g' secret.yaml
+sed -i 's/MYSQL_DB_USER: \(.*\)/MYSQL_DB_USER: "\1"/' secret.yaml
 sed -i 's/MYSQL_DB_PASSWORD: \(.*\)/MYSQL_DB_PASSWORD: "\1"/' secret.yaml
 echo '  MYSQL_DB_PORT: "3306"' >> secret.yaml
 sed -i 's/type: LoadBalancer/type: NodePort/' service.yaml
