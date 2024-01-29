@@ -54,7 +54,7 @@ az aks create \
   --generate-ssh-keys
 ```
 
-*.   (how to update/attach a container to AKS cluster)
+*.   (how to update/attach a container to AKS cluster)
 ```
 az aks update \
   --name <AKS_NAME> \
@@ -64,7 +64,7 @@ az aks update \
 
 ---
 
-3.   connect to AKS cluster
+3.   connect to AKS cluster
 ```
 az aks get-credentials \
   --resource-group aks_rg \
@@ -74,7 +74,7 @@ kubectl get nodes
 
 ---
 
-4.   a
+4.   a
 ```
 
 ```
