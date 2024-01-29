@@ -75,9 +75,23 @@ kubectl get nodes
 
 ---
 
-4.   a
+4a.   create deployment.yaml
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
+echo "metadata:
+  name: spring-profile-deployment
+  labels:
+    app: spring-profile-service
+  template:
+    metadata:
+      labels:
+        app: spring-profile-service
+    spec:
+      containers:
+      - name: spring-profile-container
+        image: $container
+        ports:
+        - containerPort: 8080" > deployment.yaml
 ```
 
 ---
