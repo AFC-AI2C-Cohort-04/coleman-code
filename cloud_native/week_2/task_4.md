@@ -125,4 +125,12 @@ kubectl get ingress
 
 ---
 
+4.   delete task 3 kubernetes service
+```
+cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
+kubectl delete -f .
+```
+
+---
+
 [<< Task 3](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_3.md)
