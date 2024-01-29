@@ -73,6 +73,13 @@ az aks get-credentials \
 kubectl get nodes
 ```
 
+*.   try re-installing kubectl if 'command kubectl not found'
+```
+cd ~
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+```
+
 ---
 
 4a.   create configmap.yaml (update UUID)
