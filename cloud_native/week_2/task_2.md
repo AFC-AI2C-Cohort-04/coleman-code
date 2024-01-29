@@ -69,8 +69,6 @@ docker build --rm --tag $container $build_path
 mv profile-0.1.0.jar ../target/profile-0.1.0.jar
 ```
 
----
-
 3c.   configure .env file
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
