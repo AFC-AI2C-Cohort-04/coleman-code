@@ -142,7 +142,7 @@ sed -i '/containerPort: 80/q' deployment.yaml
 echo -e "        envFrom:\n        - configMapRef:
             name: spring-profile-configmap\n        - secretRef:
             name: spring-profile-secret" >> deployment.yaml
-echo "  mysql_db_port: 3306" > secret.yaml
+echo "  mysql_db_port: 3306" >> secret.yaml
 sed -i 's/type: LoadBalancer/type: NodePort/' service.yaml
 ```
 
