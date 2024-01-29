@@ -77,10 +77,11 @@ kubectl get nodes
 
 4a.   create configmap.yaml (update UUID)
 ```
+sql_db_name=$(az resource list --query "[?starts_with(name, 'profile-mysql-fs')].resourceGroup" -o tsv)
 cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
 echo -e 'apiVersion: v1\nkind: ConfigMap\nmetadata:
   name: spring-profile-configmap\ndata:
-  mysql_db_host: "profile-mysql-fs-<UUID>.mysql.database.azure.com"
+  mysql_db_host: "$sql_db_name.mysql.database.azure.com"
   mysql_db_port: "3306"' > configmap.yaml
 ```
 
