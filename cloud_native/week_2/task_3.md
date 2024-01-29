@@ -11,7 +11,7 @@ az group create \
   --location eastus && \
 az acr create \
   --resource-group acr_rg \
-  --name ACRprofile \
+  --name acrprofile \
   --sku Basic
 ```
 
