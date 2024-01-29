@@ -139,7 +139,7 @@ LOAD_BALANCER_EXTERNAL_IP=$(kubectl get service spring-profile-service --output=
 curl http://$LOAD_BALANCER_EXTERNAL_IP/profile?username=lucas
 ```
 
-*.   (troubleshooting commands)
+*.   troubleshooting commands
 ```
 # List all services in the default namespace
 kubectl get services
