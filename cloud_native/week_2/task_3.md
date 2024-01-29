@@ -4,9 +4,21 @@
 
 ---
 
-0a.   
+0a.   create azure container registry (ACR)
+```
+az group create --name acr_rg && \
+az acr create \
+  --resource-group acr_rg \
+  --name acr1 \
+  --sku Basic
 ```
 
+0b.   login to ACR
+```
+#az acr login \
+  --name $ACR_SERVER_NAME \
+  -u $ACR_USERNAME \
+  -p $ACR_PASSWORD
 ```
 
 ---
