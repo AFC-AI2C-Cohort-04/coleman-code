@@ -53,7 +53,7 @@ mvn clean package
 
 2a.   configure chat Dockerfile
 ```
-cd ~/handout/cloudchat/task2-4-microservices/chat/task2-docker
+cd ~/handout/cloudchat/task2-4-microservices/chat/docker
 echo 'FROM openjdk:17-jdk-slim' > Dockerfile
 echo 'COPY groupchat-0.1.0.jar groupchat-0.1.0.jar' >> Dockerfile
 echo 'ENTRYPOINT ["java", "-jar", "groupchat-0.1.0.jar"]' >> Dockerfile
@@ -61,7 +61,7 @@ echo 'ENTRYPOINT ["java", "-jar", "groupchat-0.1.0.jar"]' >> Dockerfile
 
 2b.   move .jar file and build chat docker image
 ```
-cd ~/handout/cloudchat/task2-4-microservices/chat/task2-docker
+cd ~/handout/cloudchat/task2-4-microservices/chat/docker
 mv ../target/groupchat-0.1.0.jar groupchat-0.1.0.jar
 image_name=chat
 version=latest
@@ -73,7 +73,7 @@ mv groupchat-0.1.0.jar ../target/groupchat-0.1.0.jar
 
 2c.   configure login Dockerfile
 ```
-cd ~/handout/cloudchat/task2-4-microservices/login/task2-docker
+cd ~/handout/cloudchat/task2-4-microservices/login/docker
 echo 'FROM openjdk:17-jdk-slim' > Dockerfile
 echo 'COPY login-0.1.0.jar login-0.1.0.jar' >> Dockerfile
 echo 'ENTRYPOINT ["java", "-jar", "login-0.1.0.jar"]' >> Dockerfile
@@ -81,7 +81,7 @@ echo 'ENTRYPOINT ["java", "-jar", "login-0.1.0.jar"]' >> Dockerfile
 
 2d.   move .jar file and build login docker image
 ```
-cd ~/handout/cloudchat/task2-4-microservices/login/task2-docker
+cd ~/handout/cloudchat/task2-4-microservices/login/docker
 mv ../target/login-0.1.0.jar login-0.1.0.jar
 image_name=login
 version=latest
