@@ -107,7 +107,7 @@ kubectl get ingress
 
 ---
 
-4a.   copy profile k8s config files to helm templates, make updates, and install helm charts
+4a.   create profile helm files and install helm profile
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile
 cp task3-k8s/* task4-helm/profile/templates/
@@ -141,13 +141,7 @@ helm delete <name>
 
 ---
 
-5.   a
-```
-
-```
-
-
-0b.   get chat db variables
+5a.   get chat db variables
 ```
 cd ~/handout/cloudchat/terraform-setup/task4-chat_data_tier
 export CHAT_DB_HOST="$(terraform output -raw mysql_fqdn)" && \
@@ -158,10 +152,31 @@ export CHAT_REDIS_PORT="$(terraform output -raw redis_port)" && \
 export CHAT_REDIS_PASSWORD="$(terraform output -raw redis_primary_access_key)"
 ```
 
+5b.   create chat helm files and install helm chat
+```
+cd ~/handout/cloudchat/task2-4-microservices/
+cp profile/task4-helm/profile/templates/* chat/helm/chat/templates/
+cd chat/helm/chat/templates/
+
+sed -i 's/spring-profile-configmap/spring-chat-configmap/g' configmap.yaml
+sed -i '/^data:/q' configmap.yaml
+echo -e "  MYSQL_DB_HOST: \"$CHAT_DB_HOST\"
+  SPRING_REDIS_HOST: \"$CHAT_REDIS_HOST\"" >> configmap.yaml
 
 
 
-0d.   get login db variables
+sed -i 's/containerPort: 8080/containerPort: 80/' deployment.yaml && \
+echo '  MYSQL_DB_PORT: "3306"' >> secret.yaml && \
+sed -i 's/type: LoadBalancer/type: NodePort/' service.yaml && \
+
+cd ~/handout/cloudchat/task2-4-microservices/chat && \
+helm install chat helm/chat/
+```
+
+
+
+
+.   get login db variables
 ```
 cd ~/handout/cloudchat/terraform-setup/task4-login_data_tier
 export LOGIN_DB_HOST="$(terraform output -raw mysql_fqdn)" && \
