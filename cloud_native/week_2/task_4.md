@@ -93,12 +93,27 @@ mv login-0.1.0.jar ../target/login-0.1.0.jar
 
 ---
 
-3.create Ingress resource
+3a.   install NGINX ingress controller
 ```
 cd ~
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 helm install my-nginx bitnami/nginx-ingress-controller --version v9.3.24
+```
+
+3b.   create ingress.yaml
+```
+cd ~/handout/cloudchat/task2-4-microservices/task4-ingress
+echo -e "apiVersion: networking.k8s.io/v1\nkind: Ingress\nmetadata:
+  name: microservices-ingress\nspec:\n  rules:\n  - http:\n      paths:
+      - path: /profile\n        pathType: Prefix\n        backend:
+          service:\n            name: spring-profile-service\n            port:
+              number: 80\n      - path: /chat\n        pathType: Prefix
+        backend:\n          service:\n            name: spring-chat-service
+            port:\n              number: 80\n      - path: /login
+        pathType: Prefix\n        backend:\n          service:
+            name: spring-login-service\n            port:
+              number: 80" > ingress.yaml
 ```
 
 ---
