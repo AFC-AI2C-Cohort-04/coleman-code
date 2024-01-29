@@ -108,12 +108,21 @@ echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
 
 4c.   create secret.yaml
 ```
-
+cd ~/handout/cloudchat/terraform-setup/task2-3-profile_data_tier
+MYSQL_DB_USER=$(terraform output -raw mysql_admin_username)
+MYSQL_DB_PASSWORD=$(terraform output -raw mysql_admin_password)
+cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
+echo -e "apiVersion: v1\nkind: Secret\nmetadata:\n  name: spring-profile-secret
+type: Opaque\nstringData:\n  mysql_db_username: ${MYSQL_DB_USER}
+  mysql_db_password: ${MYSQL_DB_PASSWORD}" > secret.yaml
 ```
 
 4d.   create service.yaml
 ```
-
+cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
+echo -e "apiVersion: v1\nkind: Service\nmetadata:
+  name: spring-profile-service\nspec:\n  selector:\n    app: profile\n  ports:
+    - port: 80\n      targetPort: 8080\n  type: LoadBalancer" > service.yaml
 ```
 
 ---
