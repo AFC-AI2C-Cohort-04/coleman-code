@@ -118,7 +118,7 @@ cd ~/handout/cloudchat/task2-4-microservices/profile && \
 helm install profile task4-helm/profile/
 ```
 
-4b.   verify profile service
+4b.   verify profile service (should return JSON)
 ```
 LOAD_BALANCER_EXTERNAL_IP=$(kubectl get services -o json | jq -r '.items[] | select(.spec.type == "LoadBalancer") | .status.loadBalancer.ingress[].ip // .status.loadBalancer.ingress[].hostname')
 curl http://$LOAD_BALANCER_EXTERNAL_IP/profile?username=lucas
@@ -178,6 +178,13 @@ sed -i 's/profile/chat/g' service.yaml
 cd ~/handout/cloudchat/task2-4-microservices/chat
 helm install chat helm/chat/
 ```
+
+5d.   verify chat service (should return HTML "503 Service Temporarily Unavailable")
+```
+curl http://$LOAD_BALANCER_EXTERNAL_IP/chat
+```
+
+---
 
 
 
