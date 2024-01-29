@@ -127,4 +127,10 @@ echo -e "apiVersion: v1\nkind: Service\nmetadata:
 
 ---
 
+5.   deploy profile application to AKS cluster
+```
+cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
+kubectl apply -f .
+```
+
 [<< Task 2](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_2.md)      [Task 4 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_4.md)
