@@ -6,7 +6,9 @@
 
 0a.   create azure container registry (ACR)
 ```
-az group create --name acr_rg && \
+az group create \
+  --name acr_rg \
+  --location eastus && \
 az acr create \
   --resource-group acr_rg \
   --name acr1 \
