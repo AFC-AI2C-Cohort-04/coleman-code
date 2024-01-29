@@ -33,16 +33,17 @@ az acr login \
 
 ---
 
-1a.   tag the container image that was built from task 2
+1.   tag and push the container image that was built from task 2
 ```
 image_name=profile
 version=latest
 container=$image_name:$version
 acr_server=$acr_name.azurecr.io
 docker tag $container $acr_server/$container
+docker push $acr_server/$container
 ```
 
-1b.   push container image
+2.   a
 ```
 
 ```
