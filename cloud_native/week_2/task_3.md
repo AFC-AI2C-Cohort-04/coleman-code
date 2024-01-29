@@ -91,7 +91,7 @@ export MYSQL_DB_USER="$(terraform output -raw mysql_admin_username)" && \
 export MYSQL_DB_PASSWORD="$(terraform output -raw mysql_admin_password)"
 ```
 
-4b.   create configmap.yaml (update UUID)
+4b.   create profile configmap.yaml (update UUID)
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
 sql_db_name=$(az resource list --query "[?starts_with(name, 'profile-mysql-fs')].resourceGroup" -o tsv) && \
@@ -101,7 +101,7 @@ echo -e "apiVersion: v1\nkind: ConfigMap\nmetadata:
   MYSQL_DB_PORT: \"3306\"" > configmap.yaml
 ```
 
-4c.   create deployment.yaml
+4c.   create profile deployment.yaml
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
 echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
@@ -110,11 +110,11 @@ echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
     metadata:\n      labels:\n        app: profile\n    spec:\n      containers:
       - name: profile\n        image: $acr_server/$container\n        ports:
         - containerPort: 8080\n        envFrom:\n        - configMapRef:
-            name: spring-chat-configmap\n        - secretRef:
-            name: spring-chat-secret\n" > deployment.yaml
+            name: spring-profile-configmap\n        - secretRef:
+            name: spring-profile-secret\n" > deployment.yaml
 ```
 
-4d.   create secret.yaml
+4d.   create profile secret.yaml
 ```
 cd ~/handout/cloudchat/terraform-setup/task2-3-profile_data_tier
 MYSQL_DB_USER=$(terraform output -raw mysql_admin_username)
@@ -125,7 +125,7 @@ type: Opaque\nstringData:\n  MYSQL_DB_USER: \"${MYSQL_DB_USER}\"
   MYSQL_DB_PASSWORD: \"${MYSQL_DB_PASSWORD}\"" > secret.yaml
 ```
 
-4e.   create service.yaml
+4e.   create profile service.yaml
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
 echo -e "apiVersion: v1\nkind: Service\nmetadata:
