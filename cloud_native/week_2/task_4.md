@@ -131,7 +131,7 @@ kubectl delete -f .
 
 ---
 
-4a.   copy profile k8s config files to helm templates and make updates
+4a.   copy profile k8s config files to helm templates, make updates, and install helm charts
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile
 cp task3-k8s/* task4-helm/profile/templates/
@@ -144,6 +144,8 @@ echo -e "        envFrom:\n        - configMapRef:
             name: spring-profile-secret" >> deployment.yaml
 echo "  mysql_db_port: 3306" >> secret.yaml
 sed -i 's/type: LoadBalancer/type: NodePort/' service.yaml
+cd ~/handout/cloudchat/task2-4-microservices/profile
+helm install profile task4-helm/profile/
 ```
 
 ---
