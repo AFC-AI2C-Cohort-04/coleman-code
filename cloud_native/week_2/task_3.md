@@ -154,4 +154,14 @@ kubectl logs <POD_NAME>
 kubectl exec -it <POD_NAME> -- /bin/sh
 ```
 
-[<< Task 2](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_2.md)      [Task 4 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_4.md)
+---
+
+6.   export submission credentials and run submitter
+```
+export SUBMISSION_USERNAME=<USERNAME>
+export SUBMISSION_PASSWORD=<PASSWORD>
+cd ~/handout
+./submitter task3
+```
+
+---[<< Task 2](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_2.md)      [Task 4 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_4.md)
