@@ -93,7 +93,7 @@ mv login-0.1.0.jar ../target/login-0.1.0.jar
 
 ---
 
-3a.   install helm and NGINX ingress controller
+3a.   get helm and NGINX ingress controller
 ```
 cd ~
 curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
