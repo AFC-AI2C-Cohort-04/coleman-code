@@ -4,9 +4,20 @@
 
 ---
 
-0a.   
+0a.   create chat db
+```
+cd ~/handout/cloudchat/terraform-setup/task4-chat_data_tier
+terraform init
+terraform apply -var-file="secret.tfvars"
 ```
 
+0b.   get chat db variables
+```
+cd ~/handout/cloudchat/terraform-setup/task4-chat_data_tier
+# export MYSQL_DB_HOST="$(terraform output -raw mysql_fqdn)"
+# export MYSQL_DB_USER="$(terraform output -raw mysql_admin_username)"
+# export MYSQL_DB_PASSWORD="$(terraform output -raw mysql_admin_password)"
+# export MYSQL_DB_PORT="3306"
 ```
 
 ---
