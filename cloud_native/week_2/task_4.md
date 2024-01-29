@@ -152,6 +152,8 @@ cd ~/handout/cloudchat/task2-4-microservices/profile
 helm install profile task4-helm/profile/
 ```
 
+# STUCK: CURLING THE EXTERNAL IP OF THE NGINX LOADBALANCER RESULTS IN 404
+
 ---
 
 [<< Task 3](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_3.md)
