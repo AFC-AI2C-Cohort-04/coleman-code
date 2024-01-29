@@ -146,18 +146,18 @@ LOAD_BALANCER_EXTERNAL_IP=$(kubectl get service spring-profile-service --output=
 curl http://$LOAD_BALANCER_EXTERNAL_IP/profile?username=lucas
 ```
 
-*.   (troubleshooting commands)
+*.   (troubleshooting steps / commands)
 ```
-# List all services in the default namespace
+# list all services in the default namespace (ensure load balancer external ip exists)
 kubectl get services
 
-# List all pods in the default namespace
+# list all pods in the default namespace
 kubectl get pods
 
-# Retrieve the logs for a specific pod
+# retrieve the logs for a specific pod
 kubectl logs <POD_NAME>
 
-# The exec command will give you the terminal access inside of the pod
+# exec command will give you the terminal access inside of the pod
 kubectl exec -it <POD_NAME> -- /bin/sh
 ```
 
