@@ -57,7 +57,7 @@ echo 'COPY profile-0.1.0.jar profile-0.1.0.jar' >> Dockerfile && \
 echo 'ENTRYPOINT ["java", "-jar", "profile-0.1.0.jar"]' >> Dockerfile
 ```
 
-3b.   move .jar file and build docker image
+3b.   build docker image
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task2-docker
 mv ../target/profile-0.1.0.jar profile-0.1.0.jar
