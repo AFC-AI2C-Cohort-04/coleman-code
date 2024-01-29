@@ -31,7 +31,10 @@ terraform apply -var-file="secret.tfvars"
 
 0d.   get login db variables
 ```
-
+export LOGIN_DB_HOST="$(terraform output -raw mysql_fqdn)"
+export LOGIN_DB_USER="$(terraform output -raw mysql_admin_username)"
+export LOGIN_DB_PASSWORD="$(terraform output -raw mysql_admin_password)"
+export LOGIN_DB_PORT="3001"
 ```
 
 ---
