@@ -48,11 +48,19 @@ image_name=chat
 version=latest
 container=$image_name:$version
 build_path=./
-docker build --rm --tag $container $build_path
+docker build --rm --tag $container $build_path && \
 mv groupchat-0.1.0.jar ../target/groupchat-0.1.0.jar
 ```
 
-2c.   configure login Dockerfile
+2c.   tag and push chat container
+```
+acr_name=acrcloudchat
+acr_server=$acr_name.azurecr.io
+docker tag $container $acr_server/$container && \
+docker push $acr_server/$container
+```
+
+2d.   configure login Dockerfile
 ```
 cd ~/handout/cloudchat/task2-4-microservices/login/docker
 echo 'FROM openjdk:17-jdk-slim' > Dockerfile
@@ -60,7 +68,7 @@ echo 'COPY login-0.1.0.jar login-0.1.0.jar' >> Dockerfile
 echo 'ENTRYPOINT ["java", "-jar", "login-0.1.0.jar"]' >> Dockerfile
 ```
 
-2d.   build login docker image
+2e.   build login docker image
 ```
 cd ~/handout/cloudchat/task2-4-microservices/login/docker
 mv ../target/login-0.1.0.jar login-0.1.0.jar
@@ -70,6 +78,14 @@ container=$image_name:$version
 build_path=./
 docker build --rm --tag $container $build_path
 mv login-0.1.0.jar ../target/login-0.1.0.jar
+```
+
+2f.   tag and push login container
+```
+acr_name=acrcloudchat
+acr_server=$acr_name.azurecr.io
+docker tag $container $acr_server/$container && \
+docker push $acr_server/$container
 ```
 
 ---
