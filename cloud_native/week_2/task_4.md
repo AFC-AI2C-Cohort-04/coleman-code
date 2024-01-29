@@ -142,6 +142,8 @@ sed -i '/containerPort: 80/q' deployment.yaml
 echo -e "        envFrom:\n        - configMapRef:
             name: spring-profile-configmap\n        - secretRef:
             name: spring-profile-secret" >> deployment.yaml
+sed -i 's/mysql_db_username: \(.*\)/mysql_db_username: "\1"/' secret.yaml
+sed -i 's/mysql_db_password: \(.*\)/mysql_db_password: "\1"/' secret.yaml
 echo "  mysql_db_port: 3306" >> secret.yaml
 sed -i 's/type: LoadBalancer/type: NodePort/' service.yaml
 cd ~/handout/cloudchat/task2-4-microservices/profile
