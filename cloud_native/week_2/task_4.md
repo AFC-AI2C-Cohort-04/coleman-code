@@ -152,7 +152,7 @@ cd ~/handout/cloudchat/task2-4-microservices/profile
 helm install profile task4-helm/profile/
 ```
 
-# STUCK: CURLING THE EXTERNAL IP OF THE NGINX LOADBALANCER RESULTS IN 404
+### STUCK: CURLING THE EXTERNAL IP OF THE NGINX LOAD BALANCER RESULTS IN 404
 
 ---
 
