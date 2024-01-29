@@ -28,7 +28,8 @@ az vm open-port --resource-group main_rg --name main_vm --port 8080 --priority 1
 
 1a.   ssh into vm and authenticate with password
 ```
-ssh azureuser@$(az vm show -d -g main_rg -n main_vm --query publicIps -o tsv)
+vm_ip=$(az vm show -d -g main_rg -n main_vm --query publicIps -o tsv)
+ssh azureuser@$vm_ip
 ```
 
 1b.   get azure cli and login
