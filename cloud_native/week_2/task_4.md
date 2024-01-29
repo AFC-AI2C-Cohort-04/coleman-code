@@ -134,7 +134,7 @@ kubectl delete -f .
 4a.   copy profile k8s config files to helm templates
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile
-cp task3-k8s/* /task4-helm/profile/templates/
+cp task3-k8s/* task4-helm/profile/templates/
 ```
 
 ---
