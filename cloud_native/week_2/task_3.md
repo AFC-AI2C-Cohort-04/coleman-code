@@ -77,7 +77,7 @@ kubectl get nodes
 
 4.   a
 ```
-
+cd cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
 ```
 
 ---
