@@ -139,7 +139,7 @@ LOAD_BALANCER_EXTERNAL_IP=$(kubectl get service spring-profile-service --output=
 curl http://$LOAD_BALANCER_EXTERNAL_IP/profile?username=lucas
 ```
 
-*.   troubleshooting commands
+*.   (troubleshooting commands)
 ```
 # List all services in the default namespace
 kubectl get services
@@ -164,4 +164,6 @@ cd ~/handout
 ./submitter task3
 ```
 
----[<< Task 2](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_2.md)      [Task 4 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_4.md)
+---
+
+[<< Task 2](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_2.md)      [Task 4 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_4.md)
