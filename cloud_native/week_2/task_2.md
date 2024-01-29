@@ -96,6 +96,11 @@ vm_ip=$(curl ifconfig.me)
 curl $vm_ip:$host_port/profile?username=lucas
 ```
 
+*.   troubleshooting if connecting fails:
+- (0b.) refresh db variables
+- (1b.) ensure you have docker permissions
+- (3c.) ensure db variables exist in .env file
+- delete process and image, and then rebuild and test (4a., 4b.)
 ---
 
 5.   export submission credentials and run submitter
