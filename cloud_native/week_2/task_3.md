@@ -82,7 +82,16 @@ kubectl get nodes
 
 ---
 
-4a.   create configmap.yaml (update UUID)
+4a.   refresh profile db variables
+```
+cd ~/handout/cloudchat/terraform-setup/task2-3-profile_data_tier
+export MYSQL_DB_HOST="$(terraform output -raw mysql_fqdn)" && \
+export MYSQL_DB_PORT="3306" && \
+export MYSQL_DB_USERNAME="$(terraform output -raw mysql_admin_username)" && \
+export MYSQL_DB_PASSWORD="$(terraform output -raw mysql_admin_password)"
+```
+
+4b.   create configmap.yaml (update UUID)
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
 sql_db_name=$(az resource list --query "[?starts_with(name, 'profile-mysql-fs')].resourceGroup" -o tsv) && \
@@ -92,7 +101,7 @@ echo -e "apiVersion: v1\nkind: ConfigMap\nmetadata:
   MYSQL_DB_PORT: 3306" > configmap.yaml
 ```
 
-4b.   create deployment.yaml
+4c.   create deployment.yaml
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
 echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
@@ -113,7 +122,7 @@ echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
               key: MYSQL_DB_PASSWORD" > deployment.yaml
 ```
 
-4c.   create secret.yaml
+4d.   create secret.yaml
 ```
 cd ~/handout/cloudchat/terraform-setup/task2-3-profile_data_tier
 MYSQL_DB_USER=$(terraform output -raw mysql_admin_username)
@@ -124,7 +133,7 @@ type: Opaque\nstringData:\n  mysql_db_username: ${MYSQL_DB_USER}
   mysql_db_password: ${MYSQL_DB_PASSWORD}" > secret.yaml
 ```
 
-4d.   create service.yaml
+4e.   create service.yaml
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
 echo -e "apiVersion: v1\nkind: Service\nmetadata:
