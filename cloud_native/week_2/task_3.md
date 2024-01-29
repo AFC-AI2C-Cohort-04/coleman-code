@@ -163,7 +163,7 @@ kubectl exec -it <POD_NAME> -- /bin/sh
 
 ---
 
-6.   export submission credentials and run submitter
+6a.   export submission credentials and run submitter
 ```
 export SUBMISSION_USERNAME=<USERNAME>
 export SUBMISSION_PASSWORD=<PASSWORD>
@@ -171,6 +171,13 @@ cd ~/handout
 ./submitter task3
 ```
 
+6b.   delete task 3 kubernetes service
+```
+cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
+kubectl delete -f .
+```
+
 ---
 
 [<< Task 2](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_2.md)      [Task 4 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_4.md)
+
