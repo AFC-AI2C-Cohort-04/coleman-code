@@ -37,6 +37,18 @@ export LOGIN_DB_PASSWORD="$(terraform output -raw mysql_admin_password)"
 export LOGIN_DB_PORT="3001"
 ```
 
+*.   (ensure docker is installed and user has docker privileges)
+
+---
+
+1.   compile chat and login applications with maven
+```
+cd ~/handout/cloudchat/task2-4-microservices/chat
+mvn clean package
+cd ~/handout/cloudchat/task2-4-microservices/login
+mvn clean package
+```
+
 ---
 
 [<< Task 3](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_3.md)
