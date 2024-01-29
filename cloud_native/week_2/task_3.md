@@ -39,7 +39,7 @@ docker push $acr_server/$container
 
 ---
 
-2.   create azure kubernetes cluster (AKS)
+2.   create azure kubernetes (AKS) cluster
 ```
 az group create \
   --name aks_rg \
@@ -54,12 +54,26 @@ az aks create \
   --generate-ssh-keys
 ```
 
-*.   (how to update/attach a container to a kluster)
+*.   (how to update/attach a container to AKS cluster)
 ```
 az aks update \
   --name <AKS_NAME> \
   --resource-group <AKS_RG_NAME>\
   --attach-acr <ACR_NAME>
+```
+
+---
+
+3a.   get AKS credentials
+```
+az aks get-credentials \
+  --resource-group aks_rg \
+  --name $aks_name
+```
+
+3a.   connect to AKS cluster
+```
+
 ```
 
 ---
