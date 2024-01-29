@@ -156,7 +156,12 @@ helm list
 helm delete <name>
 ```
 
-### STUCK: CURLING THE EXTERNAL IP OF THE NGINX LOAD BALANCER RESULTS IN 404
+---
+
+5.   a
+```
+
+```
 
 ---
 
