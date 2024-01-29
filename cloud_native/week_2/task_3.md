@@ -77,18 +77,18 @@ kubectl get nodes
 
 4a.   create configmap.yaml (update UUID)
 ```
-sql_db_name=$(az resource list --query "[?starts_with(name, 'profile-mysql-fs')].resourceGroup" -o tsv)
 cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
-echo -e 'apiVersion: v1\nkind: ConfigMap\nmetadata:
+sql_db_name=$(az resource list --query "[?starts_with(name, 'profile-mysql-fs')].resourceGroup" -o tsv) && \
+echo -e "apiVersion: v1\nkind: ConfigMap\nmetadata:
   name: spring-profile-configmap\ndata:
-  mysql_db_host: "$sql_db_name.mysql.database.azure.com"
-  mysql_db_port: "3306"' > configmap.yaml
+  mysql_db_host: \"${sql_db_name}.mysql.database.azure.com\"
+  mysql_db_port: \"3306\"" > configmap.yaml
 ```
 
 4b.   create deployment.yaml
 ```
 cd ~/handout/cloudchat/task2-4-microservices/profile/task3-k8s
-echo -e 'apiVersion: apps/v1\nkind: Deployment\nmetadata:
+echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
   name: spring-profile-deployment\n  labels:\n    app: profile\nspec:
   replicas: 3\n  selector:\n    matchLabels:\n      app: profile\n  template:
     metadata:\n      labels:\n        app: profile\n    spec:\n      containers:
@@ -103,7 +103,7 @@ echo -e 'apiVersion: apps/v1\nkind: Deployment\nmetadata:
               name: spring-profile-secret\n              key: mysql_db_username
         - name: MYSQL_DB_PASSWORD\n          valueFrom:
             secretKeyRef:\n              name: spring-profile-secret
-              key: mysql_db_password' > deployment.yaml
+              key: mysql_db_password" > deployment.yaml
 ```
 
 4c.   create secret.yaml
