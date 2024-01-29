@@ -53,6 +53,15 @@ az aks create \
   --node-count 2 \
   --generate-ssh-keys
 ```
+
+*.   (how to update/attach a container to a kluster)
+```
+az aks update \
+  --name <AKS_NAME> \
+  --resource-group <AKS_RG_NAME>\
+  --attach-acr <ACR_NAME>
+```
+
 ---
 
 [<< Task 2](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_2.md)      [Task 4 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_2/task_4.md)
