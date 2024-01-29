@@ -121,7 +121,7 @@ echo -e "apiVersion: networking.k8s.io/v1\nkind: Ingress\nmetadata:
 3c.   create ingress resource and check state
 ```
 cd ~/handout/cloudchat/task2-4-microservices/task4-ingress
-kubectl create -f ingress.yaml && \
+kubectl apply -f ingress.yaml && \
 kubectl get ingress
 ```
 
