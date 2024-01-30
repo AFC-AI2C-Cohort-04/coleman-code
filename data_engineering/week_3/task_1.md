@@ -82,4 +82,15 @@ def build_security_dfs():
 
 ---
 
+6.   submit
+```
+export SUBMISSION_USERNAME=<USERNAME>
+export SUBMISSION_PASSWORD=<PASSWORD>
+cd ~/relational-databases-1
+jupyter nbconvert --to script data_cleaning.ipynb && \
+./submitter -t 1
+```
+
+---
+
 [<< Start](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/data_engineering/week_3/start.md)
