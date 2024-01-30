@@ -6,14 +6,18 @@ Start    [Task 1](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/ma
 
 0a.   create resource group and vm (change password)
 ```
-az group create --name relational-databases --location eastus
+az group create --name relational-databases --location eastus && \
 az vm create \
     --resource-group relational-databases \
     --name dataengg2 \
     --size Standard_B2ms \
     --image Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest \
     --admin-username clouduser \
-    --admin-password <YOUR_PASSWORD>
+    --admin-password <YOUR_PASSWORD> && \
+ az vm open-port \
+     --port 3306 \
+     --resource-group relational-databases \
+     --name dataengg2
 ```
 
 0b.   ssh login to vm
