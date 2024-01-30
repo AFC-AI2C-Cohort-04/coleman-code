@@ -17,12 +17,28 @@ jupyter notebook --no-browser
 
 ---
 
-1.   a
+1.   normalize_filename()
+```
+def normalize_filename(filename):
+    new_label = ''
+    new_label = re.sub('-ws-', '+', filename)
+    new_label = re.sub('-ws', '+', new_label)
+    new_label = re.sub('-cl', '*', new_label)
+    new_label = re.sub('-u', '=', new_label)
+    if(re.fullmatch('.*-.*', new_label)):
+        new_label = re.sub('-', '.', new_label)
+    elif(re.fullmatch('.*_.*', new_label)):
+        new_label = re.sub('_', '-', new_label)
+    return new_label.upper()
+```
+
+---
+
+2.   file2df()
 ```
 
 ```
 
 ---
-
 
 [<< Start](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/data_engineering/week_3/start.md)
