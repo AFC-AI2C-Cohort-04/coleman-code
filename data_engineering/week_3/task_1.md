@@ -36,6 +36,34 @@ def normalize_filename(filename):
 
 2.   file2df()
 ```
+def file2df(dirname, filename, security_id):
+    filepath = os.path.join(dirname, filename)
+    df = pd.read_csv(filepath, sep=',')
+    df['ID'] = security_id
+    df['Date'] = pd.to_datetime(df['Date'])
+    return df
+```
+
+---
+
+3.   dirname2etf()
+```
+def dirname2etf(dirname):
+    return 'Y' if os.path.basename(dirname) == 'ETFs' else 'N'
+```
+
+---
+
+4.   filename2ticker()
+```
+def filename2ticker(filename):
+    return filename.split('.')[0]
+```
+
+---
+
+5.   ()
+```
 
 ```
 
