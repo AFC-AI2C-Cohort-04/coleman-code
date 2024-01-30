@@ -57,7 +57,7 @@ def dirname2etf(dirname):
 4.   filename2ticker()
 ```
 def filename2ticker(filename):
-    return normalize_filename(filename.split('.')[0])
+    return filename.split('.')[0]
 ```
 
 ---
@@ -71,10 +71,10 @@ def build_security_dfs():
     for path, _, files in sorted(os.walk('./Data/')):
         ETF = dirname2etf(path)
         for file in sorted(files):
-            if os.path.getsize(os.path.join(dirname, filename)) > 0:
+            if os.path.getsize(os.path.join(path, file)) > 0:
                 ticker_data += [file2df(path, file, ID)]
                 tickers['ID'] += [ID]
-                tickers['Ticker'] += [filename2ticker(file)]
+                tickers['Ticker'] += [filename2ticker(normalize_filename(file))]
                 tickers['ETF'] += [ETF]
                 ID += 1
     return pd.concat(ticker_data), pd.DataFrame(data=tickers)
