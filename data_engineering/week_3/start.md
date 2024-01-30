@@ -6,11 +6,10 @@ Start
 
 0a.   create resource group and vm (change password)
 ```
-export RESOURCE_GROUP_NAME="relational-databases"
-az group create --name $RESOURCE_GROUP_NAME --location eastus
+az group create --name relational-databases --location eastus
 az vm create \
-    --resource-group $RESOURCE_GROUP_NAME \
-    --name dataengg2 \
+    --resource-group relational-databases \
+    --name dataeng2 \
     --size Standard_B2ms \
     --image Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest \
     --admin-username clouduser \
@@ -19,7 +18,9 @@ az vm create \
 
 0b.   ssh login to vm
 ```
-vm_ip=
+vm_ip=$(az network public-ip show -g relational-databases -n dataeng2PublicIP --query ipAddress -o tsv)
+echo $vm_ip
+ssh clouduser@$vm_ip
 ```
 
 ---
