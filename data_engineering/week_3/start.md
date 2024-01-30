@@ -1,6 +1,6 @@
 ## Data Engineering | Week 3 | Start
 
-Start
+Start    [Task 1](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/data_engineering/week_3/task_1.md)
 
 ---
 
@@ -36,4 +36,4 @@ chmod -R 777 relational-databases-1/
 
 ---
 
-[Task 1 >>]()
+[Task 1 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/data_engineering/week_3/task_1.md)
