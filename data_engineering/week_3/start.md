@@ -34,6 +34,19 @@ rm pdatabase.tgz
 chmod -R 777 relational-databases-1/
 ```
 
+0d.   get python and requirements
+```
+cd ~/relational-databases-1/ && \
+sudo apt update && \
+sudo apt install -y python3 python3-venv && \
+sudo apt install -y build-essential python3-dev && \
+python3 -m venv env && \
+source env/bin/activate && \
+pip install -r requirements.txt && \
+pip install Jupyter --upgrade && \
+pip install Jupyter-core --upgrade
+```
+
 ---
 
 [Task 1 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/data_engineering/week_3/task_1.md)
