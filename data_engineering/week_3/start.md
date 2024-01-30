@@ -14,10 +14,6 @@ az vm create \
     --image Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest \
     --admin-username clouduser \
     --admin-password <YOUR_PASSWORD> && \
- az vm open-port \
-     --port 3306 \
-     --resource-group relational-databases \
-     --name dataengg2
 ```
 
 0b.   ssh login to vm
