@@ -9,7 +9,7 @@ Start
 az group create --name relational-databases --location eastus
 az vm create \
     --resource-group relational-databases \
-    --name dataeng2 \
+    --name dataengg2 \
     --size Standard_B2ms \
     --image Canonical:0001-com-ubuntu-server-focal:20_04-lts:latest \
     --admin-username clouduser \
@@ -18,7 +18,7 @@ az vm create \
 
 0b.   ssh login to vm
 ```
-vm_ip=$(az network public-ip show -g relational-databases -n dataeng2PublicIP --query ipAddress -o tsv)
+vm_ip=$(az network public-ip show -g relational-databases -n dataengg2PublicIP --query ipAddress -o tsv)
 echo $vm_ip
 ssh clouduser@$vm_ip
 ```
