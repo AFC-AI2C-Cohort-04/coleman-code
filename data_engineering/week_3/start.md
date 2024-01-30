@@ -23,5 +23,16 @@ echo $vm_ip
 ssh clouduser@$vm_ip
 ```
 
+0c.   get handout
+```
+wget https://clouddataengineer.blob.core.windows.net/relational-databases-1/relational-databases-1.tgz
+tar -xvzf relational-databases-1.tgz
+rm relational-databases-1.tgz
+mkdir relational-databases-1/
+tar -xvzf pdatabase.tgz -C relational-databases-1/
+rm pdatabase.tgz
+chmod -R 777 relational-databases-1/
+```
+
 ---
 
