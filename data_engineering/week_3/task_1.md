@@ -57,7 +57,7 @@ def dirname2etf(dirname):
 4.   filename2ticker()
 ```
 def filename2ticker(filename):
-    return filename.split('.')[0]
+    return normalize_filename(filename.split('.')[0])
 ```
 
 ---
