@@ -78,16 +78,14 @@ helm delete <name>
 
 ---
 
-chat-0.   create chat db
+chat-0a.   create chat db
 ```
 cd ~/handout/cloudchat/terraform-setup/task4-chat_data_tier
 terraform init
 terraform apply -var-file="secret.tfvars"
 ```
 
----
-
-chat-1.   compile chat application with maven
+chat-0b.   compile chat application with maven
 ```
 cd ~/handout/cloudchat/task2-4-microservices/chat
 mvn clean package
@@ -95,7 +93,7 @@ mvn clean package
 
 ---
 
-chat-2a.   configure chat Dockerfile (ensure docker is installed and user has docker privileges)
+chat-1a.   configure chat Dockerfile (ensure docker is installed and user has docker privileges)
 ```
 cd ~/handout/cloudchat/task2-4-microservices/chat/docker
 echo 'FROM openjdk:17-jdk-slim' > Dockerfile
@@ -103,7 +101,7 @@ echo 'COPY groupchat-0.1.0.jar groupchat-0.1.0.jar' >> Dockerfile
 echo 'ENTRYPOINT ["java", "-jar", "groupchat-0.1.0.jar"]' >> Dockerfile
 ```
 
-chat-2b.   build chat docker image
+chat-1b.   build chat docker image
 ```
 cd ~/handout/cloudchat/task2-4-microservices/chat/docker
 mv ../target/groupchat-0.1.0.jar groupchat-0.1.0.jar
@@ -115,7 +113,7 @@ docker build --rm --tag $container $build_path && \
 mv groupchat-0.1.0.jar ../target/groupchat-0.1.0.jar
 ```
 
-chat-2c.   tag and push chat container
+chat-1c.   tag and push chat container
 ```
 acr_name=acrcloudchat
 acr_server=$acr_name.azurecr.io
@@ -123,7 +121,7 @@ docker tag $container $acr_server/$container && \
 docker push $acr_server/$container
 ```
 
-chat-2d.   create RBAC for chat service
+chat-1d.   create RBAC for chat service
 ```
 cd ~/handout/cloudchat/task2-4-microservices/task4-rbac/
 kubectl apply -f .
@@ -131,7 +129,7 @@ kubectl apply -f .
 
 ---
 
-chat-3a.   get chat db variables
+chat-2a.   get chat db variables
 ```
 cd ~/handout/cloudchat/terraform-setup/task4-chat_data_tier
 export CHAT_DB_HOST="$(terraform output -raw mysql_fqdn)" && \
@@ -143,7 +141,7 @@ export CHAT_REDIS_PORT="$(terraform output -raw redis_port)" && \
 export CHAT_REDIS_PASSWORD="$(terraform output -raw redis_primary_access_key)"
 ```
 
-chat-3b.   create chat helm files and install helm chat
+chat-2b.   create chat helm files and install helm chat
 ```
 cd ~/handout/cloudchat/task2-4-microservices/
 cp profile/task4-helm/profile/templates/* chat/helm/chat/templates/
@@ -164,7 +162,7 @@ cd ~/handout/cloudchat/task2-4-microservices/chat
 helm install chat helm/chat/
 ```
 
-chat-3c.   verify chat service (should return JSON)
+chat-2c.   verify chat service (should return JSON)
 ```
 curl http://$LOAD_BALANCER_EXTERNAL_IP/chat
 ```
@@ -175,16 +173,14 @@ curl http://$LOAD_BALANCER_EXTERNAL_IP/chat
 
 ---
 
-login-0.   create login db
+login-0a.   create login db
 ```
 cd ~/handout/cloudchat/terraform-setup/task4-login_data_tier
 terraform init
 terraform apply -var-file="secret.tfvars"
 ```
 
----
-
-login-1.   compile login application with maven
+login-0b.   compile login application with maven
 ```
 cd ~/handout/cloudchat/task2-4-microservices/login
 mvn clean package
@@ -192,7 +188,7 @@ mvn clean package
 
 ---
 
-login-2a.   configure login Dockerfile
+login-1a.   configure login Dockerfile
 ```
 cd ~/handout/cloudchat/task2-4-microservices/login/docker
 echo 'FROM openjdk:17-jdk-slim' > Dockerfile
@@ -200,7 +196,7 @@ echo 'COPY login-0.1.0.jar login-0.1.0.jar' >> Dockerfile
 echo 'ENTRYPOINT ["java", "-jar", "login-0.1.0.jar"]' >> Dockerfile
 ```
 
-login-2b.   build login docker image
+login-1b.   build login docker image
 ```
 cd ~/handout/cloudchat/task2-4-microservices/login/docker
 mv ../target/login-0.1.0.jar login-0.1.0.jar
@@ -212,7 +208,7 @@ docker build --rm --tag $container $build_path
 mv login-0.1.0.jar ../target/login-0.1.0.jar
 ```
 
-login-2c.   tag and push login container
+login-1c.   tag and push login container
 ```
 acr_name=acrcloudchat
 acr_server=$acr_name.azurecr.io
@@ -222,7 +218,7 @@ docker push $acr_server/$container
 
 ---
 
-chat-3a.   get login db variables
+chat-2a.   get login db variables
 ```
 cd ~/handout/cloudchat/terraform-setup/task4-login_data_tier
 export LOGIN_DB_HOST="$(terraform output -raw mysql_fqdn)" && \
@@ -231,7 +227,7 @@ export LOGIN_DB_USER="$(terraform output -raw mysql_admin_username)" && \
 export LOGIN_DB_PASSWORD="$(terraform output -raw mysql_admin_password)"
 ```
 
-chat-3b.   create login helm files and install helm login
+chat-2b.   create login helm files and install helm login
 ```
 cd ~/handout/cloudchat/task2-4-microservices/
 cp profile/task4-helm/profile/templates/* login/helm/login/templates/
@@ -251,7 +247,7 @@ cd ~/handout/cloudchat/task2-4-microservices/login
 helm install login helm/login/
 ```
 
-chat-3c.   verify login service by going to login webpage
+chat-2c.   verify login service by going to login webpage
 ```
 echo http://$LOAD_BALANCER_EXTERNAL_IP/login
 ```
