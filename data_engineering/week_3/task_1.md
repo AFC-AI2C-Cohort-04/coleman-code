@@ -82,7 +82,7 @@ def build_security_dfs():
 
 ---
 
-6.   submit
+6.   submit (ctrl+C to stop jupyter notebook)
 ```
 export SUBMISSION_USERNAME=<USERNAME>
 export SUBMISSION_PASSWORD=<PASSWORD>
