@@ -6,10 +6,11 @@
 
 0a.   get securities trading data
 ```
-cd ~/relational-databases-1
-wget https://principlesofcomputing.blob.core.windows.net/relational-databases-1/handout/security.zip -O security.zip
-sudo apt install unzip
-unzip security.zip
+cd ~/relational-databases-1 && \
+wget https://principlesofcomputing.blob.core.windows.net/relational-databases-1/handout/security.zip -O security.zip && \
+sudo apt install unzip && \
+unzip security.zip && \
+rm security.zip
 ```
 
 ---
