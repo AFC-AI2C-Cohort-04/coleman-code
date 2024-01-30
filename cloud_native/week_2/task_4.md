@@ -233,9 +233,19 @@ cd ~/handout/cloudchat/task2-4-microservices/login
 helm install login helm/login/
 ```
 
-7c.   verify login service (may take a few minutes)
+7c.   verify login service by going to login webpage
 ```
-curl http://$LOAD_BALANCER_EXTERNAL_IP/login
+echo http://$LOAD_BALANCER_EXTERNAL_IP/login
+```
+
+---
+
+8.   export submission credentials and run submitter
+```
+export SUBMISSION_USERNAME=<USERNAME>
+export SUBMISSION_PASSWORD=<PASSWORD>
+cd ~/handout
+./submitter task4
 ```
 
 ---
