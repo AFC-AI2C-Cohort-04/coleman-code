@@ -18,27 +18,35 @@ az vm open-port \
 ```
 sudo apt update && \
 sudo apt install -y mysql-server && \
+sudo mysql
 ```
 
-0c.   create mySQL user, login, and create security_db
+0c.   create mySQL user
 ```
-sudo mysql
-use mysql;
+USE mysql;
 CREATE USER 'clouduser'@'localhost' IDENTIFIED BY 'dbroot';                                   
 GRANT ALL PRIVILEGES ON *.* TO 'clouduser'@'localhost' WITH GRANT OPTION;
 CREATE USER 'clouduser'@'%' IDENTIFIED BY 'dbroot';                                   
 GRANT ALL PRIVILEGES ON *.* TO 'clouduser'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 SELECT host,user FROM user;
-exit;
-mysql -u clouduser -pdbroot
-source create_security_database.sql
-use security_db;
-show tables;
-exit;
+EXIT;
 ```
 
-0d.   load csv data to security_db
+0d.   login to mysql
+```
+mysql -u clouduser -pdbroot
+```
+
+0e.   create security_db
+```
+SOURCE create_security_database.sql;
+USE security_db;
+SHOW TABLES;
+EXIT;
+```
+
+0f.   configure mysqld.cnf file
 ```
 sudo chmod 666 /etc/mysql/mysql.conf.d/mysqld.cnf
 echo -e "local_infile=1\n[client]\nlocal_infile=1" >> "/etc/mysql/mysql.conf.d/mysqld.cnf"
@@ -46,76 +54,81 @@ sudo chmod 644 /etc/mysql/mysql.conf.d/mysqld.cnf
 set global local-infile=1
 sudo service mysql restart
 mysql -u clouduser -pdbroot
-source load_tickerInfo_time_series.sql
 ```
 
-0e.   wait and verify
+0g.   load csv data into security_db
+```
+SOURCE load_tickerInfo_time_series.sql;
+```
+
+
+0h.   wait and verify
 ```
 USE security_db;
-select count(*) from ticker_info;
-select count(*) from time_series;
+SELECT count(*) FROM ticker_info;
+SELECT count(*) FROM time_series;
 ```
 
 ---
 
 1a.   q6.sql (file contents)
 ```
-use security_db;
-load data local infile 'nasdaqlistedMod.txt'
-    into table nasdaq_info
-    fields terminated by '|'
-    enclosed by ''
-    lines terminated by '\n'
-    ignore 1 rows
+USE security_db;
+LOAD DATA LOCAL INFILE 'nasdaqlistedMod.txt'
+    INTO TABLE nasdaq_info
+    FIELDS TERMINATED BY '|'
+    ENCLOSED BY ''
+    LINES TERMINATED BY '\n'
+    IGNORE 1 ROWS
     (symbol, security_name, market_category, test_issue, financial_status, round_lot_size, etf, next_shares)
-    set id=null;
-load data local infile 'otherlistedMod.txt'
-    into table other_exchange_info
-    fields terminated by '|'
-    enclosed by ''
-    lines terminated by '\n'
-    ignore 1 rows
+    SET id=null;
+LOAD DATA LOCAL INFILE 'otherlistedMod.txt'
+    INTO TABLE other_exchange_info
+    FIELDS TERMINATED BY '|'
+    ENCLOSED BY ''
+    LINES TERMINATED BY '\n'
+    IGNORE 1 ROWS
     (act_symbol, security_name, exchange, cqs_symbol, etf, round_lot_size, test_issue, nasdaq_symbol)
-    set id=null;
+    SET id=null;
 ```
 
 1b.   load nasdaq and other listed data to security_db
 ```
-source q6.sql;
+SOURCE q6.sql;
 ```
 
 ---
 
 2a.   q7.sql (file contents)
 ```
-use security_db;
+USE security_db;
 ALTER TABLE time_series DROP COLUMN open_int;
 ```
 
 2b.   drop open_int column from time_series
 ```
-source q7.sql;
+SOURCE q7.sql;
 ```
 
 ---
 
 3a.   q8.sql (file contents)
 ```
-use security_db;
+USE security_db;
 DELETE FROM other_exchange_info
   WHERE exchange IN ('Z', 'V');
 ```
 
 3b.   drop BATS and IEXG records
 ```
-source q8.sql;
+SOURCE q8.sql;
 ```
 
 ---
 
 4a.   q9.sql (file contents)
 ```
-use security_db;
+USE security_db;
 ALTER TABLE nasdaq_info
   ADD COLUMN exchange
   ENUM('A', 'N', 'P', 'Q') DEFAULT 'Q';
@@ -123,29 +136,29 @@ ALTER TABLE nasdaq_info
 
 4b.   add exchange column to nasdaq_info
 ```
-source q9.sql;
+SOURCE q9.sql;
 ```
 
 ---
 
 5a.   q10.sql (file contents)
 ```
-use security_db;
+USE security_db;
+DELETE FROM nasdaq_info WHERE test_issue='Y';
+DELETE FROM other_exchange_info WHERE test_issue='Y';
 
-delete from nasdaq_info where test_issue='Y';
-delete from other_exchange_info where test_issue='Y';
+ALTER TABLE nasdaq_info DROP COLUMN test_issue;
+ALTER TABLE other_exchange_info DROP COLUMN test_issue;
 
-alter table nasdaq_info drop column test_issue;
-alter table other_exchange_info drop column test_issue;
-
-insert into nasdaq_info (symbol, security_name, market_category, financial_status, round_lot_size, etf, next_shares, exchange)
-  select nasdaq_symbol, security_name, null, null, round_lot_size, etf, null, exchange
-  from other_exchange_info;
+INSERT INTO nasdaq_info (symbol, security_name, market_category, financial_status, round_lot_size, etf, next_shares, exchange)
+  SELECT nasdaq_symbol, security_name, null, null, round_lot_size, etf, null, exchange
+  FROM other_exchange_info;
 ```
 
 5b.   merge tables and drop
 ```
-source q10.sql;
+SOURCE q10.sql;
+EXIT;
 ```
 
 ---
