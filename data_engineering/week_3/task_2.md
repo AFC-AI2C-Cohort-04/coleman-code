@@ -132,6 +132,15 @@ source q9.sql;
 ```
 use security_db;
 
+delete from nasdaq_info where test_issue='Y';
+delete from other_exchange_info where test_issue='Y';
+
+alter table nasdaq_info drop column test_issue;
+alter table other_exchange_info drop column test_issue;
+
+insert into nasdaq_info (symbol, security_name, market_category, financial_status, round_lot_size, etf, next_shares, exchange)
+  select nasdaq_symbol, security_name, null, null, round_lot_size, etf, null, exchange
+  from other_exchange_info;
 ```
 
 5b.   merge tables and drop
