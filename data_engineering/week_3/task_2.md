@@ -86,4 +86,14 @@ source q6.sql
 
 ---
 
+x.   submit
+```
+export SUBMISSION_USERNAME=<USERNAME>
+export SUBMISSION_PASSWORD=<PASSWORD>
+export DB_VM_IP=$(curl ip.me)
+export DB_PASSWORD=dbroot
+cd ~/relational-databases-1
+./submitter -t 2
+```
+
 [<< Task 1](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/data_engineering/week_3/task_1.md)
