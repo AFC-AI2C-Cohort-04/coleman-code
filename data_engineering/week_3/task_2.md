@@ -116,12 +116,27 @@ source q8.sql
 4a.   q9.sql (file contents)
 ```
 use security_db;
-
+ALTER TABLE nasdaq_info
+  ADD COLUMN exchange
+  ENUM('A', 'N', 'P', 'Q') DEFAULT 'Q';
 ```
 
-4b.   d
+4b.   add exchange column to nasdaq_info
 ```
 source q9.sql
+```
+
+---
+
+5a.   q10.sql (file contents)
+```
+use security_db;
+
+```
+
+5b.   merge tables and drop
+```
+source q10.sql
 ```
 
 ---
