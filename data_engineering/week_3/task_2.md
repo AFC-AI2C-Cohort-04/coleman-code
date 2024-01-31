@@ -52,9 +52,8 @@ source load_tickerInfo_time_series.sql
 0e.   wait and verify
 ```
 USE security_db;
-SHOW TABLES;
-SELECT * FROM INFORMATION_SCHEMA.STATISTICS WHERE table_schema = 'security_db';
-DESCRIBE ticker_info;
+select count(*) from ticker_info;
+select count(*) from time_series;
 ```
 
 ---
