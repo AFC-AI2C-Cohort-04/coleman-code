@@ -81,7 +81,7 @@ load data local infile 'otherlistedMod.txt'
 
 1b.   load nasdaq and other listed data to security_db
 ```
-source q6.sql
+source q6.sql;
 ```
 
 ---
@@ -94,7 +94,7 @@ ALTER TABLE time_series DROP COLUMN open_int;
 
 2b.   drop open_int column from time_series
 ```
-source q7.sql
+source q7.sql;
 ```
 
 ---
@@ -108,7 +108,7 @@ DELETE FROM other_exchange_info
 
 3b.   drop BATS and IEXG records
 ```
-source q8.sql
+source q8.sql;
 ```
 
 ---
@@ -123,7 +123,7 @@ ALTER TABLE nasdaq_info
 
 4b.   add exchange column to nasdaq_info
 ```
-source q9.sql
+source q9.sql;
 ```
 
 ---
@@ -136,7 +136,7 @@ use security_db;
 
 5b.   merge tables and drop
 ```
-source q10.sql
+source q10.sql;
 ```
 
 ---
