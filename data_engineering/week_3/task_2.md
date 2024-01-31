@@ -163,7 +163,7 @@ EXIT;
 
 ---
 
-x.   submit
+6.   submit
 ```
 export SUBMISSION_USERNAME=<USERNAME>
 export SUBMISSION_PASSWORD=<PASSWORD>
