@@ -4,7 +4,7 @@
 
 ---
 
-0.   login to azure cli and enable ports
+0a.   login to azure cli and enable ports
 ```
 sudo apt install -y azure-cli && \
 az login --use-device && \
@@ -12,6 +12,52 @@ az vm open-port \
   --port 3306 \
   --resource-group relational-databases \
   --name dataengg2
+```
+
+0b.   install mySQL server
+```
+sudo apt update && \
+sudo apt install -y mysql-server && \
+```
+
+0c.   create mySQL user, login, and create security_db
+```
+sudo mysql
+use mysql;
+CREATE USER 'clouduser'@'localhost' IDENTIFIED BY 'dbroot';                                   
+GRANT ALL PRIVILEGES ON *.* TO 'clouduser'@'localhost' WITH GRANT OPTION;
+CREATE USER 'clouduser'@'%' IDENTIFIED BY 'dbroot';                                   
+GRANT ALL PRIVILEGES ON *.* TO 'clouduser'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+SELECT host,user FROM user;
+exit;
+mysql -u clouduser -pdbroot
+source create_security_database.sql
+use security_db;
+show tables;
+exit;
+```
+
+0d.   load csv data to security_db
+```
+sudo chmod 666 /etc/mysql/mysql.conf.d/mysqld.cnf
+echo -e "local_infile=1\n[client]\nlocal_infile=1" >> "/etc/mysql/mysql.conf.d/mysqld.cnf"
+sudo chmod 644 /etc/mysql/mysql.conf.d/mysqld.cnf
+set global local-infile=1
+sudo service mysql restart
+mysql -u clouduser -pdbroot
+source load_tickerInfo_time_series.sql
+USE security_db;
+SHOW TABLES;
+SELECT * FROM INFORMATION_SCHEMA.STATISTICS WHERE table_schema = 'security_db';
+DESCRIBE ticker_info;
+```
+
+---
+
+1.   a
+```
+
 ```
 
 ---
