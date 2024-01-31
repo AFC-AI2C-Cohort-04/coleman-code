@@ -47,6 +47,10 @@ set global local-infile=1
 sudo service mysql restart
 mysql -u clouduser -pdbroot
 source load_tickerInfo_time_series.sql
+```
+
+0e.   wait and verify
+```
 USE security_db;
 SHOW TABLES;
 SELECT * FROM INFORMATION_SCHEMA.STATISTICS WHERE table_schema = 'security_db';
