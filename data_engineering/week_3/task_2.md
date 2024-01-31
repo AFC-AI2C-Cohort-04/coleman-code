@@ -58,7 +58,7 @@ select count(*) from time_series;
 
 ---
 
-1a.   q9.sql (file contents)
+1a.   q6.sql (file contents)
 ```
 use security_db;
 load data local infile 'nasdaqlistedMod.txt'
@@ -79,9 +79,22 @@ load data local infile 'otherlistedMod.txt'
     set id=null;
 ```
 
-1b.   load text data to security_db
+1b.   load nasdaq and other listed data to security_db
 ```
 source q6.sql
+```
+
+---
+
+2a.   q7.sql (file contents)
+```
+use security_db;
+ALTER TABLE time_series DROP COLUMN open_int;
+```
+
+2b.   load 
+```
+source q7.sql
 ```
 
 ---
