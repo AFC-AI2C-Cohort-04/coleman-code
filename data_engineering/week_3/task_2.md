@@ -58,9 +58,30 @@ select count(*) from time_series;
 
 ---
 
-1.   a
+1a.   q9.sql (file contents)
+```
+use security_db;
+load data local infile 'nasdaqlistedMod.txt'
+    into table nasdaq_info
+    fields terminated by '|'
+    enclosed by ''
+    lines terminated by '\n'
+    ignore 1 rows
+    (symbol, security_name, market_category, test_issue, financial_status, round_lot_size, etf, next_shares)
+    set id=null;
+load data local infile 'otherlistedMod.txt'
+    into table other_exchange_info
+    fields terminated by '|'
+    enclosed by ''
+    lines terminated by '\n'
+    ignore 1 rows
+    (act_symbol, security_name, exchange, cqs_symbol, etf, round_lot_size, test_issue, nasdaq_symbol)
+    set id=null;
 ```
 
+1b.   load text data to security_db
+```
+source q6.sql
 ```
 
 ---
