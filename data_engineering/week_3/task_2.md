@@ -92,9 +92,36 @@ use security_db;
 ALTER TABLE time_series DROP COLUMN open_int;
 ```
 
-2b.   load 
+2b.   drop open_int column from time_series
 ```
 source q7.sql
+```
+
+---
+
+3a.   q8.sql (file contents)
+```
+use security_db;
+DELETE FROM other_exchange_info
+  WHERE exchange IN ('Z', 'V');
+```
+
+3b.   drop BATS and IEXG records
+```
+source q8.sql
+```
+
+---
+
+4a.   q9.sql (file contents)
+```
+use security_db;
+
+```
+
+4b.   d
+```
+source q9.sql
 ```
 
 ---
