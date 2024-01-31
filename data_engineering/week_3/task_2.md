@@ -167,9 +167,9 @@ x.   submit
 ```
 export SUBMISSION_USERNAME=<USERNAME>
 export SUBMISSION_PASSWORD=<PASSWORD>
-export DB_VM_IP=$(curl ip.me)
-export DB_PASSWORD=dbroot
-cd ~/relational-databases-1
+export DB_VM_IP=$(curl ip.me) && \
+export DB_PASSWORD=dbroot && \
+cd ~/relational-databases-1 && \
 ./submitter -t 2
 ```
 
