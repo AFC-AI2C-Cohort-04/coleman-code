@@ -53,7 +53,9 @@ echo -e "local_infile=1\n[client]\nlocal_infile=1" >> "/etc/mysql/mysql.conf.d/m
 sudo chmod 644 /etc/mysql/mysql.conf.d/mysqld.cnf
 set global local-infile=1
 sudo service mysql restart
-mysql -u clouduser -pdbroot
+export DB_VM_IP=$(curl ip.me) && \
+export DB_PASSWORD=dbroot && \
+mysql -u clouduser -pdbroot -h $DB_VM_IP
 ```
 
 0g.   load csv data into security_db
@@ -74,16 +76,38 @@ SELECT count(*) FROM time_series;
 1a.   q6.sql (file contents)
 ```
 USE security_db;
-LOAD DATA LOCAL INFILE 'nasdaqlistedMod.txt'
-    INTO TABLE nasdaq_info
+DROP TABLE security_db.nasdaq_info;
+CREATE TABLE security_db.nasdaq_info (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    symbol VARCHAR(14),
+    security_name VARCHAR(255),
+    market_category ENUM('Q','G','S'),
+    test_issue ENUM('Y','N'),
+    financial_status ENUM('D','E','Q','N','G','H','J','K'),
+    round_lot_size INT,
+    etf ENUM('Y','N'),
+    next_shares ENUM('Y','N'));
+LOAD DATA LOCAL infile 'nasdaqlistedMod.txt'
+    INTO TABLE security_db.nasdaq_info
     FIELDS TERMINATED BY '|'
     ENCLOSED BY ''
     LINES TERMINATED BY '\n'
     IGNORE 1 ROWS
     (symbol, security_name, market_category, test_issue, financial_status, round_lot_size, etf, next_shares)
     SET id=null;
+DROP TABLE security_db.other_exchange_info;
+CREATE TABLE other_exchange_info (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    act_symbol VARCHAR(14),
+    security_name VARCHAR(255),
+    exchange ENUM('A','N','P','Q'),
+    cqs_symbol VARCHAR(14),
+    etf ENUM('Y','N'),
+    round_lot_size INT,
+    test_issue ENUM('Y','N'),
+    nasdaq_symbol VARCHAR(14));
 LOAD DATA LOCAL INFILE 'otherlistedMod.txt'
-    INTO TABLE other_exchange_info
+    INTO TABLE security_db.other_exchange_info
     FIELDS TERMINATED BY '|'
     ENCLOSED BY ''
     LINES TERMINATED BY '\n'
@@ -146,10 +170,8 @@ SOURCE q9.sql;
 USE security_db;
 DELETE FROM nasdaq_info WHERE test_issue='Y';
 DELETE FROM other_exchange_info WHERE test_issue='Y';
-
 ALTER TABLE nasdaq_info DROP COLUMN test_issue;
 ALTER TABLE other_exchange_info DROP COLUMN test_issue;
-
 INSERT INTO nasdaq_info (symbol, security_name, market_category, financial_status, round_lot_size, etf, next_shares, exchange)
   SELECT nasdaq_symbol, security_name, null, null, round_lot_size, etf, null, exchange
   FROM other_exchange_info;
@@ -163,13 +185,11 @@ EXIT;
 
 ---
 
-6.   submit
+6.   submit (grading is messed-up)
 ```
 export SUBMISSION_USERNAME=<USERNAME>
 export SUBMISSION_PASSWORD=<PASSWORD>
-export DB_VM_IP=$(curl ip.me) && \
-export DB_PASSWORD=dbroot && \
-cd ~/relational-databases-1 && \
+cd ~/relational-databases-1
 ./submitter -t 2
 ```
 
