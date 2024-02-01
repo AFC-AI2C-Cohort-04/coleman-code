@@ -68,15 +68,17 @@ SOURCE load_tickerInfo_time_series.sql;
 0h.   wait and verify
 ```
 USE security_db;
-SELECT count(*) FROM ticker_info;
-SELECT count(*) FROM time_series;
+SELECT count(*) FROM ticker_info; # ticker_info COUNT = 8507
+SELECT count(*) FROM time_series; # time_series COUNT = 17453243
+EXIT;
 ```
 
 ---
 
-1a.   q6.sql (file contents)
+1a.   update q6.sql
 ```
-USE security_db;
+cd ~/relational-databases-1/
+echo -e "USE security_db;
 DROP TABLE security_db.nasdaq_info;
 CREATE TABLE security_db.nasdaq_info (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -114,72 +116,85 @@ LOAD DATA LOCAL INFILE 'otherlistedMod.txt'
     LINES TERMINATED BY '\n'
     IGNORE 1 ROWS
     (act_symbol, security_name, exchange, cqs_symbol, etf, round_lot_size, test_issue, nasdaq_symbol)
-    SET id=null;
+    SET id=null;" > q6.sql
 ```
 
 1b.   load nasdaq and other listed data to security_db
 ```
+mysql -u clouduser -pdbroot -h $DB_VM_IP
 SOURCE q6.sql;
+EXIT;
 ```
 
 ---
 
-2a.   q7.sql (file contents)
+2a.   update q7.sql
 ```
-USE security_db;
-ALTER TABLE time_series DROP COLUMN open_int;
+cd ~/relational-databases-1/
+echo -e "USE security_db;
+ALTER TABLE time_series DROP COLUMN open_int;" > q7.sql
 ```
 
 2b.   drop open_int column from time_series
 ```
+mysql -u clouduser -pdbroot -h $DB_VM_IP
 SOURCE q7.sql;
+EXIT;
 ```
 
 ---
 
-3a.   q8.sql (file contents)
+3a.   update q8.sql
 ```
-USE security_db;
+cd ~/relational-databases-1/
+echo -e "USE security_db;
 DELETE FROM other_exchange_info
-  WHERE exchange IN ('Z', 'V');
+  WHERE exchange IN ('Z', 'V');" > q8.sql
 ```
 
 3b.   drop BATS and IEXG records
 ```
+mysql -u clouduser -pdbroot -h $DB_VM_IP
 SOURCE q8.sql;
+EXIT;
 ```
 
 ---
 
-4a.   q9.sql (file contents)
+4a.   update q9.sql
 ```
-USE security_db;
+cd ~/relational-databases-1/
+echo -e "USE security_db;
 ALTER TABLE nasdaq_info
   ADD COLUMN exchange
-  ENUM('A', 'N', 'P', 'Q') DEFAULT 'Q';
+  ENUM('A', 'N', 'P', 'Q') DEFAULT 'Q';" > q9.sql
 ```
 
 4b.   add exchange column to nasdaq_info
 ```
+mysql -u clouduser -pdbroot -h $DB_VM_IP
 SOURCE q9.sql;
+EXIT;
 ```
 
 ---
 
-5a.   q10.sql (file contents)
+5a.   update q10.sql
 ```
-USE security_db;
+cd ~/relational-databases-1/
+echo -e "USE security_db;
 DELETE FROM nasdaq_info WHERE test_issue='Y';
 DELETE FROM other_exchange_info WHERE test_issue='Y';
 ALTER TABLE nasdaq_info DROP COLUMN test_issue;
 ALTER TABLE other_exchange_info DROP COLUMN test_issue;
 INSERT INTO nasdaq_info (symbol, security_name, market_category, financial_status, round_lot_size, etf, next_shares, exchange)
   SELECT nasdaq_symbol, security_name, null, null, round_lot_size, etf, null, exchange
-  FROM other_exchange_info;
+  FROM other_exchange_info;" > q10.sql
 ```
 
 5b.   merge tables and drop
 ```
+mysql -u clouduser -pdbroot -h $DB_VM_IP
 SOURCE q10.sql;
 EXIT;
 ```
