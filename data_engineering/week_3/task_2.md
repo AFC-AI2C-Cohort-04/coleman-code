@@ -68,8 +68,8 @@ SOURCE load_tickerInfo_time_series.sql;
 0h.   wait and verify
 ```
 USE security_db;
-SELECT count(*) FROM ticker_info; # ticker_info COUNT = 8507
-SELECT count(*) FROM time_series; # time_series COUNT = 17453243
+SELECT COUNT(*) FROM ticker_info; # ticker_info COUNT(*) = 8507
+SELECT COUNT(*) FROM time_series; # time_series COUNT(*) = 17453243
 EXIT;
 ```
 
