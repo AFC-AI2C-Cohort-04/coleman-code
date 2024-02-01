@@ -49,7 +49,7 @@ EXIT;
 0f.   configure mysqld.cnf file
 ```
 sudo chmod 666 /etc/mysql/mysql.conf.d/mysqld.cnf
-sed -i 's/^bind-address/# bind-address/' /etc/mysql/mysql.conf.d/mysqld.cnf
+sudo sed -i 's/^bind-address/# bind-address/' /etc/mysql/mysql.conf.d/mysqld.cnf
 echo -e "local_infile=1\n[client]\nlocal_infile=1" >> "/etc/mysql/mysql.conf.d/mysqld.cnf"
 sudo chmod 644 /etc/mysql/mysql.conf.d/mysqld.cnf
 set global local-infile=1
