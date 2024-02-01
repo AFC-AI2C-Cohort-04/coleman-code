@@ -94,7 +94,7 @@ LOAD DATA LOCAL infile 'nasdaqlistedMod.txt'
     INTO TABLE security_db.nasdaq_info
     FIELDS TERMINATED BY '|'
     ENCLOSED BY ''
-    LINES TERMINATED BY '\n'
+    LINES TERMINATED BY '\\n'
     IGNORE 1 ROWS
     (symbol, security_name, market_category, test_issue, financial_status, round_lot_size, etf, next_shares)
     SET id=null;
@@ -113,7 +113,7 @@ LOAD DATA LOCAL INFILE 'otherlistedMod.txt'
     INTO TABLE security_db.other_exchange_info
     FIELDS TERMINATED BY '|'
     ENCLOSED BY ''
-    LINES TERMINATED BY '\n'
+    LINES TERMINATED BY '\\n'
     IGNORE 1 ROWS
     (act_symbol, security_name, exchange, cqs_symbol, etf, round_lot_size, test_issue, nasdaq_symbol)
     SET id=null;" > q6.sql
