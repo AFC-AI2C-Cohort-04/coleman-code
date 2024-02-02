@@ -100,6 +100,7 @@ LOAD DATA LOCAL infile 'nasdaqlistedMod.txt'
     IGNORE 1 ROWS
     (symbol, security_name, market_category, test_issue, financial_status, round_lot_size, etf, next_shares)
     SET id=null;
+
 -- drop test_issue column
 ALTER TABLE nasdaq_info
     DROP COLUMN test_issue;
@@ -124,11 +125,17 @@ LOAD DATA LOCAL INFILE 'otherlistedMod.txt'
     IGNORE 1 ROWS
     (act_symbol, security_name, exchange, cqs_symbol, etf, round_lot_size, test_issue, nasdaq_symbol)
     SET id=null;
--- delete 'Y' from test_issue column
-DELETE FROM other_exchange_info WHERE test_issue='Y';
+
 -- delete 'Z' and 'V' from exchange column
 DELETE FROM other_exchange_info
-  WHERE exchange IN ('Z', 'V');" > q6.sql
+  WHERE exchange IN ('Z', 'V');
+
+-- delete 'Y' from test_issue column
+DELETE FROM other_exchange_info WHERE test_issue='Y';
+
+-- drop test_issue column
+ALTER TABLE other_exchange_info
+    DROP COLUMN test_issue;" > q6.sql
 ```
 
 1b.   load nasdaq and other listed data to security_db
@@ -195,10 +202,37 @@ EXIT;
 ```
 cd ~/relational-databases-1/
 echo -e "USE security_db;
+
+-- NASDAQ INFO
+DROP TABLE security_db.nasdaq_info;
+CREATE TABLE security_db.nasdaq_info (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    symbol VARCHAR(14),
+    security_name VARCHAR(255),
+    market_category ENUM('Q','G','S'),
+    test_issue ENUM('Y','N'),
+    financial_status ENUM('D','E','Q','N','G','H','J','K'),
+    round_lot_size INT,
+    etf ENUM('Y','N'),
+    next_shares ENUM('Y','N'));
+LOAD DATA LOCAL infile 'nasdaqlistedMod.txt'
+    INTO TABLE security_db.nasdaq_info
+    FIELDS TERMINATED BY '|'
+    ENCLOSED BY ''
+    LINES TERMINATED BY '\n'
+    IGNORE 1 ROWS
+    (symbol, security_name, market_category, test_issue, financial_status, round_lot_size, etf, next_shares)
+    SET id=null;
+
+-- delete 'Y' from test_issue column
 DELETE FROM nasdaq_info WHERE test_issue='Y';
 DELETE FROM other_exchange_info WHERE test_issue='Y';
+
+-- drop test_issue column
 ALTER TABLE nasdaq_info DROP COLUMN test_issue;
 ALTER TABLE other_exchange_info DROP COLUMN test_issue;
+
+-- merge nasdaq_info and other_exchange_info
 INSERT INTO nasdaq_info (symbol, security_name, market_category, financial_status, round_lot_size, etf, next_shares, exchange)
   SELECT nasdaq_symbol, security_name, null, null, round_lot_size, etf, null, exchange
   FROM other_exchange_info;" > q10.sql
