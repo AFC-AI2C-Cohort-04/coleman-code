@@ -160,8 +160,8 @@ EXIT;
 ```
 cd ~/relational-databases-1/
 echo -e "USE security_db;
-DELETE FROM other_exchange_info
-  WHERE exchange IN ('Z', 'V');" > q8.sql
+-- DELETE FROM other_exchange_info
+--   WHERE exchange IN ('Z', 'V');" > q8.sql
 ```
 
 3b.   drop BATS and IEXG records
