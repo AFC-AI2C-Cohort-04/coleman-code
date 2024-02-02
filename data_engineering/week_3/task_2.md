@@ -204,8 +204,8 @@ cd ~/relational-databases-1/
 echo -e "USE security_db;
 
 -- NASDAQ INFO
-DROP TABLE security_db.nasdaq_info;
-CREATE TABLE security_db.nasdaq_info (
+DROP TABLE nasdaq_info;
+CREATE TABLE nasdaq_info (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     symbol VARCHAR(14),
     security_name VARCHAR(255),
@@ -216,7 +216,7 @@ CREATE TABLE security_db.nasdaq_info (
     etf ENUM('Y','N'),
     next_shares ENUM('Y','N'));
 LOAD DATA LOCAL infile 'nasdaqlistedMod.txt'
-    INTO TABLE security_db.nasdaq_info
+    INTO TABLE nasdaq_info
     FIELDS TERMINATED BY '|'
     ENCLOSED BY ''
     LINES TERMINATED BY '\n'
@@ -226,10 +226,40 @@ LOAD DATA LOCAL infile 'nasdaqlistedMod.txt'
 
 -- delete 'Y' from test_issue column
 DELETE FROM nasdaq_info WHERE test_issue='Y';
-DELETE FROM other_exchange_info WHERE test_issue='Y';
 
 -- drop test_issue column
 ALTER TABLE nasdaq_info DROP COLUMN test_issue;
+
+-- add exchange column to nasdaq_info
+ALTER TABLE nasdaq_info
+  ADD COLUMN exchange
+  ENUM('A', 'N', 'P', 'Q') DEFAULT 'Q';
+
+-- OTHER EXCHANGE INFO
+DROP TABLE other_exchange_info;
+CREATE TABLE other_exchange_info (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    act_symbol VARCHAR(14),
+    security_name VARCHAR(255),
+    exchange enum('A','N','P','Q', 'Z', 'V'),
+    cqs_symbol VARCHAR(14),
+    etf ENUM('Y','N'),
+    round_lot_size INT,
+    test_issue ENUM('Y','N'),
+    nasdaq_symbol VARCHAR(14));
+LOAD DATA LOCAL INFILE 'otherlistedMod.txt'
+    INTO TABLE other_exchange_info
+    FIELDS TERMINATED BY '|'
+    ENCLOSED BY ''
+    LINES TERMINATED BY '\n'
+    IGNORE 1 ROWS
+    (act_symbol, security_name, exchange, cqs_symbol, etf, round_lot_size, test_issue, nasdaq_symbol)
+    SET id=null;
+
+-- delete 'Y' from test_issue column
+DELETE FROM other_exchange_info WHERE test_issue='Y';
+
+-- drop test_issue column
 ALTER TABLE other_exchange_info DROP COLUMN test_issue;
 
 -- merge nasdaq_info and other_exchange_info
