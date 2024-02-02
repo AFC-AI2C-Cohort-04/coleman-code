@@ -262,6 +262,10 @@ DELETE FROM other_exchange_info WHERE test_issue='Y';
 -- drop test_issue column
 ALTER TABLE other_exchange_info DROP COLUMN test_issue;
 
+-- delete 'Z' and 'V' from exchange column
+DELETE FROM other_exchange_info
+  WHERE exchange IN ('Z', 'V');
+
 -- merge nasdaq_info and other_exchange_info
 INSERT INTO nasdaq_info (symbol, security_name, market_category, financial_status, round_lot_size, etf, next_shares, exchange)
   SELECT nasdaq_symbol, security_name, null, null, round_lot_size, etf, null, exchange
