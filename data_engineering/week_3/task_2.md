@@ -198,7 +198,7 @@ EXIT;
 
 ---
 
-6.   submit (grading is messed-up)
+6.   submit
 ```
 export SUBMISSION_USERNAME=<USERNAME>
 export SUBMISSION_PASSWORD=<PASSWORD>
