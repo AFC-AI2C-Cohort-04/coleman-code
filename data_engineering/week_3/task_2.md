@@ -147,7 +147,7 @@ echo -e "USE security_db;
 ALTER TABLE time_series DROP COLUMN open_int;" > q7.sql
 ```
 
-2b.   drop open_int column from time_series
+2b.   q7: drop open_int column from time_series
 ```
 mysql -u clouduser -pdbroot -h $DB_VM_IP
 SOURCE q7.sql;
@@ -253,28 +253,28 @@ INSERT INTO nasdaq_info (symbol, security_name, market_category, financial_statu
 
 ---
 
-1b.   load nasdaq and other listed data to security_db
+1b.   q6: load nasdaq and other listed data to security_db
 ```
 mysql -u clouduser -pdbroot -h $DB_VM_IP
 SOURCE q6.sql;
 EXIT;
 ```
 
-3b.   drop BATS and IEXG records
+3b.   q8: drop BATS and IEXG records
 ```
 mysql -u clouduser -pdbroot -h $DB_VM_IP
 SOURCE q8.sql;
 EXIT;
 ```
 
-4b.   add exchange column to nasdaq_info
+4b.   q9: add exchange column to nasdaq_info
 ```
 mysql -u clouduser -pdbroot -h $DB_VM_IP
 SOURCE q9.sql;
 EXIT;
 ```
 
-5b.   merge tables and drop
+5b.   q10: merge tables and drop
 ```
 mysql -u clouduser -pdbroot -h $DB_VM_IP
 SOURCE q10.sql;
