@@ -174,7 +174,7 @@ DELETE FROM other_exchange_info WHERE exchange IN ('Z', 'V');" > QQ.sql
 1b.   run QQ.sql
 ```
 mysql -u clouduser -pdbroot -h $DB_VM_IP
-SOURCE QQ.sql
+SOURCE QQ.sql;
 EXIT;
 ```
 
