@@ -79,9 +79,11 @@ EXIT;
 ```
 cd ~/relational-databases-1/
 echo -e "USE security_db;
-DROP TABLE security_db.nasdaq_info;
-CREATE TABLE security_db.nasdaq_info (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+
+-- NASDAQ INFO
+DROP TABLE nasdaq_info;
+CREATE TABLE nasdaq_info (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     symbol VARCHAR(14),
     security_name VARCHAR(255),
     market_category ENUM('Q','G','S'),
@@ -91,32 +93,42 @@ CREATE TABLE security_db.nasdaq_info (
     etf ENUM('Y','N'),
     next_shares ENUM('Y','N'));
 LOAD DATA LOCAL infile 'nasdaqlistedMod.txt'
-    INTO TABLE security_db.nasdaq_info
+    INTO TABLE nasdaq_info
     FIELDS TERMINATED BY '|'
     ENCLOSED BY ''
-    LINES TERMINATED BY '\\\n'
+    LINES TERMINATED BY '\n'
     IGNORE 1 ROWS
     (symbol, security_name, market_category, test_issue, financial_status, round_lot_size, etf, next_shares)
     SET id=null;
-DROP TABLE security_db.other_exchange_info;
+-- drop test_issue column
+ALTER TABLE nasdaq_info
+    DROP COLUMN test_issue;
+
+-- OTHER EXCHANGE INFO
+DROP TABLE other_exchange_info;
 CREATE TABLE other_exchange_info (
     id INT AUTO_INCREMENT PRIMARY KEY,
     act_symbol VARCHAR(14),
     security_name VARCHAR(255),
-    exchange ENUM('A','N','P','Q'),
+    exchange enum('A','N','P','Q', 'Z', 'V'),
     cqs_symbol VARCHAR(14),
     etf ENUM('Y','N'),
     round_lot_size INT,
     test_issue ENUM('Y','N'),
     nasdaq_symbol VARCHAR(14));
 LOAD DATA LOCAL INFILE 'otherlistedMod.txt'
-    INTO TABLE security_db.other_exchange_info
+    INTO TABLE other_exchange_info
     FIELDS TERMINATED BY '|'
     ENCLOSED BY ''
-    LINES TERMINATED BY '\\\n'
+    LINES TERMINATED BY '\n'
     IGNORE 1 ROWS
     (act_symbol, security_name, exchange, cqs_symbol, etf, round_lot_size, test_issue, nasdaq_symbol)
-    SET id=null;" > q6.sql
+    SET id=null;
+-- delete 'Y' from test_issue column
+DELETE FROM other_exchange_info WHERE test_issue='Y';
+-- delete 'Z' and 'V' from exchange column
+DELETE FROM other_exchange_info
+  WHERE exchange IN ('Z', 'V');" > q6.sql
 ```
 
 1b.   load nasdaq and other listed data to security_db
