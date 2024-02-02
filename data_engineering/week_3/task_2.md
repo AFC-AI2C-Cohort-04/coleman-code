@@ -138,13 +138,6 @@ ALTER TABLE other_exchange_info
     DROP COLUMN test_issue;" > q6.sql
 ```
 
-1b.   load nasdaq and other listed data to security_db
-```
-mysql -u clouduser -pdbroot -h $DB_VM_IP
-SOURCE q6.sql;
-EXIT;
-```
-
 ---
 
 2a.   update q7.sql
@@ -171,13 +164,6 @@ echo -e "USE security_db;
 --   WHERE exchange IN ('Z', 'V');" > q8.sql
 ```
 
-3b.   drop BATS and IEXG records
-```
-mysql -u clouduser -pdbroot -h $DB_VM_IP
-SOURCE q8.sql;
-EXIT;
-```
-
 ---
 
 4a.   update q9.sql
@@ -187,13 +173,6 @@ echo -e "USE security_db;
 ALTER TABLE nasdaq_info
   ADD COLUMN exchange
   ENUM('A', 'N', 'P', 'Q') DEFAULT 'Q';" > q9.sql
-```
-
-4b.   add exchange column to nasdaq_info
-```
-mysql -u clouduser -pdbroot -h $DB_VM_IP
-SOURCE q9.sql;
-EXIT;
 ```
 
 ---
@@ -270,6 +249,29 @@ DELETE FROM other_exchange_info
 INSERT INTO nasdaq_info (symbol, security_name, market_category, financial_status, round_lot_size, etf, next_shares, exchange)
   SELECT nasdaq_symbol, security_name, null, null, round_lot_size, etf, null, exchange
   FROM other_exchange_info;" > q10.sql
+```
+
+---
+
+1b.   load nasdaq and other listed data to security_db
+```
+mysql -u clouduser -pdbroot -h $DB_VM_IP
+SOURCE q6.sql;
+EXIT;
+```
+
+3b.   drop BATS and IEXG records
+```
+mysql -u clouduser -pdbroot -h $DB_VM_IP
+SOURCE q8.sql;
+EXIT;
+```
+
+4b.   add exchange column to nasdaq_info
+```
+mysql -u clouduser -pdbroot -h $DB_VM_IP
+SOURCE q9.sql;
+EXIT;
 ```
 
 5b.   merge tables and drop
