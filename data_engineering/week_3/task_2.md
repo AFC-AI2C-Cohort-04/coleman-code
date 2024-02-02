@@ -289,4 +289,13 @@ cd ~/relational-databases-1
 ./submitter -t 2
 ```
 
+*.   reset
+```
+mysql -u clouduser -pdbroot -h $DB_VM_IP
+USE security_db;
+DROP TABLE nasdaq_info;
+DROP TABLE other_exchange_info;
+EXIT;
+```
+
 [<< Task 1](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/data_engineering/week_3/task_1.md)
