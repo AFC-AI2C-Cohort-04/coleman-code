@@ -189,7 +189,7 @@ echo -e "USE security_db;
 ALTER TABLE time_series DROP COLUMN open_int;" > q7.sql
 ```
 
-2b.   q7: drop open_int column from time_series
+2b.   run q7.sql
 ```
 mysql -u clouduser -pdbroot -h $DB_VM_IP
 SOURCE q7.sql;
