@@ -75,11 +75,11 @@ EXIT;
 
 ---
 
-1a.   QQ.sql (file contents)
+1a.   create QQ.sql
 ```
-USE security_db;
+echo -e "USE security_db;
 
--- NASDAQ INFO
+-- creates "nasdaq_info" table
 DROP TABLE nasdaq_info;
 CREATE TABLE nasdaq_info (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -95,23 +95,23 @@ LOAD DATA LOCAL infile 'nasdaqlistedMod.txt'
     INTO TABLE nasdaq_info
     FIELDS TERMINATED BY '|'
     ENCLOSED BY ''
-    LINES TERMINATED BY '\n'
+    LINES TERMINATED BY '\\\n'
     IGNORE 1 ROWS
     (symbol, security_name, market_category, test_issue, financial_status, round_lot_size, etf, next_shares)
     SET id=null;
 
--- delete 'Y' from test_issue column
+-- deletes all rows with 'Y' in 'test_issue' column from 'nasdaq_info' table
 DELETE FROM nasdaq_info WHERE test_issue='Y';
 
--- drop test_issue column
+-- removes 'test_issue' column from 'nasdaq_info' table
 ALTER TABLE nasdaq_info DROP COLUMN test_issue;
 
--- add exchange column to nasdaq_info
+-- adds 'exchange' column to 'nasdaq_info' table
 ALTER TABLE nasdaq_info
   ADD COLUMN exchange
   ENUM('A', 'N', 'P', 'Q') DEFAULT 'Q';
 
--- OTHER EXCHANGE INFO
+-- creates "other_exchange_info" table
 DROP TABLE other_exchange_info;
 CREATE TABLE other_exchange_info (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -127,27 +127,26 @@ LOAD DATA LOCAL INFILE 'otherlistedMod.txt'
     INTO TABLE other_exchange_info
     FIELDS TERMINATED BY '|'
     ENCLOSED BY ''
-    LINES TERMINATED BY '\n'
+    LINES TERMINATED BY '\\\n'
     IGNORE 1 ROWS
     (act_symbol, security_name, exchange, cqs_symbol, etf, round_lot_size, test_issue, nasdaq_symbol)
     SET id=null;
 
--- delete 'Y' from test_issue column
+-- deletes all rows with 'Y' in 'test_issue' column from 'other_exchange_info' table
 DELETE FROM other_exchange_info WHERE test_issue='Y';
 
--- drop test_issue column
+-- removes 'test_issue' column from 'other_exchange_info' table
 ALTER TABLE other_exchange_info DROP COLUMN test_issue;
 
--- delete 'Z' and 'V' from exchange column
-DELETE FROM other_exchange_info
-  WHERE exchange IN ('Z', 'V');
+-- deletes all rows with 'Z' or 'V' in 'exchange' column from 'other_exchange_info' table
+DELETE FROM other_exchange_info WHERE exchange IN ('Z', 'V');
 
--- merge nasdaq_info and other_exchange_info
+-- merge 'nasdaq_info' and 'other_exchange_info' tables
 INSERT INTO nasdaq_info (symbol, security_name, market_category, financial_status, round_lot_size, etf, next_shares, exchange)
   SELECT nasdaq_symbol, security_name, null, null, round_lot_size, etf, null, exchange
   FROM other_exchange_info;
 
--- OTHER EXCHANGE INFO
+-- re-creates "other_exchange_info" table
 DROP TABLE other_exchange_info;
 CREATE TABLE other_exchange_info (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -163,14 +162,13 @@ LOAD DATA LOCAL INFILE 'otherlistedMod.txt'
     INTO TABLE other_exchange_info
     FIELDS TERMINATED BY '|'
     ENCLOSED BY ''
-    LINES TERMINATED BY '\n'
+    LINES TERMINATED BY '\\\n'
     IGNORE 1 ROWS
     (act_symbol, security_name, exchange, cqs_symbol, etf, round_lot_size, test_issue, nasdaq_symbol)
     SET id=null;
 
--- delete 'Z' and 'V' from exchange column
-DELETE FROM other_exchange_info
-  WHERE exchange IN ('Z', 'V');
+-- deletes all rows with 'Z' or 'V' in 'exchange' column from 'other_exchange_info' table
+DELETE FROM other_exchange_info WHERE exchange IN ('Z', 'V');" > QQ.sql
 ```
 
 1b.   run QQ.sql
