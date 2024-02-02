@@ -75,112 +75,9 @@ EXIT;
 
 ---
 
-1a.   update q6.sql
+1a.   QQ.sql (file contents)
 ```
-cd ~/relational-databases-1/
-echo -e "USE security_db;
-
--- NASDAQ INFO
-DROP TABLE nasdaq_info;
-CREATE TABLE nasdaq_info (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    symbol VARCHAR(14),
-    security_name VARCHAR(255),
-    market_category ENUM('Q','G','S'),
-    test_issue ENUM('Y','N'),
-    financial_status ENUM('D','E','Q','N','G','H','J','K'),
-    round_lot_size INT,
-    etf ENUM('Y','N'),
-    next_shares ENUM('Y','N'));
-LOAD DATA LOCAL infile 'nasdaqlistedMod.txt'
-    INTO TABLE nasdaq_info
-    FIELDS TERMINATED BY '|'
-    ENCLOSED BY ''
-    LINES TERMINATED BY '\n'
-    IGNORE 1 ROWS
-    (symbol, security_name, market_category, test_issue, financial_status, round_lot_size, etf, next_shares)
-    SET id=null;
-
--- drop test_issue column
-ALTER TABLE nasdaq_info
-    DROP COLUMN test_issue;
-
--- OTHER EXCHANGE INFO
-DROP TABLE other_exchange_info;
-CREATE TABLE other_exchange_info (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    act_symbol VARCHAR(14),
-    security_name VARCHAR(255),
-    exchange enum('A','N','P','Q', 'Z', 'V'),
-    cqs_symbol VARCHAR(14),
-    etf ENUM('Y','N'),
-    round_lot_size INT,
-    test_issue ENUM('Y','N'),
-    nasdaq_symbol VARCHAR(14));
-LOAD DATA LOCAL INFILE 'otherlistedMod.txt'
-    INTO TABLE other_exchange_info
-    FIELDS TERMINATED BY '|'
-    ENCLOSED BY ''
-    LINES TERMINATED BY '\n'
-    IGNORE 1 ROWS
-    (act_symbol, security_name, exchange, cqs_symbol, etf, round_lot_size, test_issue, nasdaq_symbol)
-    SET id=null;
-
--- delete 'Z' and 'V' from exchange column
-DELETE FROM other_exchange_info
-  WHERE exchange IN ('Z', 'V');
-
--- delete 'Y' from test_issue column
-DELETE FROM other_exchange_info WHERE test_issue='Y';
-
--- drop test_issue column
-ALTER TABLE other_exchange_info
-    DROP COLUMN test_issue;" > q6.sql
-```
-
----
-
-2a.   update q7.sql
-```
-cd ~/relational-databases-1/
-echo -e "USE security_db;
-ALTER TABLE time_series DROP COLUMN open_int;" > q7.sql
-```
-
-2b.   q7: drop open_int column from time_series
-```
-mysql -u clouduser -pdbroot -h $DB_VM_IP
-SOURCE q7.sql;
-EXIT;
-```
-
----
-
-3a.   update q8.sql
-```
-cd ~/relational-databases-1/
-echo -e "USE security_db;
--- DELETE FROM other_exchange_info
---   WHERE exchange IN ('Z', 'V');" > q8.sql
-```
-
----
-
-4a.   update q9.sql
-```
-cd ~/relational-databases-1/
-echo -e "USE security_db;
-ALTER TABLE nasdaq_info
-  ADD COLUMN exchange
-  ENUM('A', 'N', 'P', 'Q') DEFAULT 'Q';" > q9.sql
-```
-
----
-
-5a.   update q10.sql
-```
-cd ~/relational-databases-1/
-echo -e "USE security_db;
+USE security_db;
 
 -- NASDAQ INFO
 DROP TABLE nasdaq_info;
@@ -248,36 +145,54 @@ DELETE FROM other_exchange_info
 -- merge nasdaq_info and other_exchange_info
 INSERT INTO nasdaq_info (symbol, security_name, market_category, financial_status, round_lot_size, etf, next_shares, exchange)
   SELECT nasdaq_symbol, security_name, null, null, round_lot_size, etf, null, exchange
-  FROM other_exchange_info;" > q10.sql
+  FROM other_exchange_info;
+
+-- OTHER EXCHANGE INFO
+DROP TABLE other_exchange_info;
+CREATE TABLE other_exchange_info (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    act_symbol VARCHAR(14),
+    security_name VARCHAR(255),
+    exchange enum('A','N','P','Q', 'Z', 'V'),
+    cqs_symbol VARCHAR(14),
+    etf ENUM('Y','N'),
+    round_lot_size INT,
+    test_issue ENUM('Y','N'),
+    nasdaq_symbol VARCHAR(14));
+LOAD DATA LOCAL INFILE 'otherlistedMod.txt'
+    INTO TABLE other_exchange_info
+    FIELDS TERMINATED BY '|'
+    ENCLOSED BY ''
+    LINES TERMINATED BY '\n'
+    IGNORE 1 ROWS
+    (act_symbol, security_name, exchange, cqs_symbol, etf, round_lot_size, test_issue, nasdaq_symbol)
+    SET id=null;
+
+-- delete 'Z' and 'V' from exchange column
+DELETE FROM other_exchange_info
+  WHERE exchange IN ('Z', 'V');
+```
+
+1b.   run QQ.sql
+```
+mysql -u clouduser -pdbroot -h $DB_VM_IP
+SOURCE QQ.sql
+EXIT;
 ```
 
 ---
 
-1b.   q6: load nasdaq and other listed data to security_db
+2a.   update q7.sql
 ```
-mysql -u clouduser -pdbroot -h $DB_VM_IP
-SOURCE q6.sql;
-EXIT;
-```
-
-3b.   q8: drop BATS and IEXG records
-```
-mysql -u clouduser -pdbroot -h $DB_VM_IP
-SOURCE q8.sql;
-EXIT;
+cd ~/relational-databases-1/
+echo -e "USE security_db;
+ALTER TABLE time_series DROP COLUMN open_int;" > q7.sql
 ```
 
-4b.   q9: add exchange column to nasdaq_info
+2b.   q7: drop open_int column from time_series
 ```
 mysql -u clouduser -pdbroot -h $DB_VM_IP
-SOURCE q9.sql;
-EXIT;
-```
-
-5b.   q10: merge tables and drop
-```
-mysql -u clouduser -pdbroot -h $DB_VM_IP
-SOURCE q10.sql;
+SOURCE q7.sql;
 EXIT;
 ```
 
