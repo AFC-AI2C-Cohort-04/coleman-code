@@ -1,6 +1,6 @@
 ## Flask Tutorial
 
-0a.   create vm and login with password
+0a.   create vm, open port 80, and login with password
 ``` bash
 az group create --name flask_rg --location eastus && \
 az vm create \
@@ -10,6 +10,11 @@ az vm create \
   --size Standard_B1s \
   --admin-username azureuser \
   --admin-password <PASSWORD> && \
+az vm open-port \
+  --resource-group flask_rg \
+  --name flask_vm \
+  --port 80 \
+  --priority 1002 && \
 PUBLIC_IP=$(az vm show -d -g flask_rg -n flask_vm --query publicIps -o tsv) && \
 ssh azureuser@$PUBLIC_IP
 ```
