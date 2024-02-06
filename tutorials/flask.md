@@ -78,7 +78,16 @@ if __name__ == '__main__':
 
 ---
 
-1a.   run app.py in the background
+1a.   run app.py in background
 ``` bash
-nohop python app.py &
+nohup python app.py &
 ```
+
+1b.   test and close application
+``` bash
+curl http://127.0.0.1:5000/random-quote
+kill $(jobs -p)
+```
+
+---
+
