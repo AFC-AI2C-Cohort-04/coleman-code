@@ -14,25 +14,19 @@ PUBLIC_IP=$(az vm show -d -g flask_rg -n flask_vm --query publicIps -o tsv) && \
 ssh azureuser@$PUBLIC_IP
 ```
 
-0b.   make directory, and create virtual environment
+0b.   make directory, and create python virtual environment
 ``` bash
-cd ~
-sudo apt-get update
-mkdir my_flask_api
+cd ~ && \
+sudo apt-get update && \
+mkdir my_flask_api && \
+cd my_flask_api && \
+python -m venv env && \
+source venv/bin/activate
 ```
 
 0c.   ...
 ```
-cd my_flask_api
 
-# --------------------------------------
-
-sudo groupadd docker # should already exist
-sudo usermod -aG docker $USER
-newgrp docker
-su - $USER # re-enter password
-mkdir ~/docker_test && cd ~/docker_test
-docker run hello-world
 ```
 
 ---
