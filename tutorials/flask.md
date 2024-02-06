@@ -17,8 +17,9 @@ ssh azureuser@$PUBLIC_IP
 0b.   make directory, and create python virtual environment
 ``` bash
 cd ~ && \
-sudo apt-get update && \
-sudo apt-get install python3.10-venv -y && \
+sudo apt update && \
+sudo apt upgrade -y && \
+sudo apt install python3 python3-pip python3-venv nginx uuid -y && \
 mkdir my_flask_api && \
 cd my_flask_api && \
 python3 -m venv env && \
@@ -91,3 +92,77 @@ kill $(jobs -p)
 
 ---
 
+2a.   get gunicorn
+``` bash
+pip install gunicorn
+```
+
+2b.   create service file
+``` bash
+echo -e "[Unit]
+Description=Gunicorn instance to serve random_quotes_api
+After=network.target
+
+[Service]
+User=$(whoami)
+Group=$(whoami)
+WorkingDirectory=/home/$(whoami)/random_quote_api
+ExecStart=/home/$(whoami)/random_quote_api/venv/bin/gunicorn -w 4 -b 0.0.0.0:5000 app:app
+
+[Install]
+WantedBy=multi-user.target" | sudo tee /etc/systemd/system/random_quote_api.service
+```
+
+2c.   enable and start app service
+``` bash
+sudo systemctl enable random_quote_api && \
+sudo systemctl start random_quote_api
+```
+
+---
+
+3a.   login to azure cli
+``` bash
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && \
+az login --use-device
+```
+
+3b.   deploy app service
+``` bash
+export MY_UUID=$(uuid | cut -c1-8) && \
+az appservice plan create \
+  --name flask_plan_$MY_UUID \
+  --resource-group flask_rg \
+  --sku B1 \
+  --is-linux && \
+az webapp create \
+  --resource-group flask_rg \
+  --plan flask_plan_$MY_UUID \
+  --name flask-app-$MY_UUID \
+  --runtime "PYTHON|3.10" && \
+az webapp up \
+  --resource-group flask_rg \
+  --name flask-app-$MY_UUID
+```
+
+3c.   create nginx server block
+```
+echo -e "server {
+    listen 80;
+    server_name flask-app-$MY_UUID.azurewebsites.net;
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    }
+}" | sudo tee /etc/nginx/sites-available/random_quote_api
+```
+
+3d.   create nginx symlink and test connection
+``` bash
+sudo ln -s /etc/nginx/sites-available/random_quote_api /etc/nginx/sites-enabled && \
+sudo nginx -t && \
+sudo systemctl restart nginx
+```
