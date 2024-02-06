@@ -169,6 +169,6 @@ echo -e "server {
 ``` bash
 sudo ln -s /etc/nginx/sites-available/my_flask_api /etc/nginx/sites-enabled && \
 sudo nginx -t && \
-sudo systemctl restart nginx
+sudo systemctl restart nginx && \
 echo "go to: flask-app-$MY_UUID.azurewebsites.net/random-quote"
 ```
