@@ -162,12 +162,12 @@ echo -e "server {
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
     }
-}" | sudo tee /etc/nginx/sites-available/random_quote_api
+}" | sudo tee /etc/nginx/sites-available/my_flask_api
 ```
 
 3d.   create nginx symlink and test connection
 ``` bash
-sudo ln -s /etc/nginx/sites-available/random_quote_api /etc/nginx/sites-enabled && \
+sudo ln -s /etc/nginx/sites-available/my_flask_api /etc/nginx/sites-enabled && \
 sudo nginx -t && \
 sudo systemctl restart nginx
 echo "go to: flask-app-$MY_UUID.azurewebsites.net/random-quote"
