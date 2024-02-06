@@ -105,23 +105,23 @@ pip install gunicorn
 2b.   create service file
 ``` bash
 echo -e "[Unit]
-Description=Gunicorn instance to serve random_quotes_api
+Description=Gunicorn instance to serve my_flask_api
 After=network.target
 
 [Service]
 User=$(whoami)
 Group=$(whoami)
-WorkingDirectory=/home/$(whoami)/random_quote_api
-ExecStart=/home/$(whoami)/random_quote_api/venv/bin/gunicorn -w 4 -b 0.0.0.0:5000 app:app
+WorkingDirectory=/home/$(whoami)/my_flask_api
+ExecStart=/home/$(whoami)/my_flask_api/venv/bin/gunicorn -w 4 -b 0.0.0.0:5000 app:app
 
 [Install]
-WantedBy=multi-user.target" | sudo tee /etc/systemd/system/random_quote_api.service
+WantedBy=multi-user.target" | sudo tee /etc/systemd/system/my_flask_api.service
 ```
 
 2c.   enable and start app service
 ``` bash
-sudo systemctl enable random_quote_api && \
-sudo systemctl start random_quote_api
+sudo systemctl enable my_flask_api && \
+sudo systemctl start my_flask_api
 ```
 
 ---
