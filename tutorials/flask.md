@@ -91,7 +91,7 @@ nohup python app.py &
 
 1b.   test and close application
 ``` bash
-curl http://127.0.0.1:5000/random-quote
+curl http://127.0.0.1:5000/random-quote && \
 kill $(jobs -p)
 ```
 
