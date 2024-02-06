@@ -77,3 +77,8 @@ if __name__ == '__main__':
 ```
 
 ---
+
+1a.   run app.py in the background
+``` bash
+nohop python app.py &
+```
