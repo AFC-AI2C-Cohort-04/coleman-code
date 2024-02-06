@@ -165,4 +165,5 @@ echo -e "server {
 sudo ln -s /etc/nginx/sites-available/random_quote_api /etc/nginx/sites-enabled && \
 sudo nginx -t && \
 sudo systemctl restart nginx
+echo "go to: flask-app-$MY_UUID.azurewebsites.net/random-quote"
 ```
