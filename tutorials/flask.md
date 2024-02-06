@@ -18,6 +18,7 @@ ssh azureuser@$PUBLIC_IP
 ``` bash
 cd ~ && \
 sudo apt-get update && \
+apt install python3.10-venv && \
 mkdir my_flask_api && \
 cd my_flask_api && \
 python3 -m venv env && \
