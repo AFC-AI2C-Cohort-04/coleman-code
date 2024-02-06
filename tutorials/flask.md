@@ -20,7 +20,7 @@ cd ~ && \
 sudo apt-get update && \
 mkdir my_flask_api && \
 cd my_flask_api && \
-python -m venv env && \
+python3 -m venv env && \
 source venv/bin/activate
 ```
 
