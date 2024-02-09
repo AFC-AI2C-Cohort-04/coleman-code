@@ -17,6 +17,7 @@ ssh azureuser@$PUBLIC_IP
 
 0b.   get handout
 ``` bash
+cd ~
 wget https://cloudnativehandout.blob.core.windows.net/project2/studentvmcreator.tar.gz
 tar -xvzf studentvmcreator.tar.gz
 ```
