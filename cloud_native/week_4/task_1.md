@@ -23,7 +23,7 @@ pip install llama-cpp-python
 
 ---
 
-1c.   create simplellm.py file
+1a.   create simplellm.py file
 ``` bash
 cd ~/llmservice-handout/worker/src && \
 echo -e "from llama_cpp import Llama
@@ -51,7 +51,28 @@ def api():
     return llm(template, temperature=TEMPERATURE, max_tokens=MAX_TOKENS)" > simplellm.py
 ```
 
-1b.   run llm in background
+1b.   create pyproject.toml file
+``` bash
+cd ~/llmservice-handout/worker/src && \
+echo -e "[project]
+name = \"simplellm\"
+version = \"1.0.0\"
+description = \"description\"
+dependencies = [
+    \"flask\",
+    \"llama-cpp-python\",
+    \"waitress\"
+]
+
+[build-system]
+requires = [\"flit_core<4\"]
+build-backend = \"flit_core.buildapi\"
+
+[tool.distutils.bdist_wheel]
+universal = true" > pyproject.toml
+```
+
+.   run llm in background
 ``` bash
 cd ~/llmservice-handout/worker/src && \
 flask --app simplellm run --debug &
