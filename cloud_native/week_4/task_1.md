@@ -30,7 +30,7 @@ echo -e "from llama_cpp import Llama
 from flask import Flask
 from flask import request
 
-MODEL_PATH = \"tinyllama-1.1b-chat-v1.0.Q2_K.gguf\"
+MODEL_PATH = \"..src/tinyllama-1.1b-chat-v1.0.Q2_K.gguf\"
 N_CTX = 512
 N_BATCH = 1
 TEMPERATURE = 0.0
@@ -77,6 +77,18 @@ universal = true" > pyproject.toml
 cd ~/llmservice-handout/worker/src && \
 wget https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q2_K.gguf
 ```
+
+---
+
+2a.   package with wheel, install, and run
+``` bash
+cd ~/llmservice-handout/worker && \
+make wheel # creates dist/ directory
+python3 -m pip install dist/simplellm-1.0.0-py2.py3-none-any.whl
+waitress-serve src/simplellm:app &
+```
+
+---
 
 *.   run llm in background
 ``` bash
