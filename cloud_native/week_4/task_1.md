@@ -13,7 +13,17 @@ python3 -m venv venv && \
 source venv/bin/activate
 ```
 
-0b.   create simplellm.py file
+0b.   get flask and llama
+``` bash
+pip install flask
+pip install tinyllama
+pip install scipy
+pip install llama-cpp-python
+```
+
+---
+
+1c.   create simplellm.py file
 ``` bash
 cd ~/llmservice-handout/worker/src && \
 echo -e "from llama_cpp import Llama
@@ -41,7 +51,7 @@ def api():
     return llm(template, temperature=TEMPERATURE, max_tokens=MAX_TOKENS)" > simplellm.py
 ```
 
-0c.   run llm in background
+1b.   run llm in background
 ``` bash
 cd ~/llmservice-handout/worker/src && \
 flask --app simplellm run --debug &
