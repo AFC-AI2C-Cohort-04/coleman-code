@@ -72,7 +72,13 @@ build-backend = \"flit_core.buildapi\"
 universal = true" > pyproject.toml
 ```
 
-.   run llm in background
+1c.   get model
+```
+cd ~/llmservice-handout/worker/src && \
+wget https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q2_K.gguf
+```
+
+*.   run llm in background
 ``` bash
 cd ~/llmservice-handout/worker/src && \
 flask --app simplellm run --debug &
