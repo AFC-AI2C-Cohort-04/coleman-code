@@ -24,7 +24,7 @@ sudo apt update && \
 sudo apt install packer
 ```
 
-0c.   create azure rbac and use packer to build vm image file
+0c.   login to azure cli, create azure rbac and use packer to build vm image file
 ``` bash
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && \
 az login --use-device && \
