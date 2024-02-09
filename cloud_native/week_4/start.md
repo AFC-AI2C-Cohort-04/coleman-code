@@ -78,6 +78,12 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && \
 az login --use-device
 ```
 
+0f.   get handout
+``` bash
+wget  https://cloudnativehandout.blob.core.windows.net/project2/llmservice-handout.tar.gz
+tar -xvzf llmservice-handout.tar.gz
+```
+
 ---
 
 *.   get azure service principle
