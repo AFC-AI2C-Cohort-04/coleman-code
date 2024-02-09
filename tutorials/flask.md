@@ -25,10 +25,10 @@ cd ~ && \
 sudo apt update && \
 sudo apt upgrade -y && \
 sudo apt install python3 python3-pip python3-venv nginx uuid -y && \
-mkdir my_flask_api && \
-cd my_flask_api && \
-python3 -m venv env && \
-source env/bin/activate
+mkdir random_quote_api && \
+cd random_quote_api && \
+python3 -m venv venv && \
+source venv/bin/activate
 ```
 
 0c.   get flask
@@ -106,23 +106,23 @@ pip install gunicorn
 2b.   create service file
 ``` bash
 echo -e "[Unit]
-Description=Gunicorn instance to serve my_flask_api
+Description=Gunicorn instance to serve random_quotes_api
 After=network.target
 
 [Service]
 User=$(whoami)
 Group=$(whoami)
-WorkingDirectory=/home/$(whoami)/my_flask_api
-ExecStart=/home/$(whoami)/my_flask_api/venv/bin/gunicorn -w 4 -b 0.0.0.0:5000 app:app
+WorkingDirectory=/home/$(whoami)/random_quote_api
+ExecStart=/home/$(whoami)/random_quote_api/venv/bin/gunicorn -w 4 -b 0.0.0.0:5000 app:app
 
 [Install]
-WantedBy=multi-user.target" | sudo tee /etc/systemd/system/my_flask_api.service
+WantedBy=multi-user.target" | sudo tee /etc/systemd/system/random_quote_api.service
 ```
 
 2c.   enable and start app service
 ``` bash
-sudo systemctl enable my_flask_api && \
-sudo systemctl start my_flask_api
+sudo systemctl enable random_quote_api && \
+sudo systemctl start random_quote_api
 ```
 
 ---
@@ -163,12 +163,12 @@ echo -e "server {
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
     }
-}" | sudo tee /etc/nginx/sites-available/my_flask_api
+}" | sudo tee /etc/nginx/sites-available/random_quote_api
 ```
 
 3d.   create nginx symlink and test connection
 ``` bash
-sudo ln -s /etc/nginx/sites-available/my_flask_api /etc/nginx/sites-enabled && \
+sudo ln -s /etc/nginx/sites-available/random_quote_api /etc/nginx/sites-enabled && \
 sudo nginx -t && \
 sudo systemctl restart nginx && \
 echo "go to: flask-app-$MY_UUID.azurewebsites.net/random-quote"
