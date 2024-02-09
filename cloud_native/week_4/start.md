@@ -44,7 +44,13 @@ packer build \
   -var "managed_image_name=project2image" .
 ```
 
-0d.   
+0d.   build vm from image
 ``` bash
-
+az vm create \
+  --location eastus \
+  --resource-group studentvm \
+  --name task1vm \
+  --image project2image \
+  --admin-username azureuser \
+  --generate-ssh-keys
 ```
