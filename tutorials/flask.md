@@ -34,7 +34,7 @@ source venv/bin/activate
 
 0c.   get flask
 ``` bash
-pip install Flask
+pip install flask
 pip freeze > requirements.txt
 echo -e "importlib-metadata==7.0.1
 zipp==3.17.0" >> requirements.txt
