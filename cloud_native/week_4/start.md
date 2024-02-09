@@ -4,7 +4,7 @@ Start    [Task 1](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/ma
 
 ---
 
-0a.   create password, vm, and then ssh login
+0a.   create password, vm, open port 80, and ssh login
 ``` bash
 PASSWORD=<PASSWORD> && \
 az group create \
@@ -18,6 +18,11 @@ az vm create \
   --size Standard_B2s \
   --admin-username azureuser \
   --admin-password $PASSWORD && \
+az vm open-port \
+  --resource-group studentvm \
+  --name project2vm \
+  --port 80 \
+  --priority 1002 && \
 PUBLIC_IP=$(az vm show -d -g studentvm -n project2vm --query publicIps -o tsv) && \
 ssh azureuser@$PUBLIC_IP
 ```
