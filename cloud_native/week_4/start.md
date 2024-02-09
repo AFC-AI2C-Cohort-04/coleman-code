@@ -29,7 +29,7 @@ sudo apt install packer
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && \
 az login --use-device && \
 subscription_id=$(az account list --query "[?isDefault].id" --output tsv) && \
-service_principle=$(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$subscription_id --query "[appId, password, tenant]" --output tsv) && \
+service_principle=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$subscription_id --query "[appId, password, tenant]" --output tsv)) && \
 cd ~/studentvmcreator && \
 echo -e "client_id = \"${service_principle[0]}\"
 client_secret = \"${service_principle[1]}\"
