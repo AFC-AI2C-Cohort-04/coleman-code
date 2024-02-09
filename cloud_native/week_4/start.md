@@ -35,15 +35,16 @@ echo -e "client_id = \"${service_principle[0]}\"
 client_secret = \"${service_principle[1]}\"
 tenant_id = \"${service_principle[2]}\"
 subscription_id = \"$subscription_id\"" > secret.pkrvars.hcl && \
+az group create \
+  --name studentvm \
+  --location eastus && \
 packer build \
   -var-file="secret.pkrvars.hcl" \
   -var "resource_group=student_vm" \
   -var "managed_image_name=project2image" .
 ```
 
-0d.   create resource group
+0d.   
 ``` bash
-az group create \
-  --name studentvm \
-  --location eastus
+
 ```
