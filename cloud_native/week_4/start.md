@@ -32,6 +32,7 @@ sudo usermod -aG docker $USER
 newgrp docker
 su - $USER
 # docker --version
+rm get-docker.sh
 ```
 
 0b.   get terraform
@@ -65,6 +66,7 @@ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scrip
 sudo chmod 700 get_helm.sh
 ./get_helm.sh
 # helm version
+rm get_helm.sh
 ```
 
 0d.   get flask-llama-python
@@ -82,9 +84,12 @@ az login --use-device
 ``` bash
 wget  https://cloudnativehandout.blob.core.windows.net/project2/llmservice-handout.tar.gz
 tar -xvzf llmservice-handout.tar.gz
+rm llmservice-handout.tar.gz
 ```
 
 ---
+
+[Task 1 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_4/task_1.md)
 
 *.   get azure service principle
 ```
