@@ -102,7 +102,7 @@ echo "WantedBy=multi-user.target" >> myapp.service
 ```
 cd ~/handout/cloudchat/monolith/packer
 subscription_id=$(az account list --query "[?isDefault].id" --output tsv)
-service_principle=$(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$subscription_id --query "[appId, password, tenant]" --output tsv)
+service_principle=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$subscription_id --query "[appId, password, tenant]" --output tsv))
 echo "client_id = \"${service_principle[0]}\"" > secret.pkrvars.hcl
 echo "client_secret = \"${service_principle[1]}\"" >> secret.pkrvars.hcl
 echo "tenant_id = \"${service_principle[2]}\"" >> secret.pkrvars.hcl
