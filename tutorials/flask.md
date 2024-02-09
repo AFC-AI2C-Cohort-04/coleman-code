@@ -1,4 +1,4 @@
-## Flask Tutorial (DOESN'T WORK FOR ME!)
+## Flask Tutorial (DOESN'T WORK!)
 
 0a.   create vm, open port 80, and login with password
 ``` bash
