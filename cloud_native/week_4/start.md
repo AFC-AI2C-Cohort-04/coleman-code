@@ -41,8 +41,7 @@ ssh-keygen -t rsa -b 2048
 0d.   add ssh key to packer config
 ``` bash
 eval "$(ssh-agent -s)" && \
-ssh-add ~/.ssh/id_rsa && \
-sed -i 's/provisioner "shell"/builders = [\n    {\n      type = "azure-arm"\n      ssh_private_key = "~\/.ssh\/id_rsa"\n    }\n  ]\n\n  provisioner "shell"/g' azure-packer.pkr.hcl
+ssh-add ~/.ssh/id_rsa
 ```
 0e.   use packer to build vm image file, and build vm from image
 ``` bash
