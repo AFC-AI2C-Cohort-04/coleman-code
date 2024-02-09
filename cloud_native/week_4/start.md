@@ -24,7 +24,7 @@ sudo apt update && \
 sudo apt install packer
 ```
 
-0c.   login to azure cli, create azure rbac and use packer to build vm image file
+0c.   login to azure cli, create azure rbac, and create ssh key
 ``` bash
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && \
 az login --use-device && \
@@ -35,17 +35,24 @@ echo -e "client_id = \"${service_principle[0]}\"
 client_secret = \"${service_principle[1]}\"
 tenant_id = \"${service_principle[2]}\"
 subscription_id = \"$subscription_id\"" > secret.pkrvars.hcl && \
+ssh-keygen -t rsa -b 2048
+```
+
+0d.   add ssh key to packer config
+``` bash
+eval "$(ssh-agent -s)" && \
+ssh-add ~/.ssh/id_rsa && \
+sed -i 's/provisioner "shell"/builders = [\n    {\n      type = "azure-arm"\n      ssh_private_key = "~\/.ssh\/id_rsa"\n    }\n  ]\n\n  provisioner "shell"/g' azure-packer.pkr.hcl
+```
+0e.   use packer to build vm image file, and build vm from image
+``` bash
 az group create \
   --name studentvm \
   --location eastus && \
 packer build \
   -var-file="secret.pkrvars.hcl" \
   -var "resource_group=studentvm" \
-  -var "managed_image_name=project2image" .
-```
-
-0d.   build vm from image
-``` bash
+  -var "managed_image_name=project2image" . && \
 az vm create \
   --location eastus \
   --resource-group studentvm \
