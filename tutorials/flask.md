@@ -35,7 +35,8 @@ source env/bin/activate
 ``` bash
 pip install Flask
 pip freeze > requirements.txt
-cat requirements.txt
+echo -e "importlib-metadata==7.0.1
+zipp==3.17.0" >> requirements.txt
 ```
 
 0d.   create quotes.json
