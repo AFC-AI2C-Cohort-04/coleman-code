@@ -2,7 +2,7 @@
 
 0a.   create vm, open port 80, and login with password
 ``` bash
-PASSWORD=<PASSWORD>
+PASSWORD=<PASSWORD> && \
 az group create --name flask_rg --location eastus && \
 az vm create \
   --resource-group flask_rg \
