@@ -40,7 +40,7 @@ az group create \
   --location eastus && \
 packer build \
   -var-file="secret.pkrvars.hcl" \
-  -var "resource_group=student_vm" \
+  -var "resource_group=studentvm" \
   -var "managed_image_name=project2image" .
 ```
 
