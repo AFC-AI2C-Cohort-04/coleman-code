@@ -147,6 +147,23 @@ build_path=./
 docker build --rm -f $dockerfile_path -t $container_name $build_path
 ```
 
+4c.   run docker image in container
+``` bash
+host_port=8080
+cont_port=8080
+docker run -d -p $host_port:$cont_port $container_name
+```
+
+4d.   test connection
+``` bash
+my_ip=$(curl ip.me)
+curl $my_ip:$host_port
+```
+
+
+
+docker run --name demo -d -p 8080:8080 griffin/simplellm:v1.0.0
+
 ---
 
 *.   run llm in background
