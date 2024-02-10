@@ -108,6 +108,31 @@ curl http://localhost:8080/healthcheck
 curl -G --data-urlencode message="what is TinyLlama?" http://localhost:8080/api
 ```
 
+*.   stop all jobs
+```
+kill $(jobs -p)
+```
+
+---
+
+4a.   create Dockerfile
+``` bash
+cd ~/llmservice-handout/worker/
+echo -e "FROM python:3.9-alpine3.13
+WORKDIR /app/simplellm/
+
+COPY src/pyproject.toml src/pyproject.toml
+COPY dist/simplellm-1.0.0-py2.py3-none-any.whl dist/simplellm-1.0.0-py2.py3-none-any.whl
+COPY src/tinyllama-1.1b-chat-v1.0.Q2_K.gguf src/tinyllama-1.1b-chat-v1.0.Q2_K.gguf
+
+RUN apk update && \
+    apk add gcc libc-dev g++ linux-headers musl-dev python3-dev && \
+    pip install --upgrade pip && \
+    pip install flask llama-cpp-python locust waitress wonderwords
+
+CMD ["waitress-serve", "simplellm:app"]" > docker/Dockerfile
+```
+
 ---
 
 *.   run llm in background
