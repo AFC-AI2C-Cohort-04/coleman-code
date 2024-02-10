@@ -128,11 +128,11 @@ COPY src/tinyllama-1.1b-chat-v1.0.Q2_K.gguf src/tinyllama-1.1b-chat-v1.0.Q2_K.gg
 RUN apk update && \\
     apk add gcc libc-dev g++ linux-headers musl-dev python3-dev && \\
     pip install --upgrade pip && \\
-    pip install flask llama-cpp-python locust waitress wonderwords
+    pip install flask llama-cpp-python locust waitress wonderwords && \\
+    pip install dist/simplellm-1.0.0-py2.py3-none-any.whl
 
-RUN pip install dist/simplellm-1.0.0-py2.py3-none-any.whl
-
-CMD [\"cd src/ && waitress-serve simplellm:app\"]" > docker/Dockerfile
+WORKDIR /app/simplellm/src/
+CMD [\"waitress-serve simplellm:app\"]" > docker/Dockerfile
 ```
 
 4b.   build docker image from Dockerfile
