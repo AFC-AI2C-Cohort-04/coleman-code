@@ -92,15 +92,19 @@ cd ~/llmservice-handout/worker/dist/
 python3 -m pip install simplellm-1.0.0-py2.py3-none-any.whl
 ```
 
-2c.   run app service with waitress
+3a.   run app service with waitress
 ``` bash
 cd ~/llmservice-handout/worker/src/
 waitress-serve simplellm:app &
 ```
 
-2d.   test endpoints
+3b.   test healthcheck (returns 'OK')
 ``` bash
 curl http://localhost:8080/healthcheck
+```
+
+3c.   test api (returns JSON response after a few seconds)
+``` bash
 curl -G --data-urlencode message="what is TinyLlama?" http://localhost:8080/api
 ```
 
