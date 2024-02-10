@@ -154,7 +154,7 @@ cont_port=8080
 docker run -d -p $host_port:$cont_port $container_name
 ```
 
-4d.   test connection
+4d.   test container
 ``` bash
 my_ip=$(curl ip.me)
 curl $my_ip:$host_port
