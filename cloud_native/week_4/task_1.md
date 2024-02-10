@@ -180,9 +180,17 @@ docker rm $(docker ps -aq)
 
 ---
 
-5a.   
+5a.   create acr
 ``` bash
-
+cd ~/
+acr_name=acrllama
+az group create \
+  --name acr_rg \
+  --location eastus && \
+az acr create \
+  --resource-group acr_rg \
+  --name $acr_name \
+  --sku Basic
 ```
 
 ---
