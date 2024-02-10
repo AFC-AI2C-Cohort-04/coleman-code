@@ -4,7 +4,7 @@ Start    [Task 1](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/ma
 
 ---
 
-1.   create password, vm, open port 80, and ssh login
+0.   create password, vm, open port 80, and ssh login
 ``` bash
 PASSWORD=<PASSWORD> && \
 az group create \
@@ -29,7 +29,7 @@ ssh azureuser@$PUBLIC_IP
 
 ---
 
-0a.   get required installs and docker
+1a.   get required installs and docker
 ``` bash
 cd ~ && \
 sudo apt-get update && sudo apt-get install -y ca-certificates curl jq python3-pip python3-venv gnupg software-properties-common && \
@@ -42,7 +42,7 @@ su - $USER
 rm get-docker.sh
 ```
 
-0b.   get terraform
+1b.   get terraform
 ``` bash
 cd ~
 wget -O- https://apt.releases.hashicorp.com/gpg | \
@@ -58,7 +58,7 @@ sudo apt update && sudo apt-get install -y terraform
 # terraform --version
 ```
 
-0c.   get kubectl
+1c.   get kubectl
 ``` bash
 cd ~
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -66,7 +66,7 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 # kubectl version --client
 ```
 
-0d.   get helm
+1d.   get helm
 ``` bash
 cd ~
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
@@ -76,18 +76,18 @@ sudo chmod 700 get_helm.sh
 rm get_helm.sh
 ```
 
-0e.   get flask-llama-python
+1e.   get flask-llama-python
 ``` bash
 pip install flask llama-cpp-python waitress locust wonderwords
 ```
 
-0f.   get azure cli
+1f.   get azure cli
 ```
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && \
 az login --use-device
 ```
 
-0g.   get handout
+1g.   get handout
 ``` bash
 wget  https://cloudnativehandout.blob.core.windows.net/project2/llmservice-handout.tar.gz
 tar -xvzf llmservice-handout.tar.gz
