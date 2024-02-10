@@ -4,7 +4,7 @@ Start    [Task 1](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/ma
 
 ---
 
-0a.   create password, vm, open port 80, and ssh login
+1.   create password, vm, open port 80, and ssh login
 ``` bash
 PASSWORD=<PASSWORD> && \
 az group create \
@@ -27,7 +27,9 @@ PUBLIC_IP=$(az vm show -d -g studentvm -n project2vm --query publicIps -o tsv) &
 ssh azureuser@$PUBLIC_IP
 ```
 
-0b.   get required installs and docker
+---
+
+0a.   get required installs and docker
 ``` bash
 cd ~ && \
 sudo apt-get update && sudo apt-get install -y ca-certificates curl jq python3-pip python3-venv gnupg software-properties-common && \
@@ -74,18 +76,18 @@ sudo chmod 700 get_helm.sh
 rm get_helm.sh
 ```
 
-0d.   get flask-llama-python
+0e.   get flask-llama-python
 ``` bash
 pip install flask llama-cpp-python waitress locust wonderwords
 ```
 
-0e.   get azure cli
+0f.   get azure cli
 ```
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && \
 az login --use-device
 ```
 
-0f.   get handout
+0g.   get handout
 ``` bash
 wget  https://cloudnativehandout.blob.core.windows.net/project2/llmservice-handout.tar.gz
 tar -xvzf llmservice-handout.tar.gz
