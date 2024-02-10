@@ -143,7 +143,7 @@ image_name=simplellm
 version=latest
 container_name=$image_name:$version
 build_path=./
-# --rm removes previous version
+# --rm overwrite current image:version
 docker build --rm -f $dockerfile_path -t $container_name $build_path
 ```
 
