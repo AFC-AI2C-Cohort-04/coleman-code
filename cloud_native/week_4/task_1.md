@@ -94,16 +94,17 @@ python3 -m pip install simplellm-1.0.0-py2.py3-none-any.whl
 
 2c.   move files
 ``` bash
-mkdir ~/llmservice-handout/worker/files/
-mv ~/llmservice-handout/worker/src/* ~/llmservice-handout/worker/files/
-mv ~/llmservice-handout/worker/dist/simplellm-1.0.0-py2.py3-none-any.whl ~/llmservice-handout/worker/files/simplellm-1.0.0-py2.py3-none-any.whl
+cd ~/llmservice-handout/worker/
+mkdir files/
+mv src/* files/
+mv dist/simplellm-1.0.0-py2.py3-none-any.whl files/simplellm-1.0.0-py2.py3-none-any.whl
 ```
 
 ---
 
 3a.   run app service with waitress
 ``` bash
-cd ~/llmservice-handout/worker/src/
+cd ~/llmservice-handout/worker/files/
 waitress-serve simplellm:app &
 ```
 
