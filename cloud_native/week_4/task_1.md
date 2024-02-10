@@ -132,7 +132,7 @@ RUN apk update && \\
 
 RUN pip install dist/simplellm-1.0.0-py2.py3-none-any.whl
 
-CMD [\"waitress-serve simplellm:app\"]" > docker/Dockerfile
+CMD [\"cd src/ && waitress-serve simplellm:app\"]" > docker/Dockerfile
 ```
 
 4b.   build docker image from Dockerfile
