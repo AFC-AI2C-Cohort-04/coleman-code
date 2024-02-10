@@ -25,7 +25,7 @@ pip install llama-cpp-python
 
 1a.   create simplellm.py file
 ``` bash
-cd ~/llmservice-handout/worker/src && \
+cd ~/llmservice-handout/worker/src/ && \
 echo -e "from llama_cpp import Llama
 from flask import Flask
 from flask import request
@@ -53,7 +53,7 @@ def api():
 
 1b.   create pyproject.toml file
 ``` bash
-cd ~/llmservice-handout/worker/src && \
+cd ~/llmservice-handout/worker/src/ && \
 echo -e "[project]
 name = \"simplellm\"
 version = \"1.0.0\"
@@ -74,7 +74,7 @@ universal = true" > pyproject.toml
 
 1c.   get model
 ```
-cd ~/llmservice-handout/worker/src && \
+cd ~/llmservice-handout/worker/src/ && \
 wget https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/tinyllama-1.1b-chat-v1.0.Q2_K.gguf
 ```
 
@@ -82,14 +82,14 @@ wget https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/
 
 2a.   package with wheel and install
 ``` bash
-cd ~/llmservice-handout/worker && \
+cd ~/llmservice-handout/worker/ && \
 make wheel # creates dist/ directory && \
 python3 -m pip install dist/simplellm-1.0.0-py2.py3-none-any.whl
 ```
 
 2b.   run app service with waitress
 ``` bash
-cd ~/llmservice-handout/worker/src && \
+cd ~/llmservice-handout/worker/src/ && \
 waitress-serve simplellm:app &
 ```
 
@@ -103,7 +103,7 @@ curl -G --data-urlencode message="what is TinyLlama?" http://localhost:8080/api
 
 *.   run llm in background
 ``` bash
-cd ~/llmservice-handout/worker/src && \
+cd ~/llmservice-handout/worker/src/ && \
 flask --app simplellm run --debug &
 ```
 
