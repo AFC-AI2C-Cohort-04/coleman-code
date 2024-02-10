@@ -172,6 +172,12 @@ curl http://localhost:8080/healthcheck
 curl -G --data-urlencode message="what is TinyLlama?" http://localhost:8080/api
 ```
 
+4f.   stop process
+``` bash
+docker stop $(docker ps -aq) && \
+docker rm $(docker ps -aq)
+```
+
 ---
 
 5a.   
