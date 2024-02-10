@@ -160,10 +160,6 @@ my_ip=$(curl ip.me)
 curl $my_ip:$host_port
 ```
 
-
-
-docker run --name demo -d -p 8080:8080 griffin/simplellm:v1.0.0
-
 ---
 
 *.   run llm in background
