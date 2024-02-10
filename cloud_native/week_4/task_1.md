@@ -23,7 +23,28 @@ pip install llama-cpp-python
 
 ---
 
-1a.   create simplellm.py file
+1a.   create pyproject.toml file
+``` bash
+cd ~/llmservice-handout/worker/src/ && \
+echo -e "[project]
+name = \"simplellm\"
+version = \"1.0.0\"
+description = \"description\"
+dependencies = [
+    \"flask\",
+    \"llama-cpp-python\",
+    \"waitress\"
+]
+
+[build-system]
+requires = [\"flit_core<4\"]
+build-backend = \"flit_core.buildapi\"
+
+[tool.distutils.bdist_wheel]
+universal = true" > pyproject.toml
+```
+
+1b.   create simplellm.py file
 ``` bash
 cd ~/llmservice-handout/worker/src/ && \
 echo -e "from llama_cpp import Llama
@@ -49,27 +70,6 @@ def api():
     user_prompt = request.args.get(\"message\")
     template = f\"<|system|>\\\n{model_description}</s>\\\n<|user|>{user_prompt}</s><|assistant|>\"
     return llm(template, temperature=TEMPERATURE, max_tokens=MAX_TOKENS)" > simplellm.py
-```
-
-1b.   create pyproject.toml file
-``` bash
-cd ~/llmservice-handout/worker/src/ && \
-echo -e "[project]
-name = \"simplellm\"
-version = \"1.0.0\"
-description = \"description\"
-dependencies = [
-    \"flask\",
-    \"llama-cpp-python\",
-    \"waitress\"
-]
-
-[build-system]
-requires = [\"flit_core<4\"]
-build-backend = \"flit_core.buildapi\"
-
-[tool.distutils.bdist_wheel]
-universal = true" > pyproject.toml
 ```
 
 1c.   get model
