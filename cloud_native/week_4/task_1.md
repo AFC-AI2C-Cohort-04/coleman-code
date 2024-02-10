@@ -174,10 +174,9 @@ curl -G --data-urlencode message="what is TinyLlama?" http://localhost:8080/api
 
 ---
 
-*.   run llm in background
+5a.   
 ``` bash
-cd ~/llmservice-handout/worker/src/ && \
-flask --app simplellm run --debug &
+
 ```
 
 ---
