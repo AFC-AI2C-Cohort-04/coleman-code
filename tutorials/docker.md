@@ -101,9 +101,8 @@ curl $my_ip:$host_port
 ```
 docker ps
 docker ps -a # (list all containers/processess including stopped)
-container=<container-id>
-docker stop $container # stops container/process
-docker rm $container # deletes container/process
+docker stop <container-id> # stops container/process
+docker rm <container-id> # deletes container/process
 ```
 
 ---
