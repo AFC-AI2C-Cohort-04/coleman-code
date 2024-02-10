@@ -141,7 +141,7 @@ RUN apk update && \\
     pip install flask llama-cpp-python locust waitress wonderwords && \\
     pip install simplellm-1.0.0-py2.py3-none-any.whl
 
-CMD [\"waitress-serve simplellm:app\"]" > Dockerfile
+CMD [\"waitress-serve\", \"simplellm:app\"]" > Dockerfile
 ```
 
 4b.   build docker image from Dockerfile
