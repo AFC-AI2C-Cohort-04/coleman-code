@@ -183,7 +183,7 @@ docker rm $(docker ps -aq)
 5a.   create acr
 ``` bash
 cd ~/
-acr_name=acrllama
+acr_name=acr$(uuid | cut -c1-8)
 az group create \
   --name acr_rg \
   --location eastus && \
@@ -191,6 +191,48 @@ az acr create \
   --resource-group acr_rg \
   --name $acr_name \
   --sku Basic
+```
+
+5b.   login to acr
+``` bash
+az acr update \
+  --name $acr_name \
+  --admin-enabled true && \
+az acr login \
+  --name $acr_name
+```
+
+---
+
+6a.   tag and push container
+``` bash
+acr_server=$acr_name.azurecr.io && \
+docker tag $container_name $acr_server/$container_name && \
+docker push $acr_server/$container_name
+```
+
+6b.   get acr service principle
+``` bash
+sp_name=llama_sp && \
+acr_id=$(az acr show --name $acr_name --query "id" --output tsv) && \
+password=$(az ad sp create-for-rbac --name $sp_name --scopes $acr_id --role acrpull --query "password" --output tsv) && \
+username=$(az ad sp list --display-name $sp_name --query "[].appId" --output tsv)
+```
+
+6c.   create container instance
+``` bash
+az container create \
+  --resource-group acr_rg \
+  --name llmserveraci \
+  --image $acr_server/$container_name \
+  --cpu 2 \
+  --memory 2 \
+  --registry-login-server $acr_server \
+  --registry-username $username \
+  --registry-password $password \
+  --ip-address Public \
+  --dns-name-label azure-llm \
+  --ports 8080
 ```
 
 ---
