@@ -118,7 +118,7 @@ curl http://localhost:8080/healthcheck
 curl -G --data-urlencode message="what is TinyLlama?" http://localhost:8080/api
 ```
 
-*.   stop all jobs
+3d.   stop all jobs
 ```
 kill $(jobs -p)
 ```
