@@ -108,17 +108,13 @@ cd ~/llmservice-handout/worker/files/
 waitress-serve simplellm:app &
 ```
 
-3b.   test healthcheck (returns 'OK')
+3b.   app test
 ``` bash
-curl http://localhost:8080/healthcheck
-```
-
-3c.   test api (returns JSON response after a few seconds)
-``` bash
+curl http://localhost:8080/healthcheck && \
 curl -G --data-urlencode message="what is TinyLlama?" http://localhost:8080/api
 ```
 
-3d.   stop all jobs
+3c.   stop all jobs
 ```
 kill $(jobs -p)
 ```
@@ -162,17 +158,13 @@ cont_port=8080
 docker run -d -p $host_port:$cont_port $container_name
 ```
 
-4d.   container test healthcheck (returns 'OK')
+4d.   container test
 ``` bash
-curl http://localhost:8080/healthcheck
-```
-
-4e.   container test api (returns JSON response after a few seconds)
-``` bash
+curl http://localhost:8080/healthcheck && \
 curl -G --data-urlencode message="what is TinyLlama?" http://localhost:8080/api
 ```
 
-4f.   stop process
+4e.   stop process
 ``` bash
 docker stop $(docker ps -aq) && \
 docker rm $(docker ps -aq)
@@ -185,10 +177,10 @@ docker rm $(docker ps -aq)
 cd ~/
 acr_name=acr$(uuid | cut -c1-8)
 az group create \
-  --name acr_rg \
+  --name project2task1 \
   --location eastus && \
 az acr create \
-  --resource-group acr_rg \
+  --resource-group project2task1 \
   --name $acr_name \
   --sku Basic
 ```
@@ -233,6 +225,22 @@ az container create \
   --ip-address Public \
   --dns-name-label azure-llm \
   --ports 8080
+```
+
+---
+
+7a.   validation healthcheck
+``` bash
+curl http://azure-llm.eastus.azurecontainer.io:8080/healthcheck && \
+curl http://azure-llm.eastus.azurecontainer.io:8080/api?message=what
+```
+
+7b.   submit
+``` bash
+export USERNAME=<USERNAME>
+export PASSWORD=<PASSWORD>
+cd ~/llmservice-handout/
+./submitter task1
 ```
 
 ---
