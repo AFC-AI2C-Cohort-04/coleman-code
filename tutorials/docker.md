@@ -109,7 +109,7 @@ docker rm <container-id> # deletes container/process
 
 *.   (run docker image in interactive mode)
 ```
-docker run -it <image_name> /bin/bash
+docker run -it <image_id> /bin/sh
 ```
 
 *.   (how to uninstall docker)
