@@ -51,7 +51,7 @@ echo -e "from llama_cpp import Llama
 from flask import Flask
 from flask import request
 
-MODEL_PATH = \"..src/tinyllama-1.1b-chat-v1.0.Q2_K.gguf\"
+MODEL_PATH = \"../src/tinyllama-1.1b-chat-v1.0.Q2_K.gguf\"
 N_CTX = 512
 N_BATCH = 1
 TEMPERATURE = 0.0
