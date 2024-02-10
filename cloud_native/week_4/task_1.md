@@ -130,6 +130,8 @@ RUN apk update && \\
     pip install --upgrade pip && \\
     pip install flask llama-cpp-python locust waitress wonderwords
 
+RUN pip install dist/simplellm-1.0.0-py2.py3-none-any.whl
+
 CMD ["waitress-serve", "simplellm:app"]" > docker/Dockerfile
 ```
 
