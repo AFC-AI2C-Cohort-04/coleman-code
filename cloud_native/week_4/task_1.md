@@ -237,8 +237,8 @@ curl http://azure-llm.eastus.azurecontainer.io:8080/api?message=what
 
 7b.   submit
 ``` bash
-export USERNAME=<USERNAME>
-export PASSWORD=<PASSWORD>
+export SUBMISSION_USERNAME=<USERNAME>
+export SUBMISSION_PASSWORD=<PASSWORD>
 cd ~/llmservice-handout/
 ./submitter task1
 ```
