@@ -175,7 +175,7 @@ docker rm $(docker ps -aq)
 5a.   create acr
 ``` bash
 cd ~/
-acr_name=acr$(uuid | cut -c1-8)
+export acr_name=acr$(uuid | cut -c1-8)
 az group create \
   --name project2task1 \
   --location eastus && \
@@ -198,22 +198,22 @@ az acr login \
 
 6a.   tag and push container
 ``` bash
-acr_server=$acr_name.azurecr.io && \
+export acr_server=$acr_name.azurecr.io && \
 docker tag $container_name $acr_server/$container_name && \
 docker push $acr_server/$container_name
 ```
 
 6b.   get acr service principle
 ``` bash
-sp_name=llama_sp && \
-acr_id=$(az acr show --name $acr_name --query "id" --output tsv) && \
-password=$(az ad sp create-for-rbac --name $sp_name --scopes $acr_id --role acrpull --query "password" --output tsv) && \
-username=$(az ad sp list --display-name $sp_name --query "[].appId" --output tsv)
+export sp_name=llama_sp && \
+export acr_id=$(az acr show --name $acr_name --query "id" --output tsv) && \
+export password=$(az ad sp create-for-rbac --name $sp_name --scopes $acr_id --role acrpull --query "password" --output tsv) && \
+export username=$(az ad sp list --display-name $sp_name --query "[].appId" --output tsv)
 ```
 
 6c.   create container instance
 ``` bash
-dns_name=azure-llm-$(uuid | cut -c1-8)
+export dns_name=azure-llm-$(uuid | cut -c1-8)
 az container create \
   --resource-group project2task1 \
   --name llmserveraci \
