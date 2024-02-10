@@ -86,7 +86,7 @@ cd ~/llmservice-handout/worker/
 make wheel
 ```
 
-2b.   install
+2b.   install wheel file
 ``` bash
 cd ~/llmservice-handout/worker/dist/
 python3 -m pip install simplellm-1.0.0-py2.py3-none-any.whl
