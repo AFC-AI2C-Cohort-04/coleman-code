@@ -81,17 +81,17 @@ rm get_helm.sh
 pip install flask llama-cpp-python waitress locust wonderwords
 ```
 
-1f.   get azure cli
-```
-curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && \
-az login --use-device
-```
-
-1g.   get handout
+1f.   get handout
 ``` bash
 wget  https://cloudnativehandout.blob.core.windows.net/project2/llmservice-handout.tar.gz
 tar -xvzf llmservice-handout.tar.gz
 rm llmservice-handout.tar.gz
+```
+
+1g.   get azure cli
+```
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && \
+az login --use-device
 ```
 
 ---
