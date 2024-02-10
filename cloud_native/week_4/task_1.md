@@ -135,6 +135,18 @@ RUN pip install dist/simplellm-1.0.0-py2.py3-none-any.whl
 CMD ["waitress-serve", "simplellm:app"]" > docker/Dockerfile
 ```
 
+4b.   build docker image from Dockerfile
+``` bash
+cd ~/llmservice-handout/worker/
+dockerfile_path=docker/Dockerfile
+image_name=simplellm
+version=latest
+container_name=$image_name:$version
+build_path=./
+# --rm removes previous version
+docker build --rm -f $dockerfile_path -t $container_name $build_path
+```
+
 ---
 
 *.   run llm in background
