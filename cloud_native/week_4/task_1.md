@@ -51,7 +51,7 @@ echo -e "from llama_cpp import Llama
 from flask import Flask
 from flask import request
 
-MODEL_PATH = \"../src/tinyllama-1.1b-chat-v1.0.Q2_K.gguf\"
+MODEL_PATH = \"tinyllama-1.1b-chat-v1.0.Q2_K.gguf\"
 N_CTX = 512
 N_BATCH = 1
 TEMPERATURE = 0.0
@@ -92,6 +92,15 @@ cd ~/llmservice-handout/worker/dist/
 python3 -m pip install simplellm-1.0.0-py2.py3-none-any.whl
 ```
 
+2c.   move files
+``` bash
+mkdir ~/llmservice-handout/worker/files/
+mv ~/llmservice-handout/worker/src/* ~/llmservice-handout/worker/files/
+mv ~/llmservice-handout/worker/dist/simplellm-1.0.0-py2.py3-none-any.whl ~/llmservice-handout/worker/files/simplellm-1.0.0-py2.py3-none-any.whl
+```
+
+---
+
 3a.   run app service with waitress
 ``` bash
 cd ~/llmservice-handout/worker/src/
@@ -117,28 +126,27 @@ kill $(jobs -p)
 
 4a.   create Dockerfile
 ``` bash
-cd ~/llmservice-handout/worker/
+cd ~/llmservice-handout/worker/files/
 echo -e "FROM python:3.9-alpine3.13
 WORKDIR /app/simplellm/
 
-COPY src/pyproject.toml src/pyproject.toml
-COPY dist/simplellm-1.0.0-py2.py3-none-any.whl dist/simplellm-1.0.0-py2.py3-none-any.whl
-COPY src/tinyllama-1.1b-chat-v1.0.Q2_K.gguf src/tinyllama-1.1b-chat-v1.0.Q2_K.gguf
+COPY pyproject.toml pyproject.toml
+COPY simplellm-1.0.0-py2.py3-none-any.whl simplellm-1.0.0-py2.py3-none-any.whl
+COPY tinyllama-1.1b-chat-v1.0.Q2_K.gguf tinyllama-1.1b-chat-v1.0.Q2_K.gguf
 
 RUN apk update && \\
     apk add gcc libc-dev g++ linux-headers musl-dev python3-dev && \\
     pip install --upgrade pip && \\
     pip install flask llama-cpp-python locust waitress wonderwords && \\
-    pip install dist/simplellm-1.0.0-py2.py3-none-any.whl
+    pip install simplellm-1.0.0-py2.py3-none-any.whl
 
-WORKDIR /app/simplellm/src/
-CMD [\"waitress-serve simplellm:app\"]" > docker/Dockerfile
+CMD [\"waitress-serve simplellm:app\"]" > Dockerfile
 ```
 
 4b.   build docker image from Dockerfile
 ``` bash
-cd ~/llmservice-handout/worker/
-dockerfile_path=docker/Dockerfile
+cd ~/llmservice-handout/worker/files/
+dockerfile_path=Dockerfile
 image_name=simplellm
 version=latest
 container_name=$image_name:$version
