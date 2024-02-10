@@ -31,7 +31,7 @@ ssh azureuser@$PUBLIC_IP
 
 1a.   get required installs and docker
 ``` bash
-cd ~ && \
+cd ~/ && \
 sudo apt-get update && sudo apt-get install -y ca-certificates curl jq python3-pip python3-venv gnupg software-properties-common && \
 curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh && \
 # sudo groupadd docker
@@ -39,12 +39,12 @@ sudo usermod -aG docker $USER
 newgrp docker
 su - $USER
 # docker --version
-rm get-docker.sh
 ```
 
 1b.   get terraform
 ``` bash
-cd ~
+cd ~/
+rm get-docker.sh
 wget -O- https://apt.releases.hashicorp.com/gpg | \
 gpg --dearmor | \
 sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
