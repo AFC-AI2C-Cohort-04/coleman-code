@@ -213,8 +213,9 @@ username=$(az ad sp list --display-name $sp_name --query "[].appId" --output tsv
 
 6c.   create container instance
 ``` bash
+dns_name=azure-llm-$(uuid | cut -c1-8)
 az container create \
-  --resource-group acr_rg \
+  --resource-group project2task1 \
   --name llmserveraci \
   --image $acr_server/$container_name \
   --cpu 2 \
@@ -223,7 +224,7 @@ az container create \
   --registry-username $username \
   --registry-password $password \
   --ip-address Public \
-  --dns-name-label azure-llm \
+  --dns-name-label $dns_name \
   --ports 8080
 ```
 
@@ -231,8 +232,8 @@ az container create \
 
 7a.   validation healthcheck
 ``` bash
-curl http://azure-llm.eastus.azurecontainer.io:8080/healthcheck && \
-curl http://azure-llm.eastus.azurecontainer.io:8080/api?message=what
+curl http://${dns_name}.eastus.azurecontainer.io:8080/healthcheck && \
+curl http://${dns_name}.eastus.azurecontainer.io:8080/api?message=what
 ```
 
 7b.   submit
