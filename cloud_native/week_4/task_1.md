@@ -82,8 +82,8 @@ wget https://huggingface.co/TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF/resolve/main/
 
 2a.   package with wheel and install
 ``` bash
-cd ~/llmservice-handout/worker/ && \
-make wheel # creates dist/ directory && \
+cd ~/llmservice-handout/worker/
+make wheel # creates dist/ directory
 python3 -m pip install dist/simplellm-1.0.0-py2.py3-none-any.whl
 ```
 
