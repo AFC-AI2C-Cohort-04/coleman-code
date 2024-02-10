@@ -162,10 +162,14 @@ cont_port=8080
 docker run -d -p $host_port:$cont_port $container_name
 ```
 
-4d.   test container
+4d.   container test healthcheck (returns 'OK')
 ``` bash
-my_ip=$(curl ip.me)
-curl $my_ip:$host_port
+curl http://localhost:8080/healthcheck
+```
+
+4e.   container test api (returns JSON response after a few seconds)
+``` bash
+curl -G --data-urlencode message="what is TinyLlama?" http://localhost:8080/api
 ```
 
 ---
