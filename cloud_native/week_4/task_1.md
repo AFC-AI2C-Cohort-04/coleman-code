@@ -92,12 +92,12 @@ cd ~/llmservice-handout/worker/dist/
 python3 -m pip install simplellm-1.0.0-py2.py3-none-any.whl
 ```
 
-2c.   move files
+2c.   copy files
 ``` bash
 cd ~/llmservice-handout/worker/
 mkdir files/
-mv src/* files/
-mv dist/simplellm-1.0.0-py2.py3-none-any.whl files/simplellm-1.0.0-py2.py3-none-any.whl
+cp src/* files/
+cp dist/simplellm-1.0.0-py2.py3-none-any.whl files/simplellm-1.0.0-py2.py3-none-any.whl
 ```
 
 ---
