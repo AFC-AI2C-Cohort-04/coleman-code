@@ -6,7 +6,7 @@
 
 ---
 
-0a.   activate python virtual environment
+0a.   activate python virtual environment (don't actually do this, because then you can't get points through the submitter)
 ``` bash
 cd ~/llmservice-handout/ && \
 python3 -m venv venv && \
