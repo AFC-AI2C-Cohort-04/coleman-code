@@ -24,8 +24,6 @@ curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
 echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list && \
 sudo apt-get update && sudo apt-get install -y mongodb-org && \
 sudo systemctl start mongod && \
-mongosh
-
 ```
 
 *.   misc.
@@ -38,9 +36,36 @@ sudo systemctl enable mongod # auto-start on boot
 
 ---
 
-1a.   
+1.   get sample data and enter mongo shell
 ``` bash
+wget https://raw.githubusercontent.com/mongodb/docs-assets/primer-dataset/primer-dataset.json && \
+sudo mkdir -p /data/db && sudo chown -R $USER /data/db && \
+mongoimport --db mongo_primer --collection restaurants --drop --file primer-dataset.json && \
+mongosh
+```
 
+---
+
+2a.   set working database
+```
+show dbs
+use mongo_primer
+show collections
+```
+
+2b.   example queries
+```
+db.restaurants.findOne()
+db.restaurants.find({"address.street" : "Flatbush Avenue"})
+db.restaurants.find({"grades.grade" : "A"})
+db.restaurants.find({"grades.score" : { $gt: 50}})
+db.restaurants.find({"grades.score" : { $gt: 50}, "borough": "Manhattan"})
+db.restaurants.find({$or: [{"grades.score" : {$gt: 50}}, {"borough": "Manhattan"}]})
+```
+
+2c.   query that finds 10 restaurants on Flatbush Avenue with scores above 30
+```
+db.restaurants.find({"address.street":"Flatbush Avenue", "grades.score":{$gt:30}}).limit(10)
 ```
 
 ---
