@@ -63,9 +63,18 @@ cd ~/llmservice-handout/worker/task3/
 kubectl -n default apply -f .
 ```
 
-1b.   
+1b.   loadtest
 ``` bash
+cd ~/llmservice-handout/worker/loadtester/
+locust --headless -H http://$(kubectl -n default get svc simplellm-service -o json | jq -r '.status.loadBalancer.ingress[0].ip') -u 3 -r 1
+```
 
+---
+
+2.   submit
+``` bash
+cd ~/llmservice-handout/
+./submitter task3
 ```
 
 ---
