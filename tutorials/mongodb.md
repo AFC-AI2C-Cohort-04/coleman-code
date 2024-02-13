@@ -70,6 +70,24 @@ db.restaurants.find({"address.street":"Flatbush Avenue", "grades.score":{$gt:30}
 
 ---
 
+3a.   get db indexes
+```
+db.restaurants.getIndexes()
+```
+
+3b.   make/drop an index (borough_1)
+```
+db.restaurants.createIndex({"borough":1})
+db.restaurants.dropIndex({"borough":1})
+```
+
+3c.   query using index
+```
+db.restaurants.find( { "borough": "San Francsico" }).explain("executionStats")
+```
+
+---
+
 *.   uninstall mongo
 ``` bash
 sudo service mongod stop
