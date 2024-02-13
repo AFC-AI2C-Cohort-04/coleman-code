@@ -92,6 +92,7 @@ kubectl logs <POD_NAME>
 
 # exec command will give you the terminal access inside of the pod
 kubectl exec -it <POD_NAME> -- /bin/sh
+```
 
 ---
 
