@@ -246,4 +246,12 @@ cd ~/llmservice-handout/
 
 ---
 
+*.   loadtester (optional)
+``` bash
+cd ~/llmservice-handout/worker/loadtester/
+pip install -r requirements.txt && locust --headless -H http://${dns_name}.eastus.azurecontainer.io:8080
+```
+
+---
+
 [<< Start](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_4/start.md)    [Task 2 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_4/task_2.md)
