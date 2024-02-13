@@ -136,4 +136,12 @@ curl http://$(az container show --name llmserveraci --resource-group project2tas
 
 ---
 
+5.   submit
+``` bash
+cd ~/llmservice-handout/
+./submitter task2
+```
+
+---
+
 [<< Task 1](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_4/task_1.md)    [Task 3 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_4/task_3.md)
