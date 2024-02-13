@@ -128,6 +128,11 @@ cd ~/llmservice-handout/worker/loadtester/
 locust --headless -H http://$(kubectl -n default get svc simplellm-service -o json | jq -r '.status.loadBalancer.ingress[0].ip')
 ```
 
+4b.   
+``` bash
+
+```
+
 ---
 
 [<< Task 1](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_4/task_1.md)    [Task 3 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_4/task_3.md)
