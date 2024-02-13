@@ -49,9 +49,13 @@ spec:\n  selector:\n    app: simplellm\n  ports:\n  - port: 80
     targetPort: 8080\n  type: LoadBalancer" > service.yaml
 ```
 
-1c.   create ____.yaml
+1c.   create vpa.yaml (vertical pod autoscaler)
 ``` bash
-
+cd ~/llmservice-handout/worker/task2/
+echo -e "apiVersion: autoscaling.k8s.io/v1\nkind: VerticalPodAutoscaler
+metadata:\n  name: simplellm-vpa\nspec:\n  targetRef:\n    apiVersion: apps/v1
+    kind: Deployment\n    name: simplellm-deployment\n  updatePolicy:
+    updateMode: Auto" > vpa.yaml
 ```
 
 ---
