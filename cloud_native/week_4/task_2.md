@@ -101,30 +101,23 @@ kubectl exec -it <POD_NAME> -- /bin/sh
 
 ---
 
-3a.   get goldilocks and run in background
+3a.   get goldilocks and create namespace
 ``` bash
 helm repo add fairwinds-stable https://charts.fairwinds.com/stable && \
 kubectl create namespace goldilocks && \
 helm install goldilocks --namespace goldilocks fairwinds-stable/goldilocks && \
-kubectl label ns goldilocks goldilocks.fairwinds.com/enabled=true && \
-kubectl -n goldilocks port-forward svc/goldilocks-dashboard 8080:80 &
+kubectl label ns goldilocks goldilocks.fairwinds.com/enabled=true
 ```
 
-*.   
+3b.   port forward and expose goldilocks external ip
 ``` bash
-# kubectl label ns default goldilocks.fairwinds.com/enabled=true
-
+kubectl -n goldilocks port-forward svc/goldilocks-dashboard 8080:80 & \
 kubectl -n goldilocks expose deployment goldilocks-dashboard --type=LoadBalancer --name=goldilocks-service
-kubectl -n goldilocks get svc
+```
 
-curl ...
-
-kill $(jobs -p)
-
-Get the application URL by running these commands:
-  export POD_NAME=$(kubectl get pods --namespace goldilocks -l "app.kubernetes.io/name=goldilocks,app.kubernetes.io/instance=goldilocks,app.kubernetes.io/component=dashboard" -o jsonpath="{.items[0].metadata.name}")
-  echo "Visit http://127.0.0.1:8080 to use your application"
-  kubectl port-forward $POD_NAME 8080:80
+3c.   go to goldilocks dashboard (might have to wait a few seconds for external ip to get exposed)
+``` bash
+echo http://$(kubectl -n goldilocks get svc goldilocks-service --output=jsonpath='{.status.loadBalancer.ingress[0].ip}'):8080
 ```
 
 ---
