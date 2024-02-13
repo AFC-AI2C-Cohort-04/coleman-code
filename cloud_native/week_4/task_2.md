@@ -122,16 +122,16 @@ echo http://$(kubectl -n goldilocks get svc goldilocks-service --output=jsonpath
 
 ---
 
-4a.   run locust headless browser (ctrl+C to stop)
-``` bash
-cd ~/llmservice-handout/worker/loadtester/
-locust --headless -H http://$(kubectl -n default get svc simplellm-service -o json | jq -r '.status.loadBalancer.ingress[0].ip')
-```
-
-4b.   service should still be running
+4a.   test that service should still be running
 ``` bash
 curl http://$(az container show --name llmserveraci --resource-group project2task1 --query ipAddress.fqdn --output tsv):8080/healthcheck && \
 curl http://$(az container show --name llmserveraci --resource-group project2task1 --query ipAddress.fqdn --output tsv):8080/api?message=what
+```
+
+4b.   test by running locust headless browser (ctrl+C to stop)
+``` bash
+cd ~/llmservice-handout/worker/loadtester/
+locust --headless -H http://$(kubectl -n default get svc simplellm-service -o json | jq -r '.status.loadBalancer.ingress[0].ip')
 ```
 
 ---
