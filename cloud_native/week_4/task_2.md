@@ -19,7 +19,8 @@ az aks create \
 az aks update \
   --resource-group project2task1 \
   --name project2cluster \
-  --attach-acr $acr_name && \
+  --attach-acr $acr_name \
+  --enable-vpa && \
 az aks get-credentials \
   --resource-group project2task1 \
   --name project2cluster && \
