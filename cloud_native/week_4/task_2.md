@@ -78,16 +78,16 @@ curl http://$LOAD_BALANCER_EXTERNAL_IP:80/healthcheck
 
 *.   (troubleshooting steps / commands)
 ```
-# list all services in the default namespace (ensure load balancer external ip exists)
-kubectl get services
+# list all deployements / delete deployment
+kubectl get deployments
+kubectl delete deployment <deployment-name>
 
-# remove service
+# list all services / delete service
+kubectl get services
 kubectl delete service <service-nane>
 
-# list all pods in the default namespace
+# list all pods / delete pod
 kubectl get pods
-
-# remove pod
 kubectl delete pod <pod_name>
 
 # retrieve the logs for a specific pod
