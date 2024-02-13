@@ -122,6 +122,11 @@ echo http://$(kubectl -n goldilocks get svc goldilocks-service --output=jsonpath
 
 ---
 
+4a.   run locust headless browser for 20 minutes
+``` bash
+cd ~/llmservice-handout/worker/loadtester/
+locust --headless -H http://$(kubectl -n default get svc simplellm-service -o json | jq -r '.status.loadBalancer.ingress[0].ip')
+```
 
 ---
 
