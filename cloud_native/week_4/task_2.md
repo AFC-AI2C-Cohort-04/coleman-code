@@ -35,14 +35,17 @@ mkdir ~/llmservice-handout/worker/task2/
 cd ~/llmservice-handout/worker/task2/
 acr_name=$(az resource list -g project2task1 --output json | jq -r '.[] | select(.type == "Microsoft.ContainerRegistry/registries") | .name')
 arc_server=$acr_name.azurecr.io
-container_name=simplellm:latest
+container_name=simplellm:v1.0
 echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
   name: simplellm-deployment\n  annotations:
     goldilocks.fairwinds.com/enabled: \"true\"\nspec:\n  replicas: 1\n  selector:
     matchLabels:\n      app: simplellm\n  template:\n    metadata:
       labels:\n        app: simplellm\n    spec:\n      containers:
       - name: simplellm\n        image: ${acr_server}/${container_name}
-        ports:\n        - containerPort: 8080" > deployment.yaml
+        ports:\n        - containerPort: 80
+        resources:\n          requests:\n            cpu: "200m"
+            memory: "263M"\n          limits:\n            cpu: "200m"
+            memory: "263M"" > deployment.yaml
 ```
 
 1b.   create service.yaml
