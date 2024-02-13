@@ -91,7 +91,8 @@ kubectl label ns goldilocks goldilocks.fairwinds.com/enabled=true
 *.   
 ``` bash
 # kubectl label ns default goldilocks.fairwinds.com/enabled=true
-kubectl -n goldilocks port-forward svc/goldilocks-dashboard 8080:80
+kubectl -n goldilocks port-forward svc/goldilocks-dashboard 8080:80 & \
+jobs
 
 kubectl -n goldilocks expose deployment goldilocks-dashboard --type=LoadBalancer --name=goldilocks-service
 kubectl -n goldilocks get svc
