@@ -24,7 +24,7 @@ cd ~/llmservice-handout/worker/task3/
 ```
 
 0c.   update deployment.yaml
-```
+``` bash
 cd ~/llmservice-handout/worker/task3/
 echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
   name: simplellm-deployment\n  annotations:
