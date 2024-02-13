@@ -67,17 +67,26 @@ metadata:\n  name: simplellm-vpa\nspec:\n  targetRef:\n    apiVersion: apps/v1
 
 ---
 
-2a.   
+2a.   apply k8s schema
 ``` bash
 cd ~/llmservice-handout/worker/task2/
 kubectl apply -f .
 ```
 
-2b.   
+2b.   check load balancer response
 ``` bash
 LOAD_BALANCER_EXTERNAL_IP=$(kubectl get service simplellm-service --output=jsonpath='{.status.loadBalancer.ingress[0].ip}') && \
 curl http://$LOAD_BALANCER_EXTERNAL_IP:80/healthcheck
 ```
+
+---
+
+3a.   _
+``` bash
+
+```
+
+---
 
 *.   (troubleshooting steps / commands)
 ```
