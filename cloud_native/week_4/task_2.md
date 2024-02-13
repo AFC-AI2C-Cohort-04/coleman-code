@@ -78,35 +78,6 @@ kubectl apply -f .
 curl http://$(kubectl get service simplellm-service --output=jsonpath='{.status.loadBalancer.ingress[0].ip}'):80/healthcheck
 ```
 
----
-
-3a.   get goldilocks
-``` bash
-helm repo add fairwinds-stable https://charts.fairwinds.com/stable && \
-kubectl create namespace goldilocks && \
-helm install goldilocks --namespace goldilocks fairwinds-stable/goldilocks && \
-kubectl label ns goldilocks goldilocks.fairwinds.com/enabled=true
-```
-
-*.   
-``` bash
-# kubectl label ns default goldilocks.fairwinds.com/enabled=true
-kubectl -n goldilocks port-forward svc/goldilocks-dashboard 8080:80 & \
-jobs
-
-kubectl -n goldilocks expose deployment goldilocks-dashboard --type=LoadBalancer --name=goldilocks-service
-kubectl -n goldilocks get svc
-
-curl ...
-
-Get the application URL by running these commands:
-  export POD_NAME=$(kubectl get pods --namespace goldilocks -l "app.kubernetes.io/name=goldilocks,app.kubernetes.io/instance=goldilocks,app.kubernetes.io/component=dashboard" -o jsonpath="{.items[0].metadata.name}")
-  echo "Visit http://127.0.0.1:8080 to use your application"
-  kubectl port-forward $POD_NAME 8080:80
-```
-
----
-
 *.   (troubleshooting steps / commands)
 ```
 # list all deployements / delete deployment
@@ -127,6 +98,37 @@ kubectl logs <POD_NAME>
 # exec command will give you the terminal access inside of the pod
 kubectl exec -it <POD_NAME> -- /bin/sh
 ```
+
+---
+
+3a.   get goldilocks and run in background
+``` bash
+helm repo add fairwinds-stable https://charts.fairwinds.com/stable && \
+kubectl create namespace goldilocks && \
+helm install goldilocks --namespace goldilocks fairwinds-stable/goldilocks && \
+kubectl label ns goldilocks goldilocks.fairwinds.com/enabled=true && \
+kubectl -n goldilocks port-forward svc/goldilocks-dashboard 8080:80 &
+```
+
+*.   
+``` bash
+# kubectl label ns default goldilocks.fairwinds.com/enabled=true
+
+kubectl -n goldilocks expose deployment goldilocks-dashboard --type=LoadBalancer --name=goldilocks-service
+kubectl -n goldilocks get svc
+
+curl ...
+
+kill $(jobs -p)
+
+Get the application URL by running these commands:
+  export POD_NAME=$(kubectl get pods --namespace goldilocks -l "app.kubernetes.io/name=goldilocks,app.kubernetes.io/instance=goldilocks,app.kubernetes.io/component=dashboard" -o jsonpath="{.items[0].metadata.name}")
+  echo "Visit http://127.0.0.1:8080 to use your application"
+  kubectl port-forward $POD_NAME 8080:80
+```
+
+---
+
 
 ---
 
