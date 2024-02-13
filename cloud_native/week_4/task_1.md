@@ -158,7 +158,7 @@ cont_port=8080
 docker run -d -p $host_port:$cont_port $container_name
 ```
 
-4d.   container test
+4d.   test container
 ``` bash
 curl http://localhost:8080/healthcheck && \
 curl -G --data-urlencode message="what is TinyLlama?" http://localhost:8080/api
