@@ -75,8 +75,7 @@ kubectl apply -f .
 
 2b.   check load balancer response
 ``` bash
-LOAD_BALANCER_EXTERNAL_IP=$(kubectl get service simplellm-service --output=jsonpath='{.status.loadBalancer.ingress[0].ip}') && \
-curl http://$LOAD_BALANCER_EXTERNAL_IP:80/healthcheck
+curl http://$(kubectl get service simplellm-service --output=jsonpath='{.status.loadBalancer.ingress[0].ip}'):80/healthcheck
 ```
 
 ---
