@@ -43,9 +43,9 @@ echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
       labels:\n        app: simplellm\n    spec:\n      containers:
       - name: simplellm\n        image: ${acr_server}/${container_name}
         ports:\n        - containerPort: 80
-        resources:\n          requests:\n            cpu: "200m"
-            memory: "263M"\n          limits:\n            cpu: "200m"
-            memory: "263M"" > deployment.yaml
+        resources:\n          requests:\n            cpu: \"200m\"
+            memory: \"263M\"\n          limits:\n            cpu: \"200m\"
+            memory: \"263M\"" > deployment.yaml
 ```
 
 1b.   create service.yaml
