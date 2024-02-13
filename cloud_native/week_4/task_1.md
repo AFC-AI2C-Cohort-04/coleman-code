@@ -145,7 +145,7 @@ CMD [\"waitress-serve\", \"simplellm:app\"]" > Dockerfile
 cd ~/llmservice-handout/worker/files/
 dockerfile_path=Dockerfile
 image_name=simplellm
-version=latest
+version=v1.0.0
 container_name=$image_name:$version
 build_path=./
 docker build --rm -f $dockerfile_path -t $container_name $build_path
