@@ -33,6 +33,9 @@ kubectl get nodes
 ``` bash
 mkdir ~/llmservice-handout/worker/task2/
 cd ~/llmservice-handout/worker/task2/
+acr_name=$(az resource list -g project2task1 --output json | jq -r '.[] | select(.type == "Microsoft.ContainerRegistry/registries") | .name')
+arc_server=$acr_name.azurecr.io
+container_name=simplellm:latest
 echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
   name: simplellm-deployment\n  annotations:
     goldilocks.fairwinds.com/enabled: \"true\"\nspec:\n  replicas: 1\n  selector:
