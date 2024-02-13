@@ -4,7 +4,31 @@
 
 ---
 
-0a.   
+0a.   create k8s cluster
+``` bash
+az aks create \
+  --resource-group project2task1 \
+  --name project2cluster \
+  --enable-managed-identity \
+  --node-count 3 \
+  --generate-ssh-keys
+```
+
+0b.   connect to cluster
+``` bash
+az aks update \
+  --resource-group project2task1 \
+  --name project2cluster \
+  --attach-acr $acr_name && \
+az aks get-credentials \
+  --resource-group project2task1 \
+  --name project2cluster && \
+kubectl get nodes
+```
+
+---
+
+1a.   a
 ``` bash
 
 ```
