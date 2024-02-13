@@ -28,7 +28,28 @@ kubectl get nodes
 
 ---
 
-1a.   a
+1a.   make kubernetes directory for task 2 and create deployment.yaml
+``` bash
+mkdir ~/llmservice-handout/worker/task2/
+cd ~/llmservice-handout/worker/task2/
+echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
+  name: simplellm-deployment\n  annotations:
+    goldilocks.fairwinds.com/enabled: "true"\nspec:\n  replicas: 1\n  selector:
+    matchLabels:\n      app: simplellm\n  template:\n    metadata:
+      labels:\n        app: simplellm\n    spec:\n      containers:
+      - name: simplellm\n        image: ${acr_server}/${container_name}
+        ports:\n        - containerPort: 8080" > deployment.yaml
+```
+
+1b.   create service.yaml
+``` bash
+cd ~/llmservice-handout/worker/task2/
+echo -e "apiVersion: v1\nkind: Service\nmetadata:\n  name: simplellm-service
+spec:\n  selector:\n    app: simplellm\n  ports:\n  - port: 80
+    targetPort: 8080\n  type: LoadBalancer" > service.yaml
+```
+
+1c.   create ____.yaml
 ``` bash
 
 ```
