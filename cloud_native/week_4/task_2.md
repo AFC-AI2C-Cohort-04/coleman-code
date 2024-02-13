@@ -42,7 +42,7 @@ echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
     matchLabels:\n      app: simplellm\n  template:\n    metadata:
       labels:\n        app: simplellm\n    spec:\n      containers:
       - name: simplellm\n        image: ${acr_server}/${container_name}
-        ports:\n        - containerPort: 80
+        ports:\n        - containerPort: 8080
         resources:\n          requests:\n            cpu: \"200m\"
             memory: \"263M\"\n          limits:\n            cpu: \"200m\"
             memory: \"263M\"" > deployment.yaml
