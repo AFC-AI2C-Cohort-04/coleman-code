@@ -34,7 +34,7 @@ mkdir ~/llmservice-handout/worker/task2/
 cd ~/llmservice-handout/worker/task2/
 echo -e "apiVersion: apps/v1\nkind: Deployment\nmetadata:
   name: simplellm-deployment\n  annotations:
-    goldilocks.fairwinds.com/enabled: "true"\nspec:\n  replicas: 1\n  selector:
+    goldilocks.fairwinds.com/enabled: \"true\"\nspec:\n  replicas: 1\n  selector:
     matchLabels:\n      app: simplellm\n  template:\n    metadata:
       labels:\n        app: simplellm\n    spec:\n      containers:
       - name: simplellm\n        image: ${acr_server}/${container_name}
@@ -57,6 +57,37 @@ metadata:\n  name: simplellm-vpa\nspec:\n  targetRef:\n    apiVersion: apps/v1
     kind: Deployment\n    name: simplellm-deployment\n  updatePolicy:
     updateMode: Auto" > vpa.yaml
 ```
+
+---
+
+2a.   
+``` bash
+cd ~/llmservice-handout/worker/task2/
+kubectl apply -f .
+```
+
+2b.   
+``` bash
+LOAD_BALANCER_EXTERNAL_IP=$(kubectl get service spring-profile-service --output=jsonpath='{.status.loadBalancer.ingress[0].ip}')
+curl http://$LOAD_BALANCER_EXTERNAL_IP:80/healthcheck
+```
+
+*.   (troubleshooting steps / commands)
+```
+# list all services in the default namespace (ensure load balancer external ip exists)
+kubectl get services
+
+# remove service
+kubectl delete service <service-nane>
+
+# list all pods in the default namespace
+kubectl get pods
+
+# retrieve the logs for a specific pod
+kubectl logs <POD_NAME>
+
+# exec command will give you the terminal access inside of the pod
+kubectl exec -it <POD_NAME> -- /bin/sh
 
 ---
 
