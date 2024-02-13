@@ -14,7 +14,7 @@ az aks create \
   --generate-ssh-keys
 ```
 
-0b.   connect to cluster
+0b.   connect acr to cluster
 ``` bash
 az aks update \
   --resource-group project2task1 \
