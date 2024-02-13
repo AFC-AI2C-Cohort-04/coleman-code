@@ -87,6 +87,9 @@ kubectl delete service <service-nane>
 # list all pods in the default namespace
 kubectl get pods
 
+# remove pod
+kubectl delete pod <pod_name>
+
 # retrieve the logs for a specific pod
 kubectl logs <POD_NAME>
 
