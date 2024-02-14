@@ -247,7 +247,7 @@ cd ~/llmservice-handout/
 
 ---
 
-*.   loadtester (optional)
+*.   loadtester (optional, not recommended)
 ``` bash
 cd ~/llmservice-handout/worker/loadtester/
 pip install -r requirements.txt && locust --headless -H http://${dns_name}.eastus.azurecontainer.io:8080
