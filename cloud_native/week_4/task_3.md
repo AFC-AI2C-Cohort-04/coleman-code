@@ -48,7 +48,7 @@ cd ~/llmservice-handout/worker/task3/
 echo -e "apiVersion: autoscaling/v2\nkind: HorizontalPodAutoscaler\nmetadata:
   name: simplellm-hpa\nspec:\n  scaleTargetRef:\n    apiVersion: apps/v1
     kind: Deployment\n    name: simplellm-deployment\n  minReplicas: 1
-  maxReplicas: 4\n  behavior:\n    scaleUp:\n      policies:\n      - type: Pods
+  maxReplicas: 20\n  behavior:\n    scaleUp:\n      policies:\n      - type: Pods
         value: 1\n        periodSeconds: 10\n    scaleDown:\n      policies:
       - type: Pods\n        value: 1\n        periodSeconds: 10\n  metrics:
   - type: Resource\n    resource:\n      name: cpu\n      target:
