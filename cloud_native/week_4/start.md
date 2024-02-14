@@ -97,9 +97,3 @@ az login --use-device
 ---
 
 [Task 1 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_4/task_1.md)
-
-*.   get azure service principle
-```
-subscription_id=$(az account list --query "[?isDefault].id" --output tsv) && \
-service_principle=($(az ad sp create-for-rbac --role Contributor --scopes /subscriptions/$subscription_id --query "[appId, password, tenant]" --output tsv)) && \
-```
