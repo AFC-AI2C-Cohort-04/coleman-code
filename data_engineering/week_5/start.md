@@ -6,7 +6,7 @@ Start    [Task 1](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/ma
 
 ---
 
-0a.   create password, vm, and login
+0.   create password, vm, and login
 ```
 VM_PASSWORD=<PASSWORD> && \
 az group create \
@@ -23,7 +23,9 @@ PUBLIC_IP=$(az vm show -d -g multi-model-databases -n multimodelengg --query pub
 ssh azureuser@$PUBLIC_IP
 ```
 
-0b.   get handout
+---
+
+1a.   get handout
 ```
 cd ~/ && \
 wget https://clouddataengineer.blob.core.windows.net/multi-model-databases/handout/multi-model-databases.gz && \
@@ -31,7 +33,7 @@ tar -xvzf multi-model-databases.gz && \
 chmod -R 777 multi-model-databases/
 ```
 
-0c.   get requirements
+1b.   get requirements
 ```
 cd ~/multi-model-databases/ && \
 sudo add-apt-repository -y ppa:deadsnakes/ppa && \
@@ -39,7 +41,7 @@ sudo apt-get update && sudo apt install -y python3.10 python3-pip && \
 pip install -r requirements.txt
 ```
 
-0d.   get and start mongo
+1c.   get and start mongo
 ``` bash
 sudo apt-get update && sudo apt-get install gnupg curl && \
 curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
@@ -48,6 +50,15 @@ curl -fsSL https://www.mongodb.org/static/pgp/server-7.0.asc | \
 echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list && \
 sudo apt-get update && sudo apt-get install -y mongodb-org && \
 sudo systemctl start mongod
+```
+
+*.   (troubleshooting)
+```
+service mongod status
+sudo systemctl status mongod
+sudo systemctl stop mongod
+sudo systemctl daemon-reload
+sudo systemctl enable mongod
 ```
 
 ---
