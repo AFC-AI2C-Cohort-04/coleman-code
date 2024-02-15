@@ -28,6 +28,7 @@ sudo systemctl start mongod
 
 *.   misc.
 ``` bash
+service mongod status # check status
 sudo systemctl status mongod # check status
 sudo systemctl stop mongod # stop
 sudo systemctl daemon-reload # reload
