@@ -27,8 +27,7 @@ PUBLIC_IP=$(az vm show -d -g studentvm -n project3vm --query publicIps -o tsv) &
 ssh azureuser@$PUBLIC_IP
 ```
 
-0b.   add github repo
-
+0b.   get handout by cloning github repo to vm
 
 ---
 
@@ -79,15 +78,17 @@ sudo chmod 700 get_helm.sh
 rm get_helm.sh
 ```
 
-1e.   get handout
-``` bash
+---
 
-```
-
-1f.   get azure cli
+2a.   get azure cli
 ```
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && \
 az login --use-device
+```
+
+2b.   
+```
+
 ```
 
 ---
