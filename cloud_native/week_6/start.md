@@ -86,9 +86,48 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && \
 az login --use-device
 ```
 
-2b.   
+2b.   create acr
+```
+export acr_name=acr00$(uuid | cut -c1-6)
+az group create \
+  --name project3 \
+  --location eastus && \
+az acr create \
+  --resource-group project3 \
+  --name $acr_name \
+  --sku Basic
 ```
 
+2c.   login to acr
+```
+acr_name=$(az resource list -g project2task1 --output json | jq -r '.[] | select(.type == "Microsoft.ContainerRegistry/registries") | .name') && \
+az acr update \
+  --name $acr_name \
+  --admin-enabled true && \
+az acr login \
+  --name $acr_name
+```
+
+2d.   create k8s cluster
+```
+az aks create \
+  --resource-group project3 \
+  --name project3cluster \
+  --enable-managed-identity \
+  --node-count 2 \
+  --generate-ssh-keys
+```
+
+2e.   connect acr to cluster
+```
+az aks update \
+  --resource-group project3 \
+  --name project3cluster \
+  --attach-acr $acr_name && \
+az aks get-credentials \
+  --resource-group project2task1 \
+  --name project2cluster && \
+kubectl get nodes
 ```
 
 ---
