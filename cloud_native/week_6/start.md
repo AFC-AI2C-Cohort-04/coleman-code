@@ -4,7 +4,7 @@ Start    [Task 1](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/ma
 
 ---
 
-0.   create password, vm, open port 80, and ssh login
+0a.   create password, vm, open port 80, and ssh login
 ``` bash
 PASSWORD=<PASSWORD> && \
 az group create \
@@ -26,6 +26,9 @@ az vm open-port \
 PUBLIC_IP=$(az vm show -d -g studentvm -n project3vm --query publicIps -o tsv) && \
 ssh azureuser@$PUBLIC_IP
 ```
+
+0b.   add github repo
+
 
 ---
 
@@ -76,17 +79,12 @@ sudo chmod 700 get_helm.sh
 rm get_helm.sh
 ```
 
-1e.   get flask-llama-python
-``` bash
-pip install flask llama-cpp-python waitress locust wonderwords
-```
-
-1f.   get handout
+1e.   get handout
 ``` bash
 
 ```
 
-1g.   get azure cli
+1f.   get azure cli
 ```
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && \
 az login --use-device
