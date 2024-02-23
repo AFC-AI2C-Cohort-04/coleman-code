@@ -100,7 +100,6 @@ az acr create \
 
 2c.   login to acr
 ```
-acr_name=$(az resource list -g project3 --output json | jq -r '.[] | select(.type == "Microsoft.ContainerRegistry/registries") | .name') && \
 az acr update \
   --name $acr_name \
   --admin-enabled true && \
