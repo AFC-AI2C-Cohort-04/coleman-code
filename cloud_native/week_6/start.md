@@ -131,4 +131,24 @@ kubectl get nodes
 
 ---
 
+3a.   get nginx gateway api controller
+``` bash
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.0.0/standard-install.yaml && \
+helm install ngf oci://ghcr.io/nginxinc/charts/nginx-gateway-fabric --create-namespace -n nginx-gateway && \
+kubectl wait --timeout=5m -n nginx-gateway deployment/ngf-nginx-gateway-fabric --for=condition=Available
+```
+
+3b.   get load balancer
+``` bash
+kubectl apply -f https://raw.githubusercontent.com/nginxinc/nginx-gateway-fabric/v1.0.0/deploy/manifests/service/loadbalancer.yaml
+kubectl get svc nginx-gateway -n nginx-gateway
+```
+
+3c.   verify gateway class
+``` bash
+kubectl get gatewayclass -o yaml
+```
+
+---
+
 [Task 1 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_6/task_1.md)
