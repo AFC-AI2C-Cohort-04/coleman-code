@@ -9,7 +9,7 @@
 cd task1/
 ```
 
-0a.   create gateway.yaml
+0b.   create gateway.yaml
 ``` bash
 GATEWAY_CLASS_NAME=$(kubectl get gatewayclass -o json | jq -r '.items[].metadata.name')
 echo -e "apiVersion: gateway.networking.k8s.io/v1beta1
