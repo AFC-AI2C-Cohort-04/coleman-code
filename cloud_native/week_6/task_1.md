@@ -12,19 +12,10 @@ cd task1/
 0b.   create gateway.yaml
 ``` bash
 GATEWAY_CLASS_NAME=$(kubectl get gatewayclass -o json | jq -r '.items[].metadata.name')
-echo -e "apiVersion: gateway.networking.k8s.io/v1beta1
-kind: Gateway
-metadata:
-  name: prod-web
-spec:
-  gatewayClassName: ${GATEWAY_CLASS_NAME}
-  listeners:
-  - protocol: HTTP
-    port: 80
-    name: prod-web-gw
-    allowedRoutes:
-      namespaces:
-        from: Same" > gateway.yaml
+echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: Gateway\nmetadata:
+  name: prod-web\nspec:\n  gatewayClassName: ${GATEWAY_CLASS_NAME}\n  listeners:
+  - protocol: HTTP\n    port: 80\n    name: prod-web-gw\n    allowedRoutes:
+      namespaces:\n        from: Same" > gateway.yaml
 ```
 
 ---
