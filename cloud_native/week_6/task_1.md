@@ -19,14 +19,14 @@ echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: Gateway\nmetadata:
 # kubectl apply -f gateway.yaml
 ```
 
-0c.   update llm-service/k8s/deployment.yaml, update llm-service/Makefile, make, and push
+0c.   update llm-service/k8s/deployment.yaml, update llm-service/Makefile, make, push, and apply
 ``` bash
 cd ../llm-service/k8s/ && \
 acr_name=$(az resource list -g project3 --output json | jq -r '.[] | select(.type == "Microsoft.ContainerRegistry/registries") | .name') && \
 sed -i "s/p3acr/${acr_name}/g" deployment.yaml && \
 cd ../ && \
 sed -i "s/p3acr/${acr_name}/g" Makefile && \
-make wheel && make push
+make wheel && make push && kubectl apply -f k8s/
 ```
 
 ---
