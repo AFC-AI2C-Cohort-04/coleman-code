@@ -4,9 +4,19 @@
 
 ---
 
-0a.   create password, vm, open port 80, and ssh login
+0a.   setup gateway api with k8s
 ``` bash
-PASSWORD=<PASSWORD> && \
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.0.0/standard-install.yaml
+```
+
+0b.   get helm gateway fabric
+``` bash
+helm install ngf oci://ghcr.io/nginxinc/charts/nginx-gateway-fabric --create-namespace -n nginx-gateway
+```
+
+0c.   setup gateway controller
+``` bash
+kubectl wait --timeout=5m -n nginx-gateway deployment/ngf-nginx-gateway-fabric --for=condition=Available
 ```
 
 ---
