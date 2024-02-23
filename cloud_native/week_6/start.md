@@ -98,7 +98,7 @@ az acr create \
   --sku Basic
 ```
 
-2c.   login to acr
+2c.   login to acr (might need to wait if resource not fond in subscription)
 ```
 az acr update \
   --name $acr_name \
