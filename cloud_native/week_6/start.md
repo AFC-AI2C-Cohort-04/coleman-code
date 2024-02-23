@@ -124,8 +124,8 @@ az aks update \
   --name project3cluster \
   --attach-acr $acr_name && \
 az aks get-credentials \
-  --resource-group project2task1 \
-  --name project2cluster && \
+  --resource-group project3 \
+  --name project3cluster && \
 kubectl get nodes
 ```
 
