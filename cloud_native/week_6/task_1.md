@@ -44,7 +44,7 @@ exit
 
 ---
 
-1a.   create and apply httproute.yaml in k8s/ (curl does not work)
+1a.   create and apply httproute.yaml in k8s/, then curl service through gateway ip
 ``` bash
 gateway_ip=$(kubectl get gateway -o json | jq -r '.items[0].status.addresses[0].value') && \
 echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: HTTPRoute
