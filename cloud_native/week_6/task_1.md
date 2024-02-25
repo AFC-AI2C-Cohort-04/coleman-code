@@ -43,4 +43,10 @@ kubectl apply -f httproute.yaml
 
 ---
 
+1a.   get gateway ip
+``` bash
+gateway_ip=$(kubectl get gateway -o json | jq -r '.items[0].status.addresses[0].value')
+curl http://${gateway_ip}/api?message=hi
+```
+
 [<< Start](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_6/start.md)    [Task 2 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_6/task_2.md)
