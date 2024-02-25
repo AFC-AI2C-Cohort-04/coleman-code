@@ -31,22 +31,22 @@ make wheel && make push && kubectl apply -f k8s/
 
 0d.   create and apply httproute.yaml in k8s/
 ``` bash
+gateway_ip=$(kubectl get gateway -o json | jq -r '.items[0].status.addresses[0].value')
 echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: HTTPRoute
 metadata:\n  name: project3gateway\nspec:\n  parentRefs:
   - name: project3gateway\n    sectionName: project3gateway-http
   - name: project3gateway\n    sectionName: project3gateway-https\n  hostnames:
-  - ${acr_name}.zapto.org\n  rules:\n  - matches:\n    - path:
+  - ${gateway_ip}.zapto.org\n  rules:\n  - matches:\n    - path:
         type: PathPrefix\n        value: /\n    backendRefs:
     - name: llmservice\n      port: 80" > httproute.yaml && \
-kubectl apply -f httproute.yaml
+kubectl apply -f httproute.yaml && \
+curl http://${gateway_ip}/api?message=hi
 ```
 
 ---
 
-1a.   get gateway ip
+1a.   
 ``` bash
-gateway_ip=$(kubectl get gateway -o json | jq -r '.items[0].status.addresses[0].value')
-curl http://${gateway_ip}/api?message=hi
 ```
 
 [<< Start](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_6/start.md)    [Task 2 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_6/task_2.md)
