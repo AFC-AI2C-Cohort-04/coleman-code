@@ -71,9 +71,10 @@ curl ${gateway_ip}/api?message=hi
 
 3a.   go to [noip.com](noip.com), create free account and setup a DNS for <acr_name>.zapto.org, use gateway ip as the target ip (type A)
 
-3b.   
+3b.   update httproute.yaml in k8s/ with dns hostname
 ``` bash
-
+sed -i "s/rules:/  hostnames:\n  - ${acr_name}.zapto.org\n  rules:/g" httproute.yaml && \
+kubectl apply -f httproute.yaml
 ```
 
 ---
