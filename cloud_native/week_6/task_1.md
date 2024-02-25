@@ -16,7 +16,7 @@ echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: Gateway\nmetadata:
   name: prod-web\nspec:\n  gatewayClassName: ${GATEWAY_CLASS_NAME}\n  listeners:
   - protocol: HTTP\n    port: 80\n    name: prod-web-gw\n    allowedRoutes:
       namespaces:\n        from: Same" > gateway.yaml
-# kubectl apply -f gateway.yaml
+kubectl apply -f gateway.yaml
 ```
 
 0c.   update llm-service/k8s/deployment.yaml, update llm-service/Makefile, make, push, and apply
