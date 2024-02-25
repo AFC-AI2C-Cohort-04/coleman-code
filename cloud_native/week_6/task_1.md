@@ -15,7 +15,7 @@ GATEWAY_CLASS_NAME=$(kubectl get gatewayclass -o json | jq -r '.items[].metadata
 echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: Gateway\nmetadata:
   name: project3gateway\nspec:\n  gatewayClassName: ${GATEWAY_CLASS_NAME}
   listeners:\n  - name: project3gateway-http\n    protocol: HTTP\n    port: 80
-    allowedRoutes:\n      namespaces:\n        from: Same" > gateway.yaml
+    allowedRoutes:\n      namespaces:\n        from: Same" > gateway.yaml && \
 kubectl apply -f gateway.yaml
 ```
 
@@ -31,8 +31,8 @@ make wheel && make push && kubectl apply -f k8s/
 
 *a.   interim validation
 ``` bash
-llm_cluster_ip=$(kubectl get svc llmservice -o json | jq -r '.spec.clusterIP')
-echo "curl ${llm_cluster_ip}/api?message=hi"
+llm_cluster_ip=$(kubectl get svc llmservice -o json | jq -r '.spec.clusterIP') && \
+echo "curl ${llm_cluster_ip}/api?message=hi" && \
 kubectl run curlpod --image=radial/busyboxplus:curl -i --tty --rm
 ```
 
@@ -46,16 +46,15 @@ exit
 
 1a.   create and apply httproute.yaml in k8s/ (curl does not work)
 ``` bash
-gateway_ip=$(kubectl get gateway -o json | jq -r '.items[0].status.addresses[0].value')
+gateway_ip=$(kubectl get gateway -o json | jq -r '.items[0].status.addresses[0].value') && \
 echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: HTTPRoute
 metadata:\n  name: project3gateway\nspec:\n  parentRefs:
   - name: project3gateway\n    sectionName: project3gateway-http
   - name: project3gateway\n    sectionName: project3gateway-https\n  rules:
-  - matches:\n    - path:
-        type: PathPrefix\n        value: /\n    backendRefs:
-    - name: llmservice\n      port: 80" > httproute.yaml && \
+  - matches:\n    - path:\n        type: PathPrefix\n        value: /
+    backendRefs:\n    - name: llmservice\n      port: 80" > httproute.yaml && \
 kubectl apply -f httproute.yaml && \
-curl http://${gateway_ip}/api?message=hi
+curl ${gateway_ip}/api?message=hi
 ```
 
 1b.   go to noip.com and setup a DNS for <acr_name>.zapto.org
