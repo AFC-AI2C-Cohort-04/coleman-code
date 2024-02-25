@@ -69,7 +69,7 @@ curl ${gateway_ip}/api?message=hi
 
 ### subtask 3: securing and productionizing your gateway
 
-3a.   go to [noip.com](noip.com), create free account and setup a DNS for <acr_name>.zapto.org, use gateway ip as the target ip
+3a.   go to [noip.com](noip.com), create free account and setup a DNS for <acr_name>.zapto.org, use gateway ip as the target ip (type A)
 
 3b.   
 ``` bash
