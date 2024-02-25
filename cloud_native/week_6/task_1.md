@@ -29,14 +29,14 @@ sed -i "s/p3acr/${acr_name}/g" Makefile && \
 make wheel && make push && kubectl apply -f k8s/
 ```
 
-*a.   interim validation
+*a.   validation (opens sub-shell)
 ``` bash
 llm_cluster_ip=$(kubectl get svc llmservice -o json | jq -r '.spec.clusterIP') && \
 echo "curl ${llm_cluster_ip}/api?message=hi" && \
 kubectl run curlpod --image=radial/busyboxplus:curl -i --tty --rm
 ```
 
-*b.   interim validation
+*b.   validation
 ``` bash
 # run 'curl <llm_cluster_ip>/api?message=hi' and wait for json response
 exit
@@ -44,7 +44,7 @@ exit
 
 ---
 
-1a.   create and apply httproute.yaml in k8s/, then curl service through gateway ip
+1a.   create and apply httproute.yaml in k8s/
 ``` bash
 gateway_ip=$(kubectl get gateway -o json | jq -r '.items[0].status.addresses[0].value') && \
 echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: HTTPRoute
@@ -53,11 +53,17 @@ metadata:\n  name: project3gateway\nspec:\n  parentRefs:
   - name: project3gateway\n    sectionName: project3gateway-https\n  rules:
   - matches:\n    - path:\n        type: PathPrefix\n        value: /
     backendRefs:\n    - name: llmservice\n      port: 80" > httproute.yaml && \
-kubectl apply -f httproute.yaml && \
+kubectl apply -f httproute.yaml
+```
+
+*.   validation
+``` bash
 curl ${gateway_ip}/api?message=hi
 ```
 
-1b.   go to noip.com and setup a DNS for <acr_name>.zapto.org
+---
+
+2a.   go to noip.com and setup a DNS for <acr_name>.zapto.org
 
 ---
 
