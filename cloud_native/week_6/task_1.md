@@ -44,7 +44,7 @@ exit
 
 ---
 
-1a.   create and apply httproute.yaml in k8s/
+1a.   create and apply httproute.yaml in k8s/ (curl does not work)
 ``` bash
 gateway_ip=$(kubectl get gateway -o json | jq -r '.items[0].status.addresses[0].value')
 echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: HTTPRoute
@@ -58,8 +58,6 @@ kubectl apply -f httproute.yaml && \
 curl http://${arc_name}/api?message=hi
 ```
 
-1a.   
-``` bash
-```
+---
 
 [<< Start](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_6/start.md)    [Task 2 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_6/task_2.md)
