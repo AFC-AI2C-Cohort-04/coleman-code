@@ -14,7 +14,7 @@ cd task1/
 GATEWAY_CLASS_NAME=$(kubectl get gatewayclass -o json | jq -r '.items[].metadata.name') && \
 echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: Gateway\nmetadata:
   name: project3gateway\nspec:\n  gatewayClassName: ${GATEWAY_CLASS_NAME}\n  listeners:
-  - protocol: HTTP\n    port: 80\n    name: project3gateway\n    allowedRoutes:
+  - name: project3gateway\n    protocol: HTTP\n    port: 80\n    allowedRoutes:
       namespaces:\n        from: Same" > gateway.yaml
 kubectl apply -f gateway.yaml
 ```
