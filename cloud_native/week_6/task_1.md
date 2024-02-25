@@ -13,7 +13,7 @@ cd task1/
 ``` bash
 GATEWAY_CLASS_NAME=$(kubectl get gatewayclass -o json | jq -r '.items[].metadata.name') && \
 echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: Gateway\nmetadata:
-  name: prod-web\nspec:\n  gatewayClassName: ${GATEWAY_CLASS_NAME}\n  listeners:
+  name: project3gateway\nspec:\n  gatewayClassName: ${GATEWAY_CLASS_NAME}\n  listeners:
   - protocol: HTTP\n    port: 80\n    name: prod-web-gw\n    allowedRoutes:
       namespaces:\n        from: Same" > gateway.yaml
 kubectl apply -f gateway.yaml
@@ -44,18 +44,20 @@ exit
 
 ---
 
-1a.   create and apply httproute.yaml in k8s/ (curl does not work)
+1a.   go to noip.com and setup a DNS for <acr_name>.zapto.org
+
+1b.   create and apply httproute.yaml in k8s/ (curl does not work)
 ``` bash
 gateway_ip=$(kubectl get gateway -o json | jq -r '.items[0].status.addresses[0].value')
 echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: HTTPRoute
 metadata:\n  name: project3gateway\nspec:\n  parentRefs:
   - name: project3gateway\n    sectionName: project3gateway-http
-  - name: project3gateway\n    sectionName: project3gateway-https\n  hostnames:
-  - ${acr_name}.zapto.org\n  rules:\n  - matches:\n    - path:
+  - name: project3gateway\n    sectionName: project3gateway-https\n  rules:
+  - matches:\n    - path:
         type: PathPrefix\n        value: /\n    backendRefs:
     - name: llmservice\n      port: 80" > httproute.yaml && \
 kubectl apply -f httproute.yaml && \
-curl http://${arc_name}/api?message=hi
+curl http://${gateway_ip}/api?message=hi
 ```
 
 ---
