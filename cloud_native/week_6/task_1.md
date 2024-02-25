@@ -51,11 +51,11 @@ echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: HTTPRoute
 metadata:\n  name: project3gateway\nspec:\n  parentRefs:
   - name: project3gateway\n    sectionName: project3gateway-http
   - name: project3gateway\n    sectionName: project3gateway-https\n  hostnames:
-  - ${gateway_ip}\n  rules:\n  - matches:\n    - path:
+  - ${acr_name}.zapto.org\n  rules:\n  - matches:\n    - path:
         type: PathPrefix\n        value: /\n    backendRefs:
     - name: llmservice\n      port: 80" > httproute.yaml && \
 kubectl apply -f httproute.yaml && \
-curl http://${gateway_ip}/api?message=hi
+curl http://${arc_name}/api?message=hi
 ```
 
 1a.   
