@@ -4,12 +4,14 @@
 
 ---
 
-0a.   go to task1 directory (root folder is specific to your github username)
+### subtask 1: create a gateway resource
+
+1a.   go to task1 directory (root folder is specific to your github username)
 ``` bash
 cd task1/
 ```
 
-0b.   create gateway.yaml
+1b.   create gateway.yaml
 ``` bash
 GATEWAY_CLASS_NAME=$(kubectl get gatewayclass -o json | jq -r '.items[].metadata.name') && \
 echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: Gateway\nmetadata:
@@ -19,7 +21,7 @@ echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: Gateway\nmetadata:
 kubectl apply -f gateway.yaml
 ```
 
-0c.   update llm-service/k8s/deployment.yaml, update llm-service/Makefile, make, push, and apply
+1c.   update llm-service/k8s/deployment.yaml, update llm-service/Makefile, make, push, and apply
 ``` bash
 cd ../llm-service/k8s/ && \
 acr_name=$(az resource list -g project3 --output json | jq -r '.[] | select(.type == "Microsoft.ContainerRegistry/registries") | .name') && \
@@ -44,7 +46,9 @@ exit
 
 ---
 
-1a.   create and apply httproute.yaml in k8s/
+### subtask 2: create your first httproute
+
+2.   create and apply httproute.yaml in k8s/
 ``` bash
 gateway_ip=$(kubectl get gateway -o json | jq -r '.items[0].status.addresses[0].value') && \
 echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: HTTPRoute
@@ -63,7 +67,14 @@ curl ${gateway_ip}/api?message=hi
 
 ---
 
-2a.   go to noip.com and setup a DNS for <acr_name>.zapto.org
+### subtask 3: securing and productionizing your gateway
+
+3a.   go to [noip.com](noip.com), create free account and setup a DNS for <acr_name>.zapto.org, use gateway ip as the target ip
+
+3b.   
+``` bash
+
+```
 
 ---
 
