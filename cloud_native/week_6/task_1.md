@@ -38,7 +38,7 @@ kubectl run curlpod --image=radial/busyboxplus:curl -i --tty --rm
 
 *b.   interim validation
 ``` bash
-# run 'curl <llm_cluster_ip>/api?message=hi'
+# run 'curl <llm_cluster_ip>/api?message=hi' and wait for json response
 exit
 ```
 
@@ -57,8 +57,6 @@ metadata:\n  name: project3gateway\nspec:\n  parentRefs:
 kubectl apply -f httproute.yaml && \
 curl http://${gateway_ip}/api?message=hi
 ```
-
----
 
 1a.   
 ``` bash
