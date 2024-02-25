@@ -77,6 +77,11 @@ sed -i "s/rules:/  hostnames:\n  - ${acr_name}.zapto.org\n  rules:/g" httproute.
 kubectl apply -f httproute.yaml
 ```
 
+*.   validation
+``` bash
+curl http://${acr_name}.zapto.org/api?message=hi
+```
+
 ---
 
 [<< Start](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_6/start.md)    [Task 2 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_6/task_2.md)
