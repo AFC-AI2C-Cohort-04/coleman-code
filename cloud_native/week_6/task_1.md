@@ -29,7 +29,21 @@ sed -i "s/p3acr/${acr_name}/g" Makefile && \
 make wheel && make push && kubectl apply -f k8s/
 ```
 
-0d.   create and apply httproute.yaml in k8s/
+*a.   interim validation
+``` bash
+llm_cluster_ip=$(kubectl get svc llmservice -o json | jq -r '.spec.clusterIP')
+kubectl run curlpod --image=radial/busyboxplus:curl -i --tty --rm
+```
+
+*b.   interim validation
+``` bash
+curl ${llm_cluster_ip}/api?message=hi
+exit
+```
+
+---
+
+1a.   create and apply httproute.yaml in k8s/
 ``` bash
 gateway_ip=$(kubectl get gateway -o json | jq -r '.items[0].status.addresses[0].value')
 echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: HTTPRoute
