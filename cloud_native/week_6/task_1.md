@@ -84,4 +84,23 @@ curl http://${acr_name}.zapto.org/api?message=hi
 
 ---
 
+### subtask 4: ssl certs
+
+4a.   install cert manager
+``` bash
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --version v1.12.0 \
+  --set installCRDs=true \
+  --set "extraArgs={--feature-gates=ExperimentalGatewayAPISupport=true}"
+```
+
+4b.   
+
+---
+
 [<< Start](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_6/start.md)    [Task 2 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_6/task_2.md)
