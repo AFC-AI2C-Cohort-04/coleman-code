@@ -44,9 +44,7 @@ exit
 
 ---
 
-1a.   go to noip.com and setup a DNS for <acr_name>.zapto.org
-
-1b.   create and apply httproute.yaml in k8s/ (curl does not work)
+1a.   create and apply httproute.yaml in k8s/ (curl does not work)
 ``` bash
 gateway_ip=$(kubectl get gateway -o json | jq -r '.items[0].status.addresses[0].value')
 echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: HTTPRoute
@@ -59,6 +57,8 @@ metadata:\n  name: project3gateway\nspec:\n  parentRefs:
 kubectl apply -f httproute.yaml && \
 curl http://${gateway_ip}/api?message=hi
 ```
+
+1b.   go to noip.com and setup a DNS for <acr_name>.zapto.org
 
 ---
 
