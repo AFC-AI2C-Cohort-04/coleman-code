@@ -32,12 +32,13 @@ make wheel && make push && kubectl apply -f k8s/
 *a.   interim validation
 ``` bash
 llm_cluster_ip=$(kubectl get svc llmservice -o json | jq -r '.spec.clusterIP')
+echo "curl ${llm_cluster_ip}/api?message=hi"
 kubectl run curlpod --image=radial/busyboxplus:curl -i --tty --rm
 ```
 
 *b.   interim validation
 ``` bash
-curl ${llm_cluster_ip}/api?message=hi
+# run 'curl <llm_cluster_ip>/api?message=hi'
 exit
 ```
 
