@@ -103,7 +103,7 @@ helm install \
 ``` bash
 ################################################################################
 echo -e "apiVersion: cert-manager.io/v1\nkind: ClusterIssuer\nmetadata:
-  name: letsencrypt\nspec:\n  acme:\n    email: <email@domain>
+  name: letsencrypt\n  namespace: cert-manager\nspec:\n  acme:\n    email: <email@domain>
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:\n      name: issuer-account-key\n    solvers:
     - http01:\n        gatewayHTTPRoute:\n          parentRefs:
