@@ -96,13 +96,12 @@ helm install \
   --create-namespace \
   --version v1.12.0 \
   --set installCRDs=true \
-  --set "extraArgs={--feature-gates=ExperimentalGatewayAPISupport=true}" && \
-kubectl create secret generic issuer-account-key --from-literal=key=value
+  --set "extraArgs={--feature-gates=ExperimentalGatewayAPISupport=true}"
+# kubectl create secret tls issuer-account-key --cert=path/to/certificate.crt --key=path/to/privatekey.key -n cert-manager
 ```
 
 4b.   create clusterissuer.yaml in k8s/ (update with your email)
 ``` bash
-################################################################################
 echo -e "apiVersion: cert-manager.io/v1\nkind: ClusterIssuer\nmetadata:
   name: letsencrypt\n  namespace: cert-manager\nspec:\n  acme:\n    email: <email@domain>
     server: https://acme-v02.api.letsencrypt.org/directory
@@ -124,9 +123,16 @@ echo -e "  - name: project3gateway-https\n    protocol: HTTPS\n    port: 443
 kubectl apply -f gateway.yaml
 ```
 
-*.   validation
+*a.   validation
+``` bash
+kubectl describe gateway
+# Message: tls.certificateRefs[0]: Invalid value: default/issuer-account-key: secret type must be "kubernetes.io/tls" not "Opaque"
+```
+
+*b.   validation
 ``` bash
 curl https://${acr_name}.zapto.org/api?message=hi
+# curl: (7) Failed to connect to ${acr_name}.zapto.org port 443 after 16 ms: Connection refused
 ```
 
 ---
