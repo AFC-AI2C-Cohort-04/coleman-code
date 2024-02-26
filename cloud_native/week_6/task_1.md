@@ -88,15 +88,16 @@ curl http://${acr_name}.zapto.org/api?message=hi
 
 4a.   install cert manager
 ``` bash
-helm repo add jetstack https://charts.jetstack.io
-helm repo update
+helm repo add jetstack https://charts.jetstack.io && \
+helm repo update && \
 helm install \
   cert-manager jetstack/cert-manager \
   --namespace cert-manager \
   --create-namespace \
   --version v1.12.0 \
   --set installCRDs=true \
-  --set "extraArgs={--feature-gates=ExperimentalGatewayAPISupport=true}"
+  --set "extraArgs={--feature-gates=ExperimentalGatewayAPISupport=true}" && \
+kubectl create secret generic issuer-account-key --from-literal=key=value
 ```
 
 4b.   create clusterissuer.yaml in k8s/ (update with your email)
