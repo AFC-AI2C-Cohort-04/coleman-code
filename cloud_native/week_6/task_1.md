@@ -113,6 +113,12 @@ kubectl apply -f clusterissuer.yaml && \
 kubectl describe clusterissuer
 ```
 
+4c.   update gateway.yaml for https
+``` bash
+cd ../../task1/ && \
+echo -e "  - name: project3gateway-http\n    protocol: HTTP\n    port: 80
+    allowedRoutes:\n      namespaces:\n        from: Same" >> gateway.yaml && \
+kubectl apply -f gateway.yaml
 ---
 
 [<< Start](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_6/start.md)    [Task 2 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_6/task_2.md)
