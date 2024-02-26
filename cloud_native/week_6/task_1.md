@@ -50,18 +50,16 @@ exit
 
 2.   create and apply httproute.yaml in k8s/
 ``` bash
-gateway_ip=$(kubectl get gateway -o json | jq -r '.items[0].status.addresses[0].value') && \
-echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: HTTPRoute
-metadata:\n  name: project3gateway\nspec:\n  parentRefs:
-  - name: project3gateway\n    sectionName: project3gateway-http
-  - name: project3gateway\n    sectionName: project3gateway-https\n  rules:
-  - matches:\n    - path:\n        type: PathPrefix\n        value: /
-    backendRefs:\n    - name: llmservice\n      port: 80" > httproute.yaml && \
+echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: HTTPRoute\nmetadata:\n  name: project3gateway\nspec:
+  parentRefs:\n  - name: project3gateway\n    sectionName: project3gateway-http\n  - name: project3gateway
+    sectionName: project3gateway-https\n  hostnames:\n  - acr0058b77c.zapto.org\n  rules:\n  - matches:\n    - path:
+        type: PathPrefix\n        value: /\n    backendRefs:\n    - name: llmservice\n      port: 80" > httproute.yaml && \
 kubectl apply -f httproute.yaml
 ```
 
 *.   validation
 ``` bash
+gateway_ip=$(kubectl get gateway -o json | jq -r '.items[0].status.addresses[0].value') && \
 curl ${gateway_ip}/api?message=hi
 ```
 
