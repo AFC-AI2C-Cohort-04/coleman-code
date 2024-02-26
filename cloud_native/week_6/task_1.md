@@ -116,10 +116,12 @@ kubectl describe clusterissuer
 4c.   update gateway.yaml for https
 ``` bash
 cd ../../task1/ && \
-echo -e "  - name: project3gateway-https\n    protocol: HTTPS\n    port: 443
-    hostname: ${acr_name}.zapto.org\n    tls:\n      mode: Terminate
-      certificateRefs:\n      - kind: Secret\n        group: ""
-        name: issuer-account-key" >> gateway.yaml && \
+echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: Gateway\nmetadata:\n  name: project3gateway
+  annotations:\n    cert-manager.io/cluster-issuer: letsencrypt-staging\nspec:\n  gatewayClassName: nginx\n  listeners:
+  - name: project3gateway-http\n    protocol: HTTP\n    port: 80\n    hostname: acr0058b77c.zapto.org
+  - name: project3gateway-https\n    protocol: HTTPS\n    port: 443\n    hostname: acr0058b77c.zapto.org\n    tls:
+      mode: Terminate\n      certificateRefs:\n      - kind: Secret\n        group: \"\"
+        name: issuer-account-key" > gateway.yaml && \
 kubectl apply -f gateway.yaml
 ```
 
