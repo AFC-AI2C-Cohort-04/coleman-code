@@ -116,9 +116,18 @@ kubectl describe clusterissuer
 4c.   update gateway.yaml for https
 ``` bash
 cd ../../task1/ && \
-echo -e "  - name: project3gateway-http\n    protocol: HTTP\n    port: 80
-    allowedRoutes:\n      namespaces:\n        from: Same" >> gateway.yaml && \
+echo -e "  - name: project3gateway-https\n    protocol: HTTPS\n    port: 443
+    allowedRoutes:\n      namespaces:\n        from: Same\n    tls:
+      mode: Terminate\n      certificateRefs:\n      - kind: Secret
+        group: \"\"\n        name: issuer-account-key" >> gateway.yaml && \
 kubectl apply -f gateway.yaml
+```
+
+*.   validation
+``` bash
+curl https://${acr_name}.zapto.org/api?message=hi
+```
+
 ---
 
 [<< Start](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_6/start.md)    [Task 2 >>](https://github.com/AFC-AI2C-Cohort-04/coleman-code/blob/main/cloud_native/week_6/task_2.md)
