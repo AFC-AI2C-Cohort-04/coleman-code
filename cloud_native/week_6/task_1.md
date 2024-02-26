@@ -99,16 +99,18 @@ helm install \
   --set "extraArgs={--feature-gates=ExperimentalGatewayAPISupport=true}"
 ```
 
-4b.   create clusterissuer.yaml in k8s/
+4b.   create clusterissuer.yaml in k8s/ (update with your email)
 ``` bash
-echo -e "apiVersion: cert-manager.io/v1\nkind: ClusterIssuer
-#metadata:\n#  name: letsencrypt
-spec:\n  acme:\n    email: mat@gitchegumi.com
+################################################################################
+echo -e "apiVersion: cert-manager.io/v1\nkind: ClusterIssuer\nmetadata:
+  name: letsencrypt\nspec:\n  acme:\n    email: <email@domain>
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:\n      name: issuer-account-key\n    solvers:
     - http01:\n        gatewayHTTPRoute:\n          parentRefs:
           - name: project3gateway
-            kind: Gateway" > clusterissuer.yaml
+            kind: Gateway" > clusterissuer.yaml && \
+kubectl apply -f clusterissuer.yaml && \
+kubectl describe clusterissuer
 ```
 
 ---
