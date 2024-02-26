@@ -117,9 +117,9 @@ kubectl describe clusterissuer
 ``` bash
 cd ../../task1/ && \
 echo -e "  - name: project3gateway-https\n    protocol: HTTPS\n    port: 443
-    allowedRoutes:\n      namespaces:\n        from: Same\n    tls:
-      mode: Terminate\n      certificateRefs:\n      - kind: Secret
-        group: \"\"\n        name: issuer-account-key" >> gateway.yaml && \
+    hostname: ${acr_name}.zapto.org\n    tls:\n      mode: Terminate
+      certificateRefs:\n      - kind: Secret\n        group: ""
+        name: issuer-account-key" >> gateway.yaml && \
 kubectl apply -f gateway.yaml
 ```
 
