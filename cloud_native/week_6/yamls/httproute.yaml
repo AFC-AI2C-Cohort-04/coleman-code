@@ -1,0 +1,20 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: project3gateway
+spec:
+  parentRefs:
+  - name: project3gateway
+    sectionName: project3gateway-http
+  - name: project3gateway
+    sectionName: project3gateway-https
+  hostnames:
+  - acr0058b77c.zapto.org
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backendRefs:
+    - name: llmservice
+      port: 80
