@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llmserver
+  labels:
+    app: llmserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llmserver
+  template:
+    metadata:
+      labels:
+        app: llmserver
+    spec:
+      containers:
+      - name: llmpod
+        image: acr0058b77c.azurecr.io/llmservice:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        resources: # Task 2
+          requests:
+            cpu: "300m"
+        startupProbe:
+          httpGet:
+            path: /healthcheck
+            port: 8080
+          failureThreshold: 30
+          periodSeconds: 6
+        readinessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 8080
+          failureThreshold: 1
+          periodSeconds: 3
