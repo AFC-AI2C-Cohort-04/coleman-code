@@ -99,12 +99,10 @@ helm install \
 
 4b.   create clusterissuer.yaml in k8s/ (update with your email)
 ``` bash
-echo -e "apiVersion: cert-manager.io/v1\nkind: ClusterIssuer\nmetadata:
-  name: letsencrypt\n  namespace: cert-manager\nspec:\n  acme:\n    email: <email@domain>
-    server: https://acme-v02.api.letsencrypt.org/directory
-    privateKeySecretRef:\n      name: issuer-account-key\n    solvers:
-    - http01:\n        gatewayHTTPRoute:\n          parentRefs:
-          - name: project3gateway
+echo -e "apiVersion: cert-manager.io/v1\nkind: ClusterIssuer\nmetadata:\n  name: letsencrypt-staging
+  namespace: cert-manager\nspec:\n  acme:\n    email: <your@email>
+    server: https://acme-v02.api.letsencrypt.org/directory\n    privateKeySecretRef:\n      name: issuer-account-key
+    solvers:\n    - http01:\n        gatewayHTTPRoute:\n          parentRefs:\n          - name: project3gateway
             kind: Gateway" > clusterissuer.yaml && \
 kubectl apply -f clusterissuer.yaml && \
 kubectl describe clusterissuer
