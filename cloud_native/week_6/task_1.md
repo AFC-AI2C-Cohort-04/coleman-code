@@ -50,10 +50,12 @@ exit
 
 2.   create and apply httproute.yaml in k8s/
 ``` bash
+########################################################################################################################
 echo -e "apiVersion: gateway.networking.k8s.io/v1beta1\nkind: HTTPRoute\nmetadata:\n  name: project3gateway\nspec:
   parentRefs:\n  - name: project3gateway\n    sectionName: project3gateway-http\n  - name: project3gateway
-    sectionName: project3gateway-https\n  rules:\n  - matches:\n    - path:\n        type: PathPrefix
-        value: /\n    backendRefs:\n    - name: llmservice\n      port: 80" > httproute.yaml && \
+    sectionName: project3gateway-https\n  hostnames:\n  - ${acr_name}.zapto.org\n  rules:\n  - matches:\n    - path:
+        type: PathPrefix\n        value: /\n    backendRefs:\n    - name: llmservice\n      port: 80
+    - name: apigateway\n      port: 8080" > httroute.yaml && \
 kubectl apply -f httproute.yaml
 ```
 
