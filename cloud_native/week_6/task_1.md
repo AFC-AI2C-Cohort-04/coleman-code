@@ -95,7 +95,6 @@ helm install \
   --version v1.12.0 \
   --set installCRDs=true \
   --set "extraArgs={--feature-gates=ExperimentalGatewayAPISupport=true}"
-# kubectl create secret tls issuer-account-key --cert=path/to/certificate.crt --key=path/to/privatekey.key -n cert-manager
 ```
 
 4b.   create clusterissuer.yaml in k8s/ (update with your email)
