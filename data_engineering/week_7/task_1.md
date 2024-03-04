@@ -4,6 +4,8 @@
 
 ---
 
+Azure Databricks Workspace
+
 cell 6
 ``` python
 def get_author_and_ups(raw_line):
