@@ -26,3 +26,11 @@ sudo apt-get update && sudo apt-get install git && \
 GIT_REPO=<REPO_URL> && \
 git clone $GIT_REPO
 ```
+
+---
+
+## git python and pip
+``` bash
+sudo apt-get update && sudo apt-get upgrade -y && \
+sudo apt-get install python3 python3-pip -y
+```
