@@ -1,5 +1,4 @@
-## quickly and easily setup a vm with these bash commands and display its public ip
-
+## setup rg, vm, and get ip
 ``` bash
 RG_NAME=my_rg && \
 VM_NAME=my_vm && \
@@ -17,4 +16,13 @@ az vm create \
   --admin-password $PASSWORD && \
 PUBLIC_IP=$(az vm show -d -g $RG_NAME -n $VM_NAME --query publicIps -o tsv) && \
 echo $PUBLIC_IP
+```
+
+---
+
+## git clone
+``` bash
+sudo apt-get update && sudo apt-get install git && \
+GIT_REPO=<REPO_URL> && \
+git clone $GIT_REPO
 ```
