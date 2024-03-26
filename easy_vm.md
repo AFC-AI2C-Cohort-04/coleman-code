@@ -25,6 +25,8 @@ echo $PUBLIC_IP
 sudo apt-get update && sudo apt-get install git && \
 GIT_REPO=<REPO_URL> && \
 git clone $GIT_REPO
+# git clone -b dev/coleman-zachery $GIT_REPO
+# ^ use to clone specific branch
 ```
 
 ---
