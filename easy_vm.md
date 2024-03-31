@@ -67,7 +67,7 @@ az login --use-device-code
 
 ## set-up acr
 ``` bash
-acr_name=acrcloudchat
+acr_name=acr$(uuid | cut -c1-8)
 az group create \
   --name acr_rg \
   --location eastus && \
