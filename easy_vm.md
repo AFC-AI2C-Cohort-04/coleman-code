@@ -27,6 +27,17 @@ GIT_REPO=<REPO_URL> && \
 git clone $GIT_REPO
 # git clone -b dev/coleman-zachery $GIT_REPO
 # ^ use to clone specific branch
+
+# using ssh
+
+# generate ssh
+ssh-keygen -t rsa -b 4096 -C "<description>"
+
+# display ssh key, then copy/paste output to github settings > ssh
+cat .ssh/id_rsa.pub
+
+# repo > code > code local clone ssh
+git clone git@<url>
 ```
 
 ---
