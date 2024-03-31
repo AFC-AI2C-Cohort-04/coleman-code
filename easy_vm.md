@@ -92,8 +92,7 @@ aks_name=aks-cloudchat && \
 az aks create \
   --resource-group aks_rg \
   --name $aks_name \
-  --attach-acr $acr_name \
-  --node-vm-size "Standard_B2s" \
+  --enable-managed-identity \
   --node-count 2 \
   --generate-ssh-keys
 
@@ -101,7 +100,6 @@ az aks update \
   --name <AKS_NAME> \
   --resource-group <AKS_RG_NAME> \
   --attach-acr <ACR_NAME>
-
 az aks get-credentials \
   --resource-group aks_rg \
   --name $aks_name && \
