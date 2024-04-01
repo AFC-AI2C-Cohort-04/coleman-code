@@ -42,7 +42,7 @@ git clone git@<url>
 
 ---
 
-## git python and pip
+## get python and pip
 ``` bash
 sudo apt-get update && sudo apt-get upgrade -y && \
 sudo apt-get install python3 python3-pip -y
