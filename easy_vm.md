@@ -65,6 +65,10 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 az login --use-device-code
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash && \
+helm repo add bitnami https://charts.bitnami.com/bitnami && \
+helm repo update && \
+helm install my-nginx bitnami/nginx-ingress-controller --version v9.3.24
 ```
 
 ## set-up acr
