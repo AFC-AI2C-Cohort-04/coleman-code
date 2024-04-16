@@ -73,14 +73,16 @@ helm install my-nginx bitnami/nginx-ingress-controller --version v9.3.24
 
 ## set-up acr
 ``` bash
-acr_name=acr$(uuid | cut -c1-8)
+acr_name=acr$(uuid | cut -c1-8) && \
+rg_name=project6 && \
+
 az group create \
-  --name acr_rg \
+  --name $rg_name \
   --location eastus && \
 az acr create \
-  --resource-group acr_rg \
+  --resource-group $rg_name \
   --name $acr_name \
-  --sku Basic
+  --sku Basic && \
 
 az acr update \
   --name $acr_name \
@@ -91,23 +93,21 @@ az acr login \
 
 ## create aks cluter
 ``` bash
-az group create \
-  --name aks_rg \
-  --location eastus && \
-aks_name=aks-cloudchat && \
+aks_name=project6cluster && \
+
 az aks create \
-  --resource-group aks_rg \
+  --resource-group $rg_name \
   --name $aks_name \
   --enable-managed-identity \
   --node-count 2 \
-  --generate-ssh-keys
+  --generate-ssh-keys && \
 
 az aks update \
-  --name <AKS_NAME> \
-  --resource-group <AKS_RG_NAME> \
-  --attach-acr <ACR_NAME>
+  --name $aks_name \
+  --resource-group $rg_name \
+  --attach-acr $acr_name && \
 az aks get-credentials \
-  --resource-group aks_rg \
+  --resource-group $rg_name \
   --name $aks_name && \
 kubectl get nodes
 ```
