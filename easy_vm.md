@@ -20,6 +20,16 @@ echo $PUBLIC_IP
 
 ---
 
+## get python, pip, venv, and activate
+``` bash
+sudo apt-get update && sudo apt-get upgrade -y && \
+sudo apt-get install python3 python3-pip python3-venv -y && \
+python3 -m venv myenv && \
+source myenv/bin/activate
+```
+
+---
+
 ## git clone
 ``` bash
 sudo apt-get update && sudo apt-get install git && \
@@ -38,14 +48,6 @@ cat .ssh/id_rsa.pub
 
 # repo > code > code local clone ssh
 git clone git@<url>
-```
-
----
-
-## get python and pip
-``` bash
-sudo apt-get update && sudo apt-get upgrade -y && \
-sudo apt-get install python3 python3-pip -y
 ```
 
 ---
