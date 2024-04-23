@@ -24,7 +24,7 @@ echo $PUBLIC_IP
 ``` bash
 sudo apt-get update && sudo apt-get upgrade -y && \
 sudo apt-get install python3 python3-pip python3-venv -y && \
-python3 -m venv myenv && \
+python3 -m venv .venv && \
 source myenv/bin/activate
 ```
 
