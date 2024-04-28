@@ -54,17 +54,24 @@ git clone git@<url>
 
 ## get necessary updates and installs
 ``` bash
+# docker
 sudo apt-get update && sudo apt-get install -y ca-certificates curl jq python3-pip python3-venv gnupg software-properties-common uuid && \
 curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh && \
-# sudo groupadd docker
+# sudo groupadd docker # not usually needed
 sudo usermod -aG docker $USER
 newgrp docker
 su - $USER
-# docker --version
+# docker --version # run to verify
+
+# azure cli
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 az login --use-device-code
+
+# kubectl
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+# helm
 curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash && \
 helm repo add bitnami https://charts.bitnami.com/bitnami && \
 helm repo update && \
